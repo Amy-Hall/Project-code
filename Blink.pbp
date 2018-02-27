@@ -1,0 +1,21 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 15/02/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+define OSC 1
+OSCCON = %01000000
+
+TRISC = %00000000  'Set PORTC to output
+main:
+    PORTC.4 = 1
+    pause 500
+    PORTC.4 = 0
+    pause 500
+    goto main
+end 

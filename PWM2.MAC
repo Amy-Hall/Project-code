@@ -1,0 +1,144 @@
+
+	NOLIST
+; PICBASIC PRO(TM) Compiler 2.47, (c) 1998, 2006 microEngineering Labs, Inc. All Rights Reserved.  
+
+LABEL?L macro Label
+        RST?RP
+    ifdef PM_USED
+        LALL
+Label
+        XALL
+    else
+Label
+    endif
+    endm
+
+ADD?CWW macro Cin, Win, Wout
+    if (Wout == Win)
+      if ((Cin) == 1)
+        CHK?RP  Wout
+        incf    Wout, F
+        btfsc   STATUS, Z
+        incf    Wout + 1, F
+      else  
+        movlw   low (Cin)
+        CHK?RP  Wout
+        addwf   Wout, F
+        movlw   (Cin) >> 8
+        addwfc  Wout + 1, F
+      endif
+    else
+        movlw   low (Cin)
+        CHK?RP  Win
+        addwf   Win, W
+        MOVE?AB Wout
+        movlw   (Cin) >> 8
+        CHK?RP  Win
+        addwfc  Win + 1, W
+        MOVE?AB Wout + 1
+    endif
+    endm
+
+DIV?WCW macro Win, Cin, Wout
+    if (Cin == 2)
+        bcf     STATUS, C
+      if (Wout == Win)
+        CHK?RP  Wout
+        rrcf    Wout + 1, F
+        rrcf    Wout, F
+      else
+        CHK?RP  Win
+        rrcf    Win + 1, W
+        MOVE?AB Wout + 1
+        CHK?RP  Win
+        rrcf    Win, W
+        MOVE?AB Wout
+      endif
+    else
+        MOVE?WW Win, R0
+        MOVE?CW Cin, R1
+        L?CALL  DIV
+        MOVE?AWW R0, Wout
+    endif
+    endm
+DIV_USED = 1
+
+MOD?WCW macro Win, Cin, Wout
+        MOVE?WW Win, R0
+        MOVE?CW Cin, R1
+        L?CALL  DIV
+        MOVE?WW R2, Wout
+    endm
+DIV_USED = 1
+
+MUL?WCW macro Win, Cin, Wout
+        MOVE?WW Win, R3
+        MOVE?CW Cin, R1
+        L?CALL  MUL
+        MOVE?AWW R2, Wout
+    endm
+MUL_USED = 1
+
+SHIFTR?WCB macro Win, Cin, Bout
+    if (Cin == 1)
+        CHK?RP  Win
+        rrcf    Win + 1, W
+        rrcf    Win, W
+        MOVE?AB Bout
+    else
+        MOVE?WW Win, R0
+        MOVE?CA Cin
+        L?CALL  SHIFTR
+        MOVE?AB Bout
+    endif
+    endm
+SHIFTR_USED = 1
+
+ADCIN?CW macro Cin, Wout
+        MOVE?CA Cin
+        L?CALL  ADCIN
+        MOVE?AWW R0, Wout
+    endm
+ADCIN_USED = 1
+
+COUNT?TCW macro Regin, Bitin, Cin, Wout
+        MOVE?CW Cin, R1
+        BIT?R1  Regin, Bitin
+        L?CALL  COUNTT
+        MOVE?AWW R1, Wout
+    endm
+COUNTT_USED = 1
+
+END? macro
+    local loop
+loop    sleep
+        bra     loop
+    endm
+
+GOTO?L macro Label
+        L?GOTO  Label
+    endm
+
+LCDOUT?C macro Cin
+        MOVE?CA Cin
+        L?CALL  LCDOUT
+    endm
+LCDOUT_USED = 1
+
+LCDOUTCOUNT?C macro Cin
+        MOVE?CB Cin, R4 + 1
+    endm
+
+LCDOUTNUM?W macro Win
+        MOVE?WW Win, R2
+    endm
+
+LCDOUTDEC? macro
+        MOVE?CW LCDOUTJ, R8
+        L?CALL  SEROUT2DEC
+    endm
+LCDOUTJ_USED = 1
+SEROUT2DEC_USED = 1
+
+
+	LIST

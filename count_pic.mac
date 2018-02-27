@@ -1,0 +1,75 @@
+
+	NOLIST
+; PICBASIC PRO(TM) Compiler 2.47, (c) 1998, 2006 microEngineering Labs, Inc. All Rights Reserved.  
+
+LABEL?L macro Label
+        RST?RP
+    ifdef PM_USED
+        LALL
+Label
+        XALL
+    else
+Label
+    endif
+    endm
+
+DIV?WCW macro Win, Cin, Wout
+    if (Cin == 2)
+        bcf     STATUS, C
+      if (Wout == Win)
+        CHK?RP  Wout
+        rrf     Wout + 1, F
+        rrf     Wout, F
+      else
+        CHK?RP  Win
+        rrf     Win + 1, W
+        MOVE?AB Wout + 1
+        CHK?RP  Win
+        rrf     Win, W
+        MOVE?AB Wout
+      endif
+    else
+        MOVE?WW Win, R0
+        MOVE?CW Cin, R1
+        L?CALL  DIV
+        MOVE?AWW R0, Wout
+    endif
+    endm
+DIV_USED = 1
+
+MUL?WCW macro Win, Cin, Wout
+        MOVE?WW Win, R3
+        MOVE?CW Cin, R1
+        L?CALL  MUL
+        MOVE?AWW R2, Wout
+    endm
+MUL_USED = 1
+
+COUNT?CCW macro Cin1, Cin2, Wout
+        MOVE?CW Cin2, R1
+        MOVE?CA Cin1
+        L?CALL  COUNT
+        MOVE?AWW R1, Wout
+    endm
+COUNT_USED = 1
+
+END? macro
+    local loop
+loop    sleep
+        L?GOTO  loop
+    endm
+
+GOTO?L macro Label
+        L?GOTO  Label
+    endm
+
+HPWM?CWC macro Cin1, Win, Cin2
+        MOVE?WB Win, R4
+        MOVE?CW Cin2, R1
+        MOVE?CA Cin1
+        L?CALL  HPWM
+    endm
+HPWM_USED = 1
+
+
+	LIST

@@ -1,0 +1,42 @@
+
+	NOLIST
+; PICBASIC PRO(TM) Compiler 2.47, (c) 1998, 2006 microEngineering Labs, Inc. All Rights Reserved.  
+
+LABEL?L macro Label
+        RST?RP
+    ifdef PM_USED
+        LALL
+Label
+        XALL
+    else
+Label
+    endif
+    endm
+
+SHIFTR?WCB macro Win, Cin, Bout
+    if (Cin == 1)
+        CHK?RP  Win
+        rrcf    Win + 1, W
+        rrcf    Win, W
+        MOVE?AB Bout
+    else
+        MOVE?WW Win, R0
+        MOVE?CA Cin
+        L?CALL  SHIFTR
+        MOVE?AB Bout
+    endif
+    endm
+SHIFTR_USED = 1
+
+END? macro
+    local loop
+loop    sleep
+        bra     loop
+    endm
+
+GOTO?L macro Label
+        L?GOTO  Label
+    endm
+
+
+	LIST

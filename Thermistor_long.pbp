@@ -1,0 +1,130 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 20/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+DEFINE OSC 8
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+DEFINE ADC_BITS 10
+DEFINE ADC_SAMPLEUS 50 
+
+t1resistance var word
+t1adval var word
+t1temp var word
+t1res_lower var word
+t1res_upper var word
+t1temp_upper var word
+t1temp_lower var word
+
+ADCON0 = %00000001 ' Set ADC_CLOCK to RC (DEFINE ACD_CLOCK inoperative on the 16F88x)
+ADCON1 = %00000000 ' Right-Justify result in ADRESH:ADRESL registers
+ADCON2 = %10000111
+TRISA = %11111111 ' Set PORTA to all input       
+
+ADCIN 0, t1adval 
+t1resistance = (22000/t1adval)*102 -2200
+
+IF t1resistance < 750 and t1resistance > 639  then
+t1res_lower = 639
+t1res_upper = 750 
+t1temp_lower = 55
+t1temp_upper = 60
+else 
+     if t1resistance < 886 then
+     t1res_lower = 750
+     t1res_upper = 886 
+     t1temp_lower = 50
+     t1temp_upper = 55
+     else 
+          if  t1resistance < 1051 then
+          t1res_lower = 886
+          t1res_upper = 1051 
+          t1temp_lower = 45
+          t1temp_upper = 50
+          else  
+                if t1resistance < 1254 then
+                t1res_lower = 1051
+                t1res_upper = 1254 
+                t1temp_lower = 40
+                t1temp_upper = 45
+                else 
+                     if t1resistance < 1503 then
+                     t1res_lower = 1254
+                     t1res_upper = 1503
+                     t1temp_lower = 35
+                     t1temp_upper = 40
+                     else 
+                          if  t1resistance < 1813 then
+                          t1res_lower = 1503
+                          t1res_upper = 1813 
+                          t1temp_lower = 30
+                          t1temp_upper = 35
+                          else  
+                                if t1resistance < 2200 then
+                                t1res_lower = 1813
+                                t1res_upper = 2200 
+                                t1temp_lower = 25
+                                t1temp_upper = 30
+                                else 
+                                     if t1resistance < 2685 then
+                                     t1res_lower = 2200
+                                     t1res_upper = 2685 
+                                     t1temp_lower = 20
+                                     t1temp_upper = 25
+                                     else 
+                                          if  t1resistance < 3299 then
+                                          t1res_lower = 2685
+                                          t1res_upper = 3299 
+                                          t1temp_lower = 15
+                                          t1temp_upper = 20
+                                          else  
+                                                if t1resistance < 4081 then
+                                                t1res_lower = 1051
+                                                t1res_upper = 1254 
+                                                t1temp_lower = 10
+                                                t1temp_upper = 15
+                                                else  
+                                                    if t1resistance < 5083 then
+                                                    t1res_lower = 4081
+                                                    t1res_upper = 5083 
+                                                    t1temp_lower = 5
+                                                    t1temp_upper = 10
+                                                    else
+                                                    t1res_lower = 0
+                                                    t1res_upper = 0 
+                                                    t1temp_lower = 0
+                                                    t1temp_upper = 0
+                                                    endif
+                                                endif
+                                          endif
+                                    endif        
+                                  ENDIF
+                             ENDIF
+                                        
+                        endif
+                endif
+          ENDIF
+     ENDIF
+                
+endif
+
+t1temp = t1temp_upper - ((t1resistance-t1res_lower)*5/(t1res_upper - t1res_lower))
+
+LCDOUT $FE, 1, dec t1adval, " ", dec t1resistance, " ", dec t1temp
+'LCDOUT $FE, $C0, dec t1temp_lower, " ", dec t1temp_upper, " ", dec t1temp
+
+ 
+

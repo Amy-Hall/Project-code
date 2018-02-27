@@ -1,0 +1,64 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 21/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+DEFINE OSC 8
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+DEFINE ADC_BITS 10
+DEFINE ADC_SAMPLEUS 50 ' Set sampling time in uS
+
+ADCON0 = %00000001 ' Set ADC_CLOCK to RC (DEFINE ACD_CLOCK inoperative on the 16F88x)
+ADCON1 = %00000000 ' Right-Justify result in ADRESH:ADRESL registers
+ADCON2 = %10000111
+TRISA = %11111111 ' Set PORTA to all input 
+
+array var word[12]
+i var word
+adval var word
+op var word
+
+array[0]= 5
+array[1]= 10
+array[2] = 15
+array[3]= 20
+array[4]= 25
+array[5] = 30
+array[6]= 35
+array[7]= 40
+array[8] = 45
+array[9]= 50
+array[10]= 55
+array[11] = 60
+array[12] = 65
+i=0
+
+
+
+'ADCIN 0, adval
+adval = 400                       '
+if adval >500 then
+    op = array[3-2]
+else 
+    if adval > 200 then
+        op = array[5+5]
+     else 
+        op = array[5+6]
+     endif
+endif   
+lcdout $FE, 1, dec array[0], dec array[1], dec array[2], dec array[3], dec array[4], DEC array[5]
+lcdout $FE, $C0, dec array[6], dec array[7], dec array[8], dec array[9], dec array[10], DEC array[11], dec array[12]
+

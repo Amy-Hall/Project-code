@@ -1,0 +1,12 @@
+
+	NOLIST
+; PICBASIC PRO(TM) Compiler 2.47, (c) 1998, 2006 microEngineering Labs, Inc. All Rights Reserved.  
+
+LCDOUT?C macro Cin
+        MOVE?CA Cin
+        L?CALL  LCDOUT
+    endm
+LCDOUT_USED = 1
+
+
+	LIST

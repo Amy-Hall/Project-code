@@ -1,0 +1,158 @@
+'****************************************************************
+'*  Notes   : Temperature loop currently response to pot        *
+'*          :                                                   *
+'****************************************************************
+define OSC 4
+OSCCON = %01000000
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+DEFINE ADC_BITS 10
+DEFINE ADC_SAMPLEUS 50 ' Set sampling time in uS
+
+define CCP1_REG PORTC
+define CCP1_BIT 2
+
+t1adval VAR WORD
+t1resistance var WORD
+t1res_upper var word     
+t1res_lower var word     
+t1temp_upper var word 
+t1temp_lower var word 
+resistor_ref var word[12]
+temp_ref var WORD[12]
+i var word
+x var word
+n var word
+t1temp_ref var word
+t1temp_val var word
+t1temp_integer var word
+t1temp_decimal var word
+throttle var word
+pwm_val var word
+dT_1 var word
+dT_2 var word
+n1  var word
+n2   var word
+
+
+dT_1 = 100  'temp diff at which starts being proportional
+dT_2 = 10 'temp diff starts going one at a time
+n1 = 5      'speed (n) when far away
+n2 = 50    'speed (n) when very close
+
+temp_ref[0] = 5
+temp_ref[1] = 10
+temp_ref[2] = 15
+temp_ref[3] = 20
+temp_ref[4] = 25
+temp_ref[5] = 30
+temp_ref[6] = 35
+temp_ref[7] = 40
+temp_ref[8] = 45
+temp_ref[9] = 50
+temp_ref[10] = 55
+temp_ref[11] = 60
+
+resistor_ref[0]= 5083
+resistor_ref[1]= 4081
+resistor_ref[2]= 3299
+resistor_ref[3]= 2685
+resistor_ref[4]= 2200
+resistor_ref[5]= 1813
+resistor_ref[6]= 1503
+resistor_ref[7]= 1254
+resistor_ref[8]= 1051
+resistor_ref[9]= 886
+resistor_ref[10]= 750
+resistor_ref[11]= 639
+
+TRISA = %11111111 ' Set PORTA to all input 
+TRISC = %00000000
+ADCON1 = %00000000 ' Right-Justify result in ADRESH:ADRESL registers
+ADCON2 = %10000111
+
+n=0
+'''''''''''''''''''''''''''main'''''''''''''''''''''''
+main:
+
+    Gosub get_temp_value
+    ADCON0 = %00001001 'AN2
+    ADCIN 2, t1temp_ref
+    t1temp_ref = ((t1temp_ref*50)/255)*10
+    gosub get_temp_pwm 
+    HPWM 2, pwm_val, 245    'This multiplied by 4, actually gives 62Hz  
+   
+    LCDout $FE, 1, dec t1temp_val, "       ", dec t1temp_ref
+    LCDout $FE, $C0, dec pwm_val, "   ", dec n, "  ", dec x
+
+    goto main
+end
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+''''''''''puts the value of t1 temp into t1temp integer/decimal''''''''''
+get_temp_value:
+    ADCON0 = %00000001
+    ADCIN 0, t1adval 
+    t1resistance = ((1024*44)/t1adval)*50 -2200
+    
+    if (t1resistance > resistor_ref[0]) or (t1resistance < resistor_ref[11]) then
+   '     LCDOUT $FE, 1, dec t1resistance
+        LCDOUT $FE, $C0, "out of range" 
+    else 
+        For i = 0 to 11 
+            if t1resistance < resistor_ref[i] and t1resistance >= resistor_ref[i+1] then
+                t1res_lower = resistor_ref[i+1]
+                t1res_upper = resistor_ref[i] 
+                t1temp_lower = temp_ref[i] 
+                t1temp_upper = temp_ref[i+1] 
+            endif 
+        next i  
+        
+        t1temp_val = (t1temp_upper*10 - ((t1resistance-t1res_lower)*50/(t1res_upper - t1res_lower)))
+    endif
+return
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''determine pwm output for heater''''''''''''''''''''''''''
+ get_temp_pwm:  
+
+    pause 250
+    if (t1temp_val > t1temp_ref) then
+        if (pwm_val >0) then
+            if ((t1temp_val-t1temp_ref)>dT_1) then                     
+                pwm_val = pwm_val - 6
+            endif
+            if (((t1temp_val-t1temp_ref)>n2) and ((t1temp_val-t1temp_ref)<n1)) then  
+                pwm_val = pwm_val - 4
+            endif
+            if ((t1temp_val-t1temp_ref)<n2) then 
+                pwm_val = pwm_val - 1
+            endif
+        else
+            pwm_val = 0
+        endif
+    else 
+        if (pwm_val <254) then
+            if ((t1temp_ref-t1temp_val)>dT_1) then 
+                pwm_val = pwm_val + 6
+            endif
+            if (((t1temp_ref-t1temp_val)>dT_2) and ((t1temp_ref-t1temp_val)<dT_1)) then 
+                pwm_val = pwm_val + 4
+            endif
+            if ((t1temp_ref-t1temp_val)<dT_2) then 
+                pwm_val = pwm_val + 1
+            endif
+        else 
+            pwm_val = 254
+        endif
+    endif      
+return  
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

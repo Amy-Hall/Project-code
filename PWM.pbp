@@ -1,0 +1,25 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 21/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+DEFINE OSC 4
+OSCCON = %01000000
+duty VAR WORD  ' Duty cycle value (CCPR1L:CCP1CON<5:4>)
+
+TRISC.2 = 0          ' Set PORTC.2 (CCP1) to output
+CCP1CON = %00001100  ' Set CCP1 to PWM
+T2CON = %00000111    ' Turn on Timer2, Prescale=16 (last bits 00=1 01=4)
+PR2 = %11111111     ' Set PR2 to get 60Hz out
+duty = 1000      ' Set duty cycle to 20%
+mainloop:
+CCP1CON.4 = duty.0   ' Store duty to registers as
+CCP1CON.5 = duty.1   ' a 10-bit word
+CCPR1L = DUTY >> 2
+GoTo mainloop        ' Do it forever
+End

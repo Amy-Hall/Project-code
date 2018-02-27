@@ -1,0 +1,43 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 22/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   : Vary the pwm between 5% and 10%                                                  *
+'*          :                                                   *
+'****************************************************************
+define OSC 1
+OSCCON = %01000000
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+DEFINE ADC_BITS 10
+DEFINE ADC_SAMPLEUS 50 ' Set sampling time in uS
+
+define CCP1_REG PORTC
+define CCP1_BIT 2
+
+throttle var word
+pwm_val var word
+
+ADCON0 = %00000001 ' Set ADC_CLOCK to RC (DEFINE ACD_CLOCK inoperative on the 16F88x)
+ADCON1 = %00000000 ' Right-Justify result in ADRESH:ADRESL registers
+ADCON2 = %10000111
+TRISA = %11111111 ' Set PORTA to all input 
+TRISC = %00000000
+
+adcin 4, throttle  
+pwm_val= (13 + ((throttle*13)/1023))
+
+HPWM 1, pwm_val, 245    'This multiplied by 4, actually gives 62Hz      
+
+LCDout $FE, 1, dec throttle
+LCDout $FE, $C0, dec pwm_val

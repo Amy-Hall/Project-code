@@ -1,0 +1,29 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 18/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+DEFINE OSC 8
+TRISC = %00000000
+
+temp_ref VAR PORTA.2
+flow_ref VAR PORTA.3
+temp1    VAR PORTA.0
+temp2    VAR PORTA.1
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+
+LCDOUT $FE, 1, "Hello"
+LCDOUT $FE, $C0, "World"

@@ -1,0 +1,73 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 22/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   : Vary the pwm between 5% and 10%                                                  *
+'*          :                                                   *
+'****************************************************************
+define OSC 4
+OSCCON = %01000000
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+DEFINE ADC_BITS 10
+DEFINE ADC_SAMPLEUS 50 ' Set sampling time in uS
+
+define CCP1_REG PORTC
+define CCP1_BIT 2
+
+flow_ref var word
+pwm_val var word
+frequency var word
+flow_val var word     '100 times actual flowrate
+flow_decimal var word
+ 
+ADCON1 = %00000000 ' Right-Justify result in ADRESH:ADRESL registers
+ADCON2 = %10000111
+TRISA = %11111111 ' Set PORTA to all input 
+TRISC = %00000000
+
+pwm_val=23
+HPWM 1, pwm_val, 245 'so it doesn't initially stop while running loop for first time
+
+main:
+    ADCON0 = %00001101
+    adcin 3, flow_ref                    'flowrate*10, want from 0-1024 to between 0 and 44
+    flow_ref = (flow_ref*44)/1024
+    gosub get_flowrate
+    If (flow_val < flow_ref) then
+        IF (pwm_val < 28) then
+            pwm_val= pwm_val + 1
+        else
+            pwm_val= 28
+        endif
+    endif
+    if (flow_val > flow_ref) then
+        IF (pwm_val >14) then
+            pwm_val= pwm_val - 1
+        else
+            pwm_val= 14
+        endif 
+    endif           
+    
+    HPWM 1, pwm_val, 245    'This multiplied by 4, actually gives 62Hz      
+    
+    LCDOUT $FE, 1, "flow=", dec flow_val, " frq=", dec frequency
+    LCDOUT $FE, $C0, "ref=", dec flow_ref, " pwm=", dec pwm_val
+    goto main
+end
+
+get_flowrate:
+    COUNT PORTB.5, 500, frequency     'whats min count to still be accurate....?
+    frequency = frequency/2           'would be times 2 (for 500) but the /4 for clk issues
+    flow_val = (frequency*120)/1380   'litres per minute times 10, (*60/6900)  
+return

@@ -1,0 +1,41 @@
+'****************************************************************
+'*  Name    : UNTITLED.BAS                                      *
+'*  Author  : [select VIEW...EDITOR OPTIONS]                    *
+'*  Notice  : Copyright (c) 2018 [select VIEW...EDITOR OPTIONS] *
+'*          : All Rights Reserved                               *
+'*  Date    : 21/01/2018                                        *
+'*  Version : 1.0                                               *
+'*  Notes   :                                                   *
+'*          :                                                   *
+'****************************************************************
+'define OSC 8
+
+'OSCCON = %01110000
+
+define OSC 1 
+OSCCON = %01000000
+
+TRISC = %00000000
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+
+mainloop:
+
+frequency var word
+flow_integer var word
+flow_decimal var word
+
+COUNT PORTB.5, 1000, frequency
+flow_integer = ((frequency*30)/3450)   'litres per minute
+flow_decimal = ((frequency*30*100)/3450)//100            'NB f*30*100 may be too big, see
+
+LCDOUT $FE, 1, "Frequency: ", dec frequency
+LCDOUT $FE, $C0,"Flowrate ", dec flow_integer, ".", dec2 flow_decimal, "L/m"
+goto mainloop
+end
