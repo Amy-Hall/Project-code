@@ -6,7 +6,7 @@ _USED			EQU	1
 
 
 ; Define statements.
-#define		OSC		 1 
+#define		OSC		 4 
 #define		LCD_DREG		 PORTC
 #define		LCD_DBIT		 4
 #define		LCD_RSREG		 PORTC
@@ -66,12 +66,12 @@ _TRISH           		EQU	 TRISC
 
 	LABEL?L	_mainloop	
 	COUNT?TCW	_PORTB??5, 003E8h, _frequency
-	MUL?WCW	_frequency, 03Ch, T1
-	DIV?WCW	T1, 01AF4h, _flow_integer
-	MUL?WCW	_frequency, 03Ch, T1
-	MUL?WCW	T1, 064h, T1
-	DIV?WCW	T1, 01AF4h, T1
-	MOD?WCW	T1, 064h, _flow_decimal
+	DIV?WCW	_frequency, 004h, _frequency
+	MUL?WCW	_frequency, 01Eh, T1
+	DIV?WCW	T1, 00D7Ah, _flow_integer
+	MUL?WCW	_frequency, 01Eh, T1
+	DIV?WCW	T1, 00159h, T1
+	MOD?WCW	T1, 00Ah, _flow_decimal
 	LCDOUT?C	0FEh
 	LCDOUT?C	001h
 	LCDOUT?C	046h
@@ -103,7 +103,7 @@ _TRISH           		EQU	 TRISC
 	LCDOUTNUM?W	_flow_integer
 	LCDOUTDEC?	
 	LCDOUT?C	02Eh
-	LCDOUTCOUNT?C	002h
+	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_flow_decimal
 	LCDOUTDEC?	
 	LCDOUT?C	04Ch

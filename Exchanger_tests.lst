@@ -1,4 +1,4 @@
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  1
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00022 
   00000000            00023 RAM_START                       EQU     00000h
   000002FF            00024 RAM_END                         EQU     002FFh
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  2
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   00000048            00075 _t1temp_upper                   EQU     RAM_START + 048h
   0000004A            00076 _t1temp_val                     EQU     RAM_START + 04Ah
   0000004C            00077 _t2adval                        EQU     RAM_START + 04Ch
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  3
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000014 C01C FFE9      01412         movff   RR1, FSR0L      ; Point back to port
 000018 0E32           01413         movlw   low (COUNT_DELAY)       ; Calculate count time based on OSC
 00001A 6E07           01414         movwf   R3
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  4
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -234,7 +234,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000076 0FFC           01929         addlw   -4              ; Check for >= 4
 000078 A0D8           01930         btfss   STATUS, C
 00007A 92CA           01931         bcf     T2CON, T2CKPS1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  5
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -293,7 +293,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0000D0 6EBB           01982 hpwm2   movwf   CCPR2L          ; Set top 8 CCP bits
 0000D2 0E0C           01983         movlw   0ch             ; Set PWM mode and clear bottom 2 CCP bits
 0000D4 6EBA           01984         movwf   CCP2CON
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  6
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -352,7 +352,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       02951 
 000118 0E13           02952         movlw   high 5000       ; Wait at least 5ms
 00011A 6E02           02953         movwf   R0 + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  7
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -411,7 +411,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03004 
 000152 9082           03005         bcf     LCD_RSREG, LCD_RSBIT    ; Set command register select
 000154 0803           03006         sublw   3
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  8
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -470,7 +470,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03057       if (LCD_DBIT == 0)
                       03058         movlw   0f0h            ; Clear lcd data port
                       03059       else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE  9
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -529,7 +529,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000198 9E19           05041 SEROUT2DEC bcf  GOP, 7          ; Blanking off
 00019A 500A           05042         movf    R4 + 1, W       ; 0 digits?
 00019C B4D8           05043         btfsc   STATUS, Z
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 10
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -588,7 +588,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0001DE 5C09           05100         subwf   R4, W           ; Send if within count
 0001E0 B0D8           05101         btfsc   STATUS, C
 0001E2 0012           05102         return
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 11
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -647,7 +647,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000224 50C4           05965         movf    ADRESH, W       ; Get 16-bit result
 000226 6E02           05966         movwf   R0 + 1
 000228 50C3           05967         movf    ADRESL, W
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 12
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -706,7 +706,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00027A 0E01           07280         movlw   1               ; W = 1 if R0 > R1
 00027C B4D8           07281         btfsc   STATUS, Z
 00027E 0E02           07282         movlw   2               ; W = 2 if R0 == R1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 13
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -765,7 +765,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0002D6 CFF4 F006      07546         movff   PRODH, R2 + 1
 0002DA CFF3 F005      07547         movff   PRODL, R2
                       07548 
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 14
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -824,7 +824,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  OSCCON
                           M     if (((OSCCON) > BANKA_END) & ((OSCCON) < (0f01h + BANKA_END)))
                           M       if (((OSCCON) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 15
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -883,7 +883,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   ADCON1
                           M     endif
                       00108         MOVE?CB 087h, ADCON2
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 16
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -942,7 +942,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         clrf    PR2
                           M     else
 00033A 0EFF               M         movlw   low (0FFh)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 17
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 17
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1001,7 +1001,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000348 6A23               M         clrf    (_dT_2) + 1
                           M       else
                           M         movlw   high (00Ah)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 18
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 18
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1060,7 +1060,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if ((high (032h)) == 0)
 000354 6A35               M         clrf    (_n2)  + 1
                           M       else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 19
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1119,7 +1119,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if ((high (00Ah)) == 0)
 000360 6B81               M         clrf    (_temp_ref + 00002h) + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 20
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 20
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1178,7 +1178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00036A 6F84               M         movwf   _temp_ref + 00006h
                           M       endif
                           M       if ((high (014h)) == 0)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 21
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 21
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1237,7 +1237,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000374 0E1E               M         movlw   low (01Eh)
 000376 6F88               M         movwf   _temp_ref + 0000Ah
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 22
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 22
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1296,7 +1296,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
 000380 0E28               M         movlw   low (028h)
 000382 6F8C               M         movwf   _temp_ref + 0000Eh
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 23
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 23
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1355,7 +1355,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         clrf    _temp_ref + 00012h
                           M       else
 00038C 0E32               M         movlw   low (032h)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 24
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 24
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1414,7 +1414,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (low (03Ch) == 0)
                           M         clrf    _temp_ref + 00016h
                           M       else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 25
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 25
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1473,7 +1473,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M       if (low (00FF1h) == 0)
                           M         clrf    _resistor_ref + 00002h
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 26
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 26
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1532,7 +1532,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   (_resistor_ref + 00006h) + 1
                           M     else
                           M       if (low (00A7Dh) == 0)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 27
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 27
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1591,7 +1591,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   high (00715h)
                           M         movwf   (_resistor_ref + 0000Ah) + 1
                           M     else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 28
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 28
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1650,7 +1650,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   _resistor_ref + 0000Eh
                           M         movlw   high (004E6h)
                           M         movwf   (_resistor_ref + 0000Eh) + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 29
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 29
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1709,7 +1709,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   low (00376h)
                           M         movwf   _resistor_ref + 00012h
                           M         movlw   high (00376h)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 30
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 30
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1768,7 +1768,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         movlw   low (0027Fh)
                           M         movwf   _resistor_ref + 00016h
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 31
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 31
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1827,7 +1827,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   0
                           M PREV_BANK = 0
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 32
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 32
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1886,7 +1886,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000402 ECAA F003          M         call    _get_temp2_value
                           M         else
                           M           if ((_get_temp2_value) < ($ - 3ffh))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 33
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 33
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1945,7 +1945,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?AB _throttle
                           M         CHK?RP  _throttle
                           M     if (((_throttle) > BANKA_END) & ((_throttle) < (0f01h + BANKA_END)))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 34
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 34
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2004,7 +2004,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M       if ((MUL)   < 1)
                           M         call    MUL
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 35
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 35
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2063,7 +2063,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (R1)
                           M       endif
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 36
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 36
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2122,7 +2122,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
 00043A 6E36               M         movwf   _pwm_val
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 37
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 37
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2181,7 +2181,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    HPWM
                           M         else
                           M           if ((HPWM)  < ($ - 3ffh))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 38
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 38
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2240,7 +2240,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?CA 0FEh
 000452 0EFE               M         movlw   low (0FEh)
                           M         L?CALL  LCDOUT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 39
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 39
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2299,7 +2299,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00152         LCDOUT?C        054h
                           M         MOVE?CA 054h
 00045A 0E54               M         movlw   low (054h)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 40
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 40
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2358,7 +2358,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                       00154         LCDOUT?C        06Dh
                           M         MOVE?CA 06Dh
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 41
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 41
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2417,7 +2417,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00156         LCDOUT?C        03Ah
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 42
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 42
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2476,7 +2476,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         endif
                           M       endif
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 43
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 43
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2535,7 +2535,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 44
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 44
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2594,7 +2594,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((R4 + 1) > BANKA_END) & ((R4 + 1) < (0f01h + BANKA_END)))
                           M       if (((R4 + 1) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (R4 + 1)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 45
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 45
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2653,7 +2653,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         call    SEROUT2DEC
                           M     else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 46
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 46
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2712,7 +2712,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M 
                           M     ifdef USE_LINKER
                           M         call    LCDOUT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 47
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 47
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2771,7 +2771,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M 
                           M     ifdef USE_LINKER
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 48
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 48
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2830,7 +2830,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 0
                           M     endif
                           M 
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 49
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 49
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2889,7 +2889,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   0
                           M PREV_BANK = 0
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 50
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 50
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2928,12 +2928,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   low (000h)
                           M         movwf   R4 + 1
                           M     endif
-                      00174         LCDOUTNUM?W     _frequency
-                          M         MOVE?WW _frequency, R2
-                          M         MOVE?BB _frequency, R2
-0004BC C02C F005          M         movff   _frequency, R2
-                          M         MOVE?BB (_frequency) + 1, (R2) + 1
-0004C0 C02D F006          M         movff   (_frequency) + 1, (R2) + 1
+                      00174         LCDOUTNUM?W     _pwm_val
+                          M         MOVE?WW _pwm_val, R2
+                          M         MOVE?BB _pwm_val, R2
+0004BC C036 F005          M         movff   _pwm_val, R2
+                          M         MOVE?BB (_pwm_val) + 1, (R2) + 1
+0004C0 C037 F006          M         movff   (_pwm_val) + 1, (R2) + 1
                       00175         LCDOUTDEC?      
                           M         MOVE?CW LCDOUTJ, R8
                           M         CHK?RP  R8
@@ -2948,7 +2948,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   R8
                           M         movlw   high (LCDOUTJ)
                           M         movwf   (R8)   + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 51
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 51
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3007,7 +3007,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M       if ((LCDOUT) < 1)
                           M         call    LCDOUT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 52
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 52
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3066,7 +3066,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M         movlw   low (000h)
                           M         movwf   R4 + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 53
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 53
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3125,7 +3125,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         else
                           M           if ((SEROUT2DEC) < ($ - 3ffh))
                           M         call    SEROUT2DEC
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 54
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 54
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3184,7 +3184,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef PM_USED
                           M         LALL
                           M _get_temp1_value
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 55
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 55
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3243,7 +3243,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   high (_t1adval)
                           M PREV_BANK = high (_t1adval)
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 56
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 56
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3302,7 +3302,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         if ((DIV)   > $)
                           M         call    DIV
                           M         else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 57
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 57
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3361,7 +3361,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   (R1)   + 1
                           M       endif
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 58
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 58
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3420,7 +3420,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
 000528 5C13               M         subwf   T1,  W
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 59
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 59
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3479,7 +3479,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 0
                           M     endif
                           M 
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 60
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 60
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3538,7 +3538,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M 
                           M     ifdef USE_LINKER
                           M         call    CMPLT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 61
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 61
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3597,7 +3597,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LOR
                           M         else
                           M           if ((LOR)   < ($ - 3ffh))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 62
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 62
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3656,7 +3656,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M       ifdef USE_LINKER
                           M         btfsc   STATUS, OV
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 63
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 63
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3715,7 +3715,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00056E 0EFE               M         movlw   low (0FEh)
                           M         L?CALL  LCDOUT
                           M         RST?RP
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 64
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 64
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3774,7 +3774,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?CA 06Fh
 00057A 0E6F               M         movlw   low (06Fh)
                           M         L?CALL  LCDOUT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 65
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 65
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3833,7 +3833,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00198         LCDOUT?C        074h
                           M         MOVE?CA 074h
 000586 0E74               M         movlw   low (074h)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 66
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 66
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3892,7 +3892,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                       00200         LCDOUT?C        06Fh
                           M         MOVE?CA 06Fh
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 67
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 67
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3951,7 +3951,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00202         LCDOUT?C        020h
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 68
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 68
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4010,7 +4010,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         endif
                           M       endif
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 69
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 69
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4069,7 +4069,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           endif
                           M         endif
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 70
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 70
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4128,7 +4128,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         rcall   LCDOUT
                           M           endif
                           M         endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 71
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 71
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4187,7 +4187,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((_i)    > BANKA_END) & ((_i)    < (0f01h + BANKA_END)))
                           M       if (((_i)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_i)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 72
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 72
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4246,7 +4246,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0005D2 6A04               M         clrf    R1 + 1
                           M     else
                           M         movlw   low ((00Bh) >> 8)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 73
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 73
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4305,7 +4305,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         if ((L00004) < 1)
                           M         btfsc   STATUS, OV
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 74
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 74
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4364,7 +4364,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
 0005DE 90D8               M         bcf     STATUS, C
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 75
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 75
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4423,7 +4423,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           endif
                           M         endif
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 76
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 76
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4482,7 +4482,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
 000612 202F               M         addwfc  _i  + 1, W
                           M         MOVE?AB T2   + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 77
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 77
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4541,7 +4541,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (PREV_BANK != 0)
                           M         movlb   0
                           M PREV_BANK = 0
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 78
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 78
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4600,7 +4600,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if ((LAND)  < 1)
                           M         call    LAND
                           M       else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 79
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 79
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4659,7 +4659,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         btfsc   STATUS, Z
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 80
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 80
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4718,7 +4718,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00220         ADD?WCW _i, 001h, T1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 81
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 81
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4777,7 +4777,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                       00221         AOUT?WWW        _resistor_ref, T1, _t1res_lower
                           M         CHK?RP  T1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 82
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 82
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4836,7 +4836,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00069E 6EE9               M         movwf   FSR0L
 0006A0 342F               M         rlcf    _i   + 1, W
 0006A2 6EEA               M         movwf   FSR0H
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 83
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 83
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4895,7 +4895,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?AB T1   + 1
                           M         CHK?RP  T1 + 1
                           M     if (((T1 + 1) > BANKA_END) & ((T1 + 1) < (0f01h + BANKA_END)))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 84
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 84
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4954,7 +4954,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
 0006DA 2A2E               M         incf    _i,  F
 0006DC B4D8               M         btfsc   STATUS, Z
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 85
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 85
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5013,7 +5013,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         btfsc   STATUS, Z
                           M       endif
                           M       ifdef USE_LINKER
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 86
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 86
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5072,7 +5072,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0006E4                    M L00004
                           M     endif
                       00229         MUL?WCW _t1temp_upper, 00Ah, T1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 87
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 87
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5131,7 +5131,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           else
                           M         rcall   MUL
                           M           endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 88
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 88
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5190,7 +5190,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BA _t1res_lower + 1
                           M         CHK?RP  _t1res_lower + 1
                           M     if (((_t1res_lower + 1) > BANKA_END) & ((_t1res_lower + 1) < (0f01h + BANKA_END)))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 89
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 89
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5249,7 +5249,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if ((high (032h)) == 0)
 000714 6A04               M         clrf    (R1)   + 1
                           M       else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 90
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 90
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5308,7 +5308,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  _t1res_lower
                           M     if (((_t1res_lower) > BANKA_END) & ((_t1res_lower) < (0f01h + BANKA_END)))
                           M       if (((_t1res_lower) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 91
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 91
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5367,7 +5367,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?WW T2,   R0
                           M         MOVE?BB T2,  R0
 00072C C015 F001          M         movff   T2,  R0
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 92
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 92
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5426,7 +5426,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         subwfb  _t1temp_val + 1, F
                           M     else
                           M         MOVE?BA T3
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 93
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 93
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5485,7 +5485,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000750 6E4B               M         movwf   _t1temp_val + 1
                           M     endif
                       00235         LABEL?L L00002  
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 94
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 94
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5544,7 +5544,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                       00240         ADCIN?CW        001h, _t2adval
                           M         MOVE?CA 001h
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 95
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 95
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5603,7 +5603,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   (R0)   + 1
                           M     else
                           M       if (low (0B000h) == 0)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 96
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 96
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5662,7 +5662,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000776 6E13               M         movwf   T1
                           M         MOVE?BB (R0)  + 1, (T1)   + 1
 000778 C002 F014          M         movff   (R0) + 1, (T1) + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 97
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 97
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5721,7 +5721,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00078A EC69 F001          M         call    MUL
                           M           else
                           M         rcall   MUL
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 98
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 98
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5780,7 +5780,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00079C 5814               M         subwfb  T1  + 1, W
                           M         MOVE?AB _t2resistance + 1
                           M         CHK?RP  _t2resistance + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 99
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 99
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5839,7 +5839,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?AB T1
                           M         CHK?RP  T1
                           M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 100
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 100
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5898,7 +5898,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((T2)    > BANKA_END) & ((T2)    < (0f01h + BANKA_END)))
                           M       if (((T2)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (T2)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 101
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 101
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5957,7 +5957,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00247         CMPF?WL T2, L00007
                           M         CLRWDT?
                           M     ifndef NO_CLRWDT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 102
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 102
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6016,7 +6016,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         endif
                           M       endif
                           M     else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 103
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 103
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6075,7 +6075,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         rcall   LCDOUT
                           M           endif
                           M         endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 104
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 104
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6134,7 +6134,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           else
                           M         rcall   LCDOUT
                           M           endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 105
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 105
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6193,7 +6193,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0007FC EC78 F000          M         call    LCDOUT
                           M           else
                           M         rcall   LCDOUT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 106
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 106
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6252,7 +6252,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((LCDOUT) < ($ - 3ffh))
 000808 EC78 F000          M         call    LCDOUT
                           M           else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 107
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 107
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6311,7 +6311,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         else
                           M           if ((LCDOUT) < ($ - 3ffh))
 000814 EC78 F000          M         call    LCDOUT
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 108
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 108
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6370,7 +6370,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M         else
                           M           if ((LCDOUT) < ($ - 3ffh))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 109
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 109
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6429,7 +6429,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         if ((LCDOUT) > $)
                           M         call    LCDOUT
                           M         else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 110
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 110
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6488,7 +6488,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M 
                           M     ifdef USE_LINKER
                           M         goto    L00008
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 111
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 111
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6547,7 +6547,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         movlw   high (000h)
                           M         movwf   (_i)   + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 112
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 112
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6606,7 +6606,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         if ((CMPGT) > $)
                           M         call    CMPGT
                           M         else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 113
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 113
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6665,7 +6665,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (PREV_BANK != 0)
                           M         movlb   0
                           M PREV_BANK = 0
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 114
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 114
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6724,7 +6724,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000872 C053 F002          M         movff   (_t2resistance) + 1, (R0) + 1
                           M         MOVE?WWA T1,   R1
                           M         MOVE?BB (T1)  + 1, (R1)   + 1
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 115
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 115
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6783,7 +6783,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else  
                           M         movlw   low (001h)
                           M         CHK?RP  T2
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 116
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 116
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6842,7 +6842,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00088E 90D8               M         bcf     STATUS, C
 000890 3415               M         rlcf    T2,   W
 000892 6EE9               M         movwf   FSR0L
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 117
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 117
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6901,7 +6901,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M         MOVE?AB T2
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 118
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 118
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6960,7 +6960,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
 0008C6 6E15               M         movwf   T2
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 119
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 119
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7019,7 +7019,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M             else
                           M         bov     L00011
                           M             endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 120
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 120
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7078,7 +7078,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((_i)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_i)
                           M PREV_BANK = high (_i)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 121
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 121
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7137,7 +7137,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BB PREINC0, _t2res_lower + 1
 0008F8 CFEC F04F          M         movff   PREINC0, _t2res_lower + 1
                       00276         AOUT?WWW        _resistor_ref, _i, _t2res_upper
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 122
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 122
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7196,7 +7196,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  T1
                           M         addwf   T1,   F
                           M         movlw   (001h) >> 8
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 123
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 123
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7255,7 +7255,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000940 6EE9               M         movwf   FSR0L
 000942 3414               M         rlcf    T1   + 1, W
 000944 6EEA               M         movwf   FSR0H
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 124
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 124
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7314,7 +7314,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M         bsf     STATUS, OV
                           M         RST?RP
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 125
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 125
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7373,7 +7373,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M       if (001h <= 255)
                           M         MOVE?CA 001h
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 126
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 126
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7432,7 +7432,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   (R1)   + 1
                           M     else
                           M       if (low (00Ah) == 0)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 127
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 127
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7491,7 +7491,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BA _t2res_lower
                           M         CHK?RP  T2
                           M         subwf   T2,   F
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 128
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 128
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7550,7 +7550,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((T2 + 1) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (T2 + 1)
                           M PREV_BANK = high (T2 + 1)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 129
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 129
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7609,7 +7609,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         if ((MUL)   > $)
                           M         call    MUL
                           M         else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 130
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 130
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7668,7 +7668,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   high (T3)
                           M PREV_BANK = high (T3)
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 131
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 131
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7727,7 +7727,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if ((DIV)   < 1)
                           M         call    DIV
                           M       else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 132
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 132
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7786,7 +7786,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  _t2temp_val
                           M     if (((_t2temp_val) > BANKA_END) & ((_t2temp_val) < (0f01h + BANKA_END)))
                           M       if (((_t2temp_val) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 133
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 133
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7845,7 +7845,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 134
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 134
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7904,7 +7904,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M         CHK?RP  RR1
                           M     if (((RR1)   > BANKA_END) & ((RR1)   < (0f01h + BANKA_END)))
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 135
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 135
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7963,7 +7963,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((COUNTT) < ($ - 3ffh))
 0009E2 EC03 F000          M         call    COUNTT
                           M           else
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 136
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 136
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -8022,7 +8022,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   (R1)   + 1
                           M     else
                           M       if (low (001h) == 0)
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 137
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 137
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -8081,7 +8081,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?WW _frequency, R3
                           M         MOVE?BB _frequency, R3
 000A04 C02C F007          M         movff   _frequency, R3
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 138
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 138
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -8140,7 +8140,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         endif
                           M       endif
                           M     endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 139
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 139
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -8199,7 +8199,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000A24 0E64               M         movlw   low (00564h)
 000A26 6E03               M         movwf   R1
                           M       endif
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 140
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 140
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -8258,7 +8258,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (PREV_BANK != 0)
                           M         movlb   0
                           M PREV_BANK = 0
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 141
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 141
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -8268,7 +8268,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000A36 0012               M         return
                       00298 
                       00299         END
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 142
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 142
 
 
 SYMBOL TABLE
@@ -8327,7 +8327,7 @@ BANK0_END                         000000FF
 BANK0_START                       00000080
 BANK1_END                         000001FF
 BANK1_START                       00000100
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 143
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 143
 
 
 SYMBOL TABLE
@@ -8386,7 +8386,7 @@ CCP2M2                            00000002
 CCP2M3                            00000003
 CCP2X                             00000005
 CCP2Y                             00000004
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 144
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 144
 
 
 SYMBOL TABLE
@@ -8445,7 +8445,7 @@ CSRC                              00000007
 CVR0                              00000000
 CVR1                              00000001
 CVR2                              00000002
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 145
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 145
 
 
 SYMBOL TABLE
@@ -8504,7 +8504,7 @@ EEDATA                            00000FA8
 EEIE                              00000004
 EEIF                              00000004
 EEIP                              00000004
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 146
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 146
 
 
 SYMBOL TABLE
@@ -8563,7 +8563,7 @@ HSER_BITS                         00000008
 HSER_PORT                         00000001
 HSER_RCSTA                        00000090
 HSER_SPBRG                        00000019
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 147
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 147
 
 
 SYMBOL TABLE
@@ -8622,7 +8622,7 @@ JUMPMAN_USED                      00000001
 KBI0                              00000004
 KBI1                              00000005
 KBI2                              00000006
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 148
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 148
 
 
 SYMBOL TABLE
@@ -8681,7 +8681,7 @@ LCDOUTDEC?
 LCDOUTJ                           000000EE
 LCDOUTJ_USED                      00000001
 LCDOUTNUM?W                       
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 149
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 149
 
 
 SYMBOL TABLE
@@ -8740,7 +8740,7 @@ MOVE?WT
 MOVE?WW                           
 MOVE?WWA                          
 MUL                               000002D2
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 150
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 150
 
 
 SYMBOL TABLE
@@ -8799,7 +8799,7 @@ PIE1                              00000F9D
 PIE2                              00000FA0
 PIR                               00000F9E
 PIR1                              00000F9E
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 151
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 151
 
 
 SYMBOL TABLE
@@ -8858,7 +8858,7 @@ RAM_START                         00000000
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 152
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 152
 
 
 SYMBOL TABLE
@@ -8917,7 +8917,7 @@ SCKP                              00000004
 SCL                               00000003
 SCS0                              00000000
 SCS1                              00000001
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 153
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 153
 
 
 SYMBOL TABLE
@@ -8976,7 +8976,7 @@ T0IE                              00000005
 T0IF                              00000002
 T0PS0                             00000000
 T0PS1                             00000001
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 154
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 154
 
 
 SYMBOL TABLE
@@ -9035,7 +9035,7 @@ TMR2                              00000FCC
 TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2IP                            00000001
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 155
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 155
 
 
 SYMBOL TABLE
@@ -9094,7 +9094,7 @@ TUN3                              00000003
 TUN4                              00000004
 TX                                00000006
 TX9                               00000006
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 156
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 156
 
 
 SYMBOL TABLE
@@ -9153,7 +9153,7 @@ _CPB_OFF_5H                       000000FF
 _CPB_ON_5H                        000000BF
 _CPD_OFF_5H                       000000FF
 _CPD_ON_5H                        0000007F
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 157
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 157
 
 
 SYMBOL TABLE
@@ -9212,7 +9212,7 @@ _USED                             00000001
 _WDTPS_1024_2H                    000000F5
 _WDTPS_128_2H                     000000EF
 _WDTPS_16384_2H                   000000FD
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 158
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 158
 
 
 SYMBOL TABLE
@@ -9271,7 +9271,7 @@ _t1temp_decimal                   00000040
 _t1temp_integer                   00000042
 _t1temp_lower                     00000044
 _t1temp_ref                       00000046
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 159
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 159
 
 
 SYMBOL TABLE
@@ -9323,7 +9323,7 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-MPASM  5.51                      EXCHAN~1.ASM   2-27-2018  17:57:57         PAGE 160
+MPASM  5.51                      EXCHAN~1.ASM   3-1-2018  10:48:19         PAGE 160
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)

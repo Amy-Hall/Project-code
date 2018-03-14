@@ -13,6 +13,46 @@ Label
     endif
     endm
 
+DIV?WCW macro Win, Cin, Wout
+    if (Cin == 2)
+        bcf     STATUS, C
+      if (Wout == Win)
+        CHK?RP  Wout
+        rrf     Wout + 1, F
+        rrf     Wout, F
+      else
+        CHK?RP  Win
+        rrf     Win + 1, W
+        MOVE?AB Wout + 1
+        CHK?RP  Win
+        rrf     Win, W
+        MOVE?AB Wout
+      endif
+    else
+        MOVE?WW Win, R0
+        MOVE?CW Cin, R1
+        L?CALL  DIV
+        MOVE?AWW R0, Wout
+    endif
+    endm
+DIV_USED = 1
+
+MUL?WCW macro Win, Cin, Wout
+        MOVE?WW Win, R3
+        MOVE?CW Cin, R1
+        L?CALL  MUL
+        MOVE?AWW R2, Wout
+    endm
+MUL_USED = 1
+
+COUNT?TCW macro Regin, Bitin, Cin, Wout
+        MOVE?CW Cin, R1
+        BIT?FW  Regin, Bitin
+        L?CALL  COUNTT
+        MOVE?AWW R1, Wout
+    endm
+COUNTT_USED = 1
+
 END? macro
     local loop
 loop    sleep
@@ -23,37 +63,13 @@ GOTO?L macro Label
         L?GOTO  Label
     endm
 
-HIGH?C macro Cin
-    if (Cin < 8)
-        MOVE?CT 1, _PORTL, Cin
-        MOVE?CT 0, ((_PORTL) + 80h), Cin
-    else
-        MOVE?CT 1, _PORTH, (Cin) - 8
-        MOVE?CT 0, ((_PORTH) + 80h), (Cin) - 8
-    endif
+HPWM?CWC macro Cin1, Win, Cin2
+        MOVE?WB Win, R4
+        MOVE?CW Cin2, R1
+        MOVE?CA Cin1
+        L?CALL  HPWM
     endm
-
-LOW?C macro Cin
-    if (Cin < 8)
-        MOVE?CT 0, _PORTL, Cin
-        MOVE?CT 0, ((_PORTL) + 80h), Cin
-    else
-        MOVE?CT 0, _PORTH, (Cin) - 8
-        MOVE?CT 0, ((_PORTH) + 80h), (Cin) - 8
-    endif
-    endm
-
-PAUSE?C macro Cin
-    if (high (Cin) == 0)
-        MOVE?CA Cin
-        L?CALL  PAUSE
-    else
-        MOVE?CB high (Cin), R1 + 1
-        MOVE?CA low (Cin)
-        L?CALL  PAUSEL
-    endif
-    endm
-PAUSE_USED = 1
+HPWM_USED = 1
 
 
 	LIST

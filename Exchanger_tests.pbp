@@ -118,7 +118,7 @@ main:
     gosub get_flowrate
     
     LCDout $FE, 1, "Temp: ", dec t2temp_val, " ", dec t1temp_val
-    LCDout $FE, $C0, "Flow: ", dec frequency, "  ", dec flow_val
+    LCDout $FE, $C0, "Flow: ", dec pwm_val, "  ", dec flow_val
 
     goto main
 end

@@ -50,7 +50,8 @@ RS1             		EQU	RAM_START + 01Ah
 RS2             		EQU	RAM_START + 01Bh
 _adval           		EQU	RAM_START + 01Ch
 _an_frequency    		EQU	RAM_START + 01Eh
-_flow_val        		EQU	RAM_START + 020h
+_an_frequency_dec		EQU	RAM_START + 020h
+_flow_val        		EQU	RAM_START + 022h
 _PORTL           		EQU	 PORTB
 _PORTH           		EQU	 PORTC
 _TRISL           		EQU	 TRISB
@@ -62,31 +63,31 @@ _TRISH           		EQU	 TRISC
 	INCLUDE	"ADCIN.MAC"
 	INCLUDE	"C:\PBP\PBPPIC18.LIB"
 
+	MOVE?CB	000h, TRISC
 	MOVE?CB	000h, ADCON1
 	MOVE?CB	087h, ADCON2
 	MOVE?CB	0FFh, TRISA
 
 	LABEL?L	_main	
-	GOSUB?L	_get_flowrate
+	MOVE?CB	011h, ADCON0
+	ADCIN?CW	004h, _an_frequency
+	MUL?WCW	_an_frequency, 005h, T1
+	MUL?WCW	T1, 00Ah, T1
+	DIV?WCW	T1, 00400h, T1
+	MOD?WCW	T1, 00Ah, _an_frequency_dec
+	MUL?WCW	_an_frequency, 005h, T1
+	DIV?WCW	T1, 00400h, _an_frequency
 	LCDOUT?C	0FEh
 	LCDOUT?C	001h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_an_frequency
 	LCDOUTDEC?	
-	LCDOUT?C	0FEh
-	LCDOUT?C	0C0h
+	LCDOUT?C	02Eh
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_flow_val
+	LCDOUTNUM?W	_an_frequency_dec
 	LCDOUTDEC?	
 	PAUSE?C	064h
 	GOTO?L	_main
 	END?	
-
-	LABEL?L	_get_flowrate	
-	MOVE?CB	005h, ADCON0
-	ADCIN?CW	001h, _an_frequency
-	MUL?WCW	_an_frequency, 032h, T1
-	DIV?WCW	T1, 0049Ah, _flow_val
-	RETURN?	
 
 	END

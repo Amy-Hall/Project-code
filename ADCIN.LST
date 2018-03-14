@@ -1,4 +1,4 @@
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  1
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   000002FF            00022 RAM_END                         EQU     002FFh
   00000003            00023 RAM_BANKS                       EQU     00003h
   00000080            00024 BANK0_START                     EQU     00080h
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  2
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -91,19 +91,20 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   0000001B            00050 RS2                             EQU     RAM_START + 01Bh
   0000001C            00051 _adval                          EQU     RAM_START + 01Ch
   0000001E            00052 _an_frequency                   EQU     RAM_START + 01Eh
-  00000020            00053 _flow_val                       EQU     RAM_START + 020h
-  00000F81            00054 _PORTL                          EQU      PORTB
-  00000F82            00055 _PORTH                          EQU      PORTC
-  00000F93            00056 _TRISL                          EQU      TRISB
-  00000F94            00057 _TRISH                          EQU      TRISC
-                      00058 
-                      00059 ; EEPROM data.
-                      00060 
+  00000020            00053 _an_frequency_dec               EQU     RAM_START + 020h
+  00000022            00054 _flow_val                       EQU     RAM_START + 022h
+  00000F81            00055 _PORTL                          EQU      PORTB
+  00000F82            00056 _PORTH                          EQU      PORTC
+  00000F93            00057 _TRISL                          EQU      TRISB
+  00000F94            00058 _TRISH                          EQU      TRISC
+                      00059 
+                      00060 ; EEPROM data.
                       00061 
-                      00062         INCLUDE "ADCIN.MAC"
+                      00062 
+                      00063         INCLUDE "ADCIN.MAC"
                       00001 
-                      00129         LIST
-                      00063         INCLUDE "C:\PBP\PBPPIC18.LIB"
+                      00107         LIST
+                      00064         INCLUDE "C:\PBP\PBPPIC18.LIB"
                       00001 ;******************************************************************
                       00002 ;*  PBPPIC18.LIB                                                  *
                       00003 ;*                                                                *
@@ -115,13 +116,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00009 ;*  Notes     :                                                   *
                       00010 ;******************************************************************
                       00079   LIST
-                      00080 ; Oscillator is 8MHz
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  3
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00080 ; Oscillator is 8MHz
                       01147   LIST
 000000                01148     ORG RESET_ORG               ; Reset vector at 0
                       01152   LIST
@@ -174,13 +175,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00003C 0E64           02959         movlw   100             ; Wait at least 100us
 00003E ECAC F000      02960         call    PAUSEUS
                       02961 
-000042 D825           02962         rcall   lcdloop         ; Send init more time
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  4
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000042 D825           02962         rcall   lcdloop         ; Send init more time
                       02963 
 000044 0E64           02964         movlw   100             ; Wait at least 100us
 000046 ECAC F000      02965         call    PAUSEUS
@@ -233,13 +234,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000076 0ED0           03012         movlw   low LCD_COMMANDUS
 000078 ECAD F000      03013         call    PAUSEUSL
 00007C 80D8           03014         bsf     STATUS, C       ; Set no timeout for Serout2mod
-00007E 0012           03015         return
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  5
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+00007E 0012           03015         return
                       03016 
 000080 8000           03017 lcdchkcd bsf    LCDCDFLAG       ; Indicate first nibble (or command next time)
 000082 08FE           03018         sublw   0feh            ; Command next time? (char still in W)
@@ -292,13 +293,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03065       if (LCD_DBIT == 0)
                       03066         andlw   0fh
                       03067       else
-000098 0BF0           03068         andlw   0f0h
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  6
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000098 0BF0           03068         andlw   0f0h
                       03069       endif
 00009A 1282           03070         iorwf   LCD_DREG, F     ; Write char to port
                       03071 
@@ -351,13 +352,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0000C0 0E10           05049         movlw   low 10000
 0000C2 D80C           05050         rcall   serout2ddig     ; Do the work
                       05051       ifdef SEROUT2TO_USED
-                      05052         btfss   STATUS, C       ; Timed out?
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  7
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      05052         btfss   STATUS, C       ; Timed out?
                       05053         return                  ; Yes
                       05054       endif
 0000C4 0E03           05055         movlw   high 1000       ; Find 1,000s
@@ -410,13 +411,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000100 9E15           05108         bcf     GOP, 7          ; Not zero so clear blank
 000102 BE15           05109         btfsc   GOP, 7          ; If blanking on, don't send
 000104 0012           05110         return
-000106 0F30           05111         addlw   '0'             ; Add ASCII offset
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  8
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000106 0F30           05111         addlw   '0'             ; Add ASCII offset
 000108 EFF7 F000      05112         goto    JUMPMAN         ; Send it
                       05930   LIST
 00010C                05931 ADCIN
@@ -469,13 +470,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00014A EFFD F000      06235         goto    DUNN
 00014E 0E03           06236         movlw   (PAUSE_DELAY) >> 8      ; 1
 000150 6E02           06237         movwf   R0 + 1          ; 1
-000152 0EE3           06238         movlw   low (PAUSE_DELAY)       ; 1
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE  9
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000152 0EE3           06238         movlw   low (PAUSE_DELAY)       ; 1
 000154 D802           06239         rcall   PAUSEUSL        ; -2 (PAUSEUSL gives you 2 less than you ask for)
 000156 D7F4           06240         bra     pauseloop       ; 2
                       06319   LIST
@@ -528,13 +529,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0001A0 90D8           07517         bcf     STATUS, C
                       07518 
 0001A2 3601           07519 divok   rlcf    R0, F
-0001A4 3602           07520         rlcf    R0 + 1, F
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 10
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+0001A4 3602           07520         rlcf    R0 + 1, F
                       07521 
 0001A6 2E07           07522         decfsz  R3, F
 0001A8 D7EF           07523         bra     divloop
@@ -587,13 +588,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       07649 DUNN3   CLRWDT?NOP              ; 1 Hit Watchdog timer
                           M     ifndef NO_CLRWDT
 0001FC 0004               M         clrwdt
-                          M     else
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 11
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                          M     else
                           M         nop
                           M     endif
 0001FE 0012           07650 DUNNRET return                  ; 2 Done
@@ -601,8 +602,22 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000200                07664 INIT
                       07708   LIST
 000200                07709 main
-                      00064 
-                      00065         MOVE?CB 000h, ADCON1
+                      00065 
+                      00066         MOVE?CB 000h, TRISC
+                          M         CHK?RP  TRISC
+                          M     if (((TRISC) > BANKA_END) & ((TRISC) < (0f01h + BANKA_END)))
+                          M       if (((TRISC) & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (TRISC)
+                          M PREV_BANK = high (TRISC)
+                          M       endif
+                          M     endif
+                          M     if (low (000h) == 0)
+000200 6A94               M         clrf    TRISC
+                          M     else
+                          M         movlw   low (000h)
+                          M         movwf   TRISC
+                          M     endif
+                      00067         MOVE?CB 000h, ADCON1
                           M         CHK?RP  ADCON1
                           M     if (((ADCON1) > BANKA_END) & ((ADCON1) < (0f01h + BANKA_END)))
                           M       if (((ADCON1) & 0f00h) != (PREV_BANK << 8))
@@ -611,12 +626,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     if (low (000h) == 0)
-000200 6AC1               M         clrf    ADCON1
+000202 6AC1               M         clrf    ADCON1
                           M     else
                           M         movlw   low (000h)
                           M         movwf   ADCON1
                           M     endif
-                      00066         MOVE?CB 087h, ADCON2
+                      00068         MOVE?CB 087h, ADCON2
                           M         CHK?RP  ADCON2
                           M     if (((ADCON2) > BANKA_END) & ((ADCON2) < (0f01h + BANKA_END)))
                           M       if (((ADCON2) & 0f00h) != (PREV_BANK << 8))
@@ -627,11 +642,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (low (087h) == 0)
                           M         clrf    ADCON2
                           M     else
-000202 0E87               M         movlw   low (087h)
-000204 6EC0               M         movwf   ADCON2
+000204 0E87               M         movlw   low (087h)
+000206 6EC0               M         movwf   ADCON2
                           M     endif
-                      00067         MOVE?CB 0FFh, TRISA
+                      00069         MOVE?CB 0FFh, TRISA
                           M         CHK?RP  TRISA
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M     if (((TRISA) > BANKA_END) & ((TRISA) < (0f01h + BANKA_END)))
                           M       if (((TRISA) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (TRISA)
@@ -641,18 +662,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (low (0FFh) == 0)
                           M         clrf    TRISA
                           M     else
-000206 0EFF               M         movlw   low (0FFh)
-000208 6E92               M         movwf   TRISA
+000208 0EFF               M         movlw   low (0FFh)
+00020A 6E92               M         movwf   TRISA
                           M     endif
-                      00068 
-                      00069         LABEL?L _main   
+                      00070 
+                      00071         LABEL?L _main   
                           M         RST?RP
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 12
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M     if (PREV_BANK != 0)
                           M         movlb   0
                           M PREV_BANK = 0
@@ -662,431 +677,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M _main
                           M         XALL
                           M     else
-00020A                    M _main
+00020C                    M _main
                           M     endif
-                      00070         GOSUB?L _get_flowrate
-  0000                    M     local dlabel
-                          M     ifdef DEBUG_STACK
-                          M         CHK?RP  DEBUG_STACK
-                          M       ifdef DEBUG_STACK_ADDR
-                          M         bcf     STATUS, C
-                          M         rlcf    DEBUG_STACK, W
-                          M         addlw   DEBUG_STACK_ADDR
-                          M         movwf   FSR0L
-                          M         clrf    FSR0H
-                          M         movlw   low (dlabel)
-                          M         movwf   POSTINC0
-                          M         movlw   high (dlabel)
-                          M         movwf   INDF0
-                          M       endif
-                          M         incf    DEBUG_STACK, F
-                          M     endif
-                          M         L?CALL  _get_flowrate
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    _get_flowrate
-                          M     else
-                          M       if ((_get_flowrate) < 1)
-                          M         call    _get_flowrate
-                          M       else
-                          M         if ((_get_flowrate) > $)
-00020A EC26 F001          M         call    _get_flowrate
-                          M         else
-                          M           if ((_get_flowrate) < ($ - 3ffh))
-                          M         call    _get_flowrate
-                          M           else
-                          M         rcall   _get_flowrate
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-00020E                    M dlabel
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 13
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                      00071         LCDOUT?C        0FEh
-                          M         MOVE?CA 0FEh
-00020E 0EFE               M         movlw   low (0FEh)
-                          M         L?CALL  LCDOUT
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    LCDOUT
-                          M     else
-                          M       if ((LCDOUT) < 1)
-                          M         call    LCDOUT
-                          M       else
-                          M         if ((LCDOUT) > $)
-                          M         call    LCDOUT
-                          M         else
-                          M           if ((LCDOUT) < ($ - 3ffh))
-                          M         call    LCDOUT
-                          M           else
-000210 DEFB               M         rcall   LCDOUT
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                      00072         LCDOUT?C        001h
-                          M         MOVE?CA 001h
-000212 0E01               M         movlw   low (001h)
-                          M         L?CALL  LCDOUT
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    LCDOUT
-                          M     else
-                          M       if ((LCDOUT) < 1)
-                          M         call    LCDOUT
-                          M       else
-                          M         if ((LCDOUT) > $)
-                          M         call    LCDOUT
-                          M         else
-                          M           if ((LCDOUT) < ($ - 3ffh))
-                          M         call    LCDOUT
-                          M           else
-000214 DEF9               M         rcall   LCDOUT
-                          M           endif
-                          M         endif
-                          M       endif
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 14
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M     endif
-                      00073         LCDOUTCOUNT?C   000h
-                          M         MOVE?CB 000h, R4 + 1
-                          M         CHK?RP  R4 + 1
-                          M     if (((R4 + 1) > BANKA_END) & ((R4 + 1) < (0f01h + BANKA_END)))
-                          M       if (((R4 + 1) & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (R4 + 1)
-                          M PREV_BANK = high (R4 + 1)
-                          M       endif
-                          M     endif
-                          M     if (low (000h) == 0)
-000216 6A0A               M         clrf    R4 + 1
-                          M     else
-                          M         movlw   low (000h)
-                          M         movwf   R4 + 1
-                          M     endif
-                      00074         LCDOUTNUM?W     _an_frequency
-                          M         MOVE?WW _an_frequency, R2
-                          M         MOVE?BB _an_frequency, R2
-000218 C01E F005          M         movff   _an_frequency, R2
-                          M         MOVE?BB (_an_frequency) + 1, (R2) + 1
-00021C C01F F006          M         movff   (_an_frequency) + 1, (R2) + 1
-                      00075         LCDOUTDEC?      
-                          M         MOVE?CW LCDOUTJ, R8
-                          M         CHK?RP  R8
-                          M     if (((R8)    > BANKA_END) & ((R8)    < (0f01h + BANKA_END)))
-                          M       if (((R8)    & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (R8)
-                          M PREV_BANK = high (R8)
-                          M       endif
-                          M     endif
-                          M     ifdef USE_LINKER
-                          M         movlw   low (LCDOUTJ)
-                          M         movwf   R8
-                          M         movlw   high (LCDOUTJ)
-                          M         movwf   (R8)   + 1
-                          M     else
-                          M       if (low (LCDOUTJ) == 0)
-                          M         clrf    R8
-                          M       else
-000220 0E06               M         movlw   low (LCDOUTJ)
-000222 6E11               M         movwf   R8
-                          M       endif
-                          M       if ((high (LCDOUTJ)) == 0)
-000224 6A12               M         clrf    (R8)   + 1
-                          M       else
-                          M         movlw   high (LCDOUTJ)
-                          M         movwf   (R8)   + 1
-                          M       endif
-                          M     endif
-                          M         L?CALL  SEROUT2DEC
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 15
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    SEROUT2DEC
-                          M     else
-                          M       if ((SEROUT2DEC) < 1)
-                          M         call    SEROUT2DEC
-                          M       else
-                          M         if ((SEROUT2DEC) > $)
-                          M         call    SEROUT2DEC
-                          M         else
-                          M           if ((SEROUT2DEC) < ($ - 3ffh))
-                          M         call    SEROUT2DEC
-                          M           else
-000226 DF44               M         rcall   SEROUT2DEC
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                      00076         LCDOUT?C        0FEh
-                          M         MOVE?CA 0FEh
-000228 0EFE               M         movlw   low (0FEh)
-                          M         L?CALL  LCDOUT
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    LCDOUT
-                          M     else
-                          M       if ((LCDOUT) < 1)
-                          M         call    LCDOUT
-                          M       else
-                          M         if ((LCDOUT) > $)
-                          M         call    LCDOUT
-                          M         else
-                          M           if ((LCDOUT) < ($ - 3ffh))
-                          M         call    LCDOUT
-                          M           else
-00022A DEEE               M         rcall   LCDOUT
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                      00077         LCDOUT?C        0C0h
-                          M         MOVE?CA 0C0h
-00022C 0EC0               M         movlw   low (0C0h)
-                          M         L?CALL  LCDOUT
-                          M         RST?RP
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 16
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    LCDOUT
-                          M     else
-                          M       if ((LCDOUT) < 1)
-                          M         call    LCDOUT
-                          M       else
-                          M         if ((LCDOUT) > $)
-                          M         call    LCDOUT
-                          M         else
-                          M           if ((LCDOUT) < ($ - 3ffh))
-                          M         call    LCDOUT
-                          M           else
-00022E DEEC               M         rcall   LCDOUT
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                      00078         LCDOUTCOUNT?C   000h
-                          M         MOVE?CB 000h, R4 + 1
-                          M         CHK?RP  R4 + 1
-                          M     if (((R4 + 1) > BANKA_END) & ((R4 + 1) < (0f01h + BANKA_END)))
-                          M       if (((R4 + 1) & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (R4 + 1)
-                          M PREV_BANK = high (R4 + 1)
-                          M       endif
-                          M     endif
-                          M     if (low (000h) == 0)
-000230 6A0A               M         clrf    R4 + 1
-                          M     else
-                          M         movlw   low (000h)
-                          M         movwf   R4 + 1
-                          M     endif
-                      00079         LCDOUTNUM?W     _flow_val
-                          M         MOVE?WW _flow_val, R2
-                          M         MOVE?BB _flow_val, R2
-000232 C020 F005          M         movff   _flow_val, R2
-                          M         MOVE?BB (_flow_val) + 1, (R2) + 1
-000236 C021 F006          M         movff   (_flow_val) + 1, (R2) + 1
-                      00080         LCDOUTDEC?      
-                          M         MOVE?CW LCDOUTJ, R8
-                          M         CHK?RP  R8
-                          M     if (((R8)    > BANKA_END) & ((R8)    < (0f01h + BANKA_END)))
-                          M       if (((R8)    & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (R8)
-                          M PREV_BANK = high (R8)
-                          M       endif
-                          M     endif
-                          M     ifdef USE_LINKER
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 17
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M         movlw   low (LCDOUTJ)
-                          M         movwf   R8
-                          M         movlw   high (LCDOUTJ)
-                          M         movwf   (R8)   + 1
-                          M     else
-                          M       if (low (LCDOUTJ) == 0)
-                          M         clrf    R8
-                          M       else
-00023A 0E06               M         movlw   low (LCDOUTJ)
-00023C 6E11               M         movwf   R8
-                          M       endif
-                          M       if ((high (LCDOUTJ)) == 0)
-00023E 6A12               M         clrf    (R8)   + 1
-                          M       else
-                          M         movlw   high (LCDOUTJ)
-                          M         movwf   (R8)   + 1
-                          M       endif
-                          M     endif
-                          M         L?CALL  SEROUT2DEC
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         call    SEROUT2DEC
-                          M     else
-                          M       if ((SEROUT2DEC) < 1)
-                          M         call    SEROUT2DEC
-                          M       else
-                          M         if ((SEROUT2DEC) > $)
-                          M         call    SEROUT2DEC
-                          M         else
-                          M           if ((SEROUT2DEC) < ($ - 3ffh))
-                          M         call    SEROUT2DEC
-                          M           else
-000240 DF37               M         rcall   SEROUT2DEC
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                      00081         PAUSE?C 064h
-                          M     if (high (064h) == 0)
-                          M         MOVE?CA 064h
-000242 0E64               M         movlw   low (064h)
-                          M         L?CALL  PAUSE
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 18
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M     ifdef USE_LINKER
-                          M         call    PAUSE
-                          M     else
-                          M       if ((PAUSE) < 1)
-                          M         call    PAUSE
-                          M       else
-                          M         if ((PAUSE) > $)
-                          M         call    PAUSE
-                          M         else
-                          M           if ((PAUSE) < ($ - 3ffh))
-                          M         call    PAUSE
-                          M           else
-000244 DF7B               M         rcall   PAUSE
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                          M     else
-                          M         MOVE?CB high (064h), R1 + 1
-                          M         MOVE?CA low (064h)
-                          M         L?CALL  PAUSEL
-                          M     endif
-                      00082         GOTO?L  _main
-                          M         L?GOTO  _main
-                          M     ifdef USE_LINKER
-                          M         CLRWDT?
-                          M     else
-                          M       if ($ == (_main))
-                          M         CLRWDT?
-                          M       endif
-                          M     endif
-                          M 
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     ifdef USE_LINKER
-                          M         goto    _main
-                          M     else
-                          M       if ((_main) < 1)
-                          M         goto    _main
-                          M       else
-                          M         if ((_main) > $)
-                          M         goto    _main
-                          M         else
-                          M           if ((_main) < ($ - 3ffh))
-                          M         goto    _main
-                          M           else
-000246 D7E1               M         bra     _main
-                          M           endif
-                          M         endif
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 19
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M       endif
-                          M     endif
-                      00083         END?    
-  0000                    M     local loop
-000248 0003               M loop    sleep
-00024A D7FE               M         bra     loop
-                      00084 
-                      00085         LABEL?L _get_flowrate   
-                          M         RST?RP
-                          M     if (PREV_BANK != 0)
-                          M         movlb   0
-                          M PREV_BANK = 0
-                          M     endif
-                          M     ifdef PM_USED
-                          M         LALL
-                          M _get_flowrate
-                          M         XALL
-                          M     else
-00024C                    M _get_flowrate
-                          M     endif
-                      00086         MOVE?CB 005h, ADCON0
+                      00072         MOVE?CB 011h, ADCON0
                           M         CHK?RP  ADCON0
                           M     if (((ADCON0) > BANKA_END) & ((ADCON0) < (0f01h + BANKA_END)))
                           M       if (((ADCON0) & 0f00h) != (PREV_BANK << 8))
@@ -1094,15 +687,15 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (ADCON0)
                           M       endif
                           M     endif
-                          M     if (low (005h) == 0)
+                          M     if (low (011h) == 0)
                           M         clrf    ADCON0
                           M     else
-00024C 0E05               M         movlw   low (005h)
-00024E 6EC2               M         movwf   ADCON0
+00020C 0E11               M         movlw   low (011h)
+00020E 6EC2               M         movwf   ADCON0
                           M     endif
-                      00087         ADCIN?CW        001h, _an_frequency
-                          M         MOVE?CA 001h
-000250 0E01               M         movlw   low (001h)
+                      00073         ADCIN?CW        004h, _an_frequency
+                          M         MOVE?CA 004h
+000210 0E04               M         movlw   low (004h)
                           M         L?CALL  ADCIN
                           M         RST?RP
                           M     if (PREV_BANK != 0)
@@ -1113,22 +706,22 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         call    ADCIN
                           M     else
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       if ((ADCIN) < 1)
                           M         call    ADCIN
                           M       else
                           M         if ((ADCIN) > $)
                           M         call    ADCIN
                           M         else
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 20
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M           if ((ADCIN) < ($ - 3ffh))
                           M         call    ADCIN
                           M           else
-000252 DF5C               M         rcall   ADCIN
+000212 DF7C               M         rcall   ADCIN
                           M           endif
                           M         endif
                           M       endif
@@ -1142,16 +735,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_an_frequency)
                           M       endif
                           M     endif
-000254 6E1E               M         movwf   _an_frequency
+000214 6E1E               M         movwf   _an_frequency
                           M         MOVE?BB (R0)  + 1, (_an_frequency) + 1
-000256 C002 F01F          M         movff   (R0) + 1, (_an_frequency) + 1
-                      00088         MUL?WCW _an_frequency, 032h, T1
+000216 C002 F01F          M         movff   (R0) + 1, (_an_frequency) + 1
+                      00074         MUL?WCW _an_frequency, 005h, T1
                           M         MOVE?WW _an_frequency, R3
                           M         MOVE?BB _an_frequency, R3
-00025A C01E F007          M         movff   _an_frequency, R3
+00021A C01E F007          M         movff   _an_frequency, R3
                           M         MOVE?BB (_an_frequency) + 1, (R3) + 1
-00025E C01F F008          M         movff   (_an_frequency) + 1, (R3) + 1
-                          M         MOVE?CW 032h, R1
+00021E C01F F008          M         movff   (_an_frequency) + 1, (R3) + 1
+                          M         MOVE?CW 005h, R1
                           M         CHK?RP  R1
                           M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
                           M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
@@ -1160,30 +753,30 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     ifdef USE_LINKER
-                          M         movlw   low (032h)
+                          M         movlw   low (005h)
                           M         movwf   R1
-                          M         movlw   high (032h)
+                          M         movlw   high (005h)
                           M         movwf   (R1)   + 1
                           M     else
-                          M       if (low (032h) == 0)
+                          M       if (low (005h) == 0)
                           M         clrf    R1
                           M       else
-000262 0E32               M         movlw   low (032h)
-000264 6E03               M         movwf   R1
+000222 0E05               M         movlw   low (005h)
+000224 6E03               M         movwf   R1
                           M       endif
-                          M       if ((high (032h)) == 0)
-000266 6A04               M         clrf    (R1)   + 1
-                          M       else
-                          M         movlw   high (032h)
-                          M         movwf   (R1)   + 1
-                          M       endif
-                          M     endif
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 21
+                          M       if ((high (005h)) == 0)
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000226 6A04               M         clrf    (R1)   + 1
+                          M       else
+                          M         movlw   high (005h)
+                          M         movwf   (R1)   + 1
+                          M       endif
+                          M     endif
                           M         L?CALL  MUL
                           M         RST?RP
                           M     if (PREV_BANK != 0)
@@ -1203,7 +796,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((MUL)   < ($ - 3ffh))
                           M         call    MUL
                           M           else
-000268 DFA3               M         rcall   MUL
+000228 DFC3               M         rcall   MUL
                           M           endif
                           M         endif
                           M       endif
@@ -1217,37 +810,112 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (T1)
                           M       endif
                           M     endif
-00026A 6E13               M         movwf   T1
+00022A 6E13               M         movwf   T1
                           M         MOVE?BB (R2)  + 1, (T1)   + 1
-00026C C006 F014          M         movff   (R2) + 1, (T1) + 1
-                      00089         DIV?WCW T1, 0049Ah, _flow_val
-                          M     if (0049Ah == 2)
-                          M         bcf     STATUS, C
-                          M       if (_flow_val == T1)
-                          M         CHK?RP  _flow_val
-                          M         rrcf    _flow_val + 1, F
-                          M         rrcf    _flow_val, F
-                          M       else
-                          M         CHK?RP  T1
-                          M         rrcf    T1  + 1, W
-                          M         MOVE?AB _flow_val + 1
-                          M         CHK?RP  T1
-                          M         rrcf    T1,  W
-                          M         MOVE?AB _flow_val
-                          M       endif
-                          M     else
-                          M         MOVE?WW T1,  R0
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 22
+00022C C006 F014          M         movff   (R2) + 1, (T1) + 1
+                      00075         MUL?WCW T1, 00Ah, T1
+                          M         MOVE?WW T1,  R3
+                          M         MOVE?BB T1,  R3
+000230 C013 F007          M         movff   T1,  R3
+                          M         MOVE?BB (T1)  + 1, (R3)   + 1
+000234 C014 F008          M         movff   (T1) + 1, (R3) + 1
+                          M         MOVE?CW 00Ah, R1
+                          M         CHK?RP  R1
+                          M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
+                          M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R1)
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                          M PREV_BANK = high (R1)
+                          M       endif
+                          M     endif
+                          M     ifdef USE_LINKER
+                          M         movlw   low (00Ah)
+                          M         movwf   R1
+                          M         movlw   high (00Ah)
+                          M         movwf   (R1)   + 1
+                          M     else
+                          M       if (low (00Ah) == 0)
+                          M         clrf    R1
+                          M       else
+000238 0E0A               M         movlw   low (00Ah)
+00023A 6E03               M         movwf   R1
+                          M       endif
+                          M       if ((high (00Ah)) == 0)
+00023C 6A04               M         clrf    (R1)   + 1
+                          M       else
+                          M         movlw   high (00Ah)
+                          M         movwf   (R1)   + 1
+                          M       endif
+                          M     endif
+                          M         L?CALL  MUL
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    MUL
+                          M     else
+                          M       if ((MUL)   < 1)
+                          M         call    MUL
+                          M       else
+                          M         if ((MUL)   > $)
+                          M         call    MUL
+                          M         else
+                          M           if ((MUL)   < ($ - 3ffh))
+                          M         call    MUL
+                          M           else
+00023E DFB8               M         rcall   MUL
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                          M         MOVE?AWW R2, T1
+                          M         MOVE?AB T1
+                          M         CHK?RP  T1
+                          M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
+                          M       if (((T1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (T1)
+                          M PREV_BANK = high (T1)
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M       endif
+                          M     endif
+000240 6E13               M         movwf   T1
+                          M         MOVE?BB (R2)  + 1, (T1)   + 1
+000242 C006 F014          M         movff   (R2) + 1, (T1) + 1
+                      00076         DIV?WCW T1, 00400h, T1
+                          M     if (00400h == 2)
+                          M         bcf     STATUS, C
+                          M       if (T1   == T1)
+                          M         CHK?RP  T1
+                          M         rrcf    T1   + 1, F
+                          M         rrcf    T1,   F
+                          M       else
+                          M         CHK?RP  T1
+                          M         rrcf    T1  + 1, W
+                          M         MOVE?AB T1   + 1
+                          M         CHK?RP  T1
+                          M         rrcf    T1,  W
+                          M         MOVE?AB T1
+                          M       endif
+                          M     else
+                          M         MOVE?WW T1,  R0
                           M         MOVE?BB T1,  R0
-000270 C013 F001          M         movff   T1,  R0
+000246 C013 F001          M         movff   T1,  R0
                           M         MOVE?BB (T1)  + 1, (R0)   + 1
-000274 C014 F002          M         movff   (T1) + 1, (R0) + 1
-                          M         MOVE?CW 0049Ah, R1
+00024A C014 F002          M         movff   (T1) + 1, (R0) + 1
+                          M         MOVE?CW 00400h, R1
                           M         CHK?RP  R1
                           M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
                           M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
@@ -1256,22 +924,104 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     ifdef USE_LINKER
-                          M         movlw   low (0049Ah)
+                          M         movlw   low (00400h)
                           M         movwf   R1
-                          M         movlw   high (0049Ah)
+                          M         movlw   high (00400h)
                           M         movwf   (R1)   + 1
                           M     else
-                          M       if (low (0049Ah) == 0)
-                          M         clrf    R1
+                          M       if (low (00400h) == 0)
+00024E 6A03               M         clrf    R1
                           M       else
-000278 0E9A               M         movlw   low (0049Ah)
-00027A 6E03               M         movwf   R1
+                          M         movlw   low (00400h)
+                          M         movwf   R1
                           M       endif
-                          M       if ((high (0049Ah)) == 0)
+                          M       if ((high (00400h)) == 0)
                           M         clrf    (R1)   + 1
                           M       else
-00027C 0E04               M         movlw   high (0049Ah)
-00027E 6E04               M         movwf   (R1)   + 1
+000250 0E04               M         movlw   high (00400h)
+000252 6E04               M         movwf   (R1)   + 1
+                          M       endif
+                          M     endif
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         L?CALL  DIV
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    DIV
+                          M     else
+                          M       if ((DIV)   < 1)
+                          M         call    DIV
+                          M       else
+                          M         if ((DIV)   > $)
+                          M         call    DIV
+                          M         else
+                          M           if ((DIV)   < ($ - 3ffh))
+                          M         call    DIV
+                          M           else
+000254 DF95               M         rcall   DIV
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                          M         MOVE?AWW R0, T1
+                          M         MOVE?AB T1
+                          M         CHK?RP  T1
+                          M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
+                          M       if (((T1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (T1)
+                          M PREV_BANK = high (T1)
+                          M       endif
+                          M     endif
+000256 6E13               M         movwf   T1
+                          M         MOVE?BB (R0)  + 1, (T1)   + 1
+000258 C002 F014          M         movff   (R0) + 1, (T1) + 1
+                          M     endif
+                      00077         MOD?WCW T1, 00Ah, _an_frequency_dec
+                          M         MOVE?WW T1,  R0
+                          M         MOVE?BB T1,  R0
+00025C C013 F001          M         movff   T1,  R0
+                          M         MOVE?BB (T1)  + 1, (R0)   + 1
+000260 C014 F002          M         movff   (T1) + 1, (R0) + 1
+                          M         MOVE?CW 00Ah, R1
+                          M         CHK?RP  R1
+                          M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
+                          M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R1)
+                          M PREV_BANK = high (R1)
+                          M       endif
+                          M     endif
+                          M     ifdef USE_LINKER
+                          M         movlw   low (00Ah)
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         movwf   R1
+                          M         movlw   high (00Ah)
+                          M         movwf   (R1)   + 1
+                          M     else
+                          M       if (low (00Ah) == 0)
+                          M         clrf    R1
+                          M       else
+000264 0E0A               M         movlw   low (00Ah)
+000266 6E03               M         movwf   R1
+                          M       endif
+                          M       if ((high (00Ah)) == 0)
+000268 6A04               M         clrf    (R1)   + 1
+                          M       else
+                          M         movlw   high (00Ah)
+                          M         movwf   (R1)   + 1
                           M       endif
                           M     endif
                           M         L?CALL  DIV
@@ -1293,44 +1043,524 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((DIV)   < ($ - 3ffh))
                           M         call    DIV
                           M           else
-000280 DF7F               M         rcall   DIV
+00026A DF8A               M         rcall   DIV
                           M           endif
                           M         endif
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 23
+                          M       endif
+                          M     endif
+                          M         MOVE?WW R2, _an_frequency_dec
+                          M         MOVE?BB R2,  _an_frequency_dec
+00026C C005 F020          M         movff   R2,  _an_frequency_dec
+                          M         MOVE?BB (R2)  + 1, (_an_frequency_dec) + 1
+000270 C006 F021          M         movff   (R2) + 1, (_an_frequency_dec) + 1
+                      00078         MUL?WCW _an_frequency, 005h, T1
+                          M         MOVE?WW _an_frequency, R3
+                          M         MOVE?BB _an_frequency, R3
+000274 C01E F007          M         movff   _an_frequency, R3
+                          M         MOVE?BB (_an_frequency) + 1, (R3) + 1
+000278 C01F F008          M         movff   (_an_frequency) + 1, (R3) + 1
+                          M         MOVE?CW 005h, R1
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                          M         CHK?RP  R1
+                          M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
+                          M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R1)
+                          M PREV_BANK = high (R1)
                           M       endif
                           M     endif
-                          M         MOVE?AWW R0, _flow_val
-                          M         MOVE?AB _flow_val
-                          M         CHK?RP  _flow_val
-                          M     if (((_flow_val) > BANKA_END) & ((_flow_val) < (0f01h + BANKA_END)))
-                          M       if (((_flow_val) & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (_flow_val)
-                          M PREV_BANK = high (_flow_val)
+                          M     ifdef USE_LINKER
+                          M         movlw   low (005h)
+                          M         movwf   R1
+                          M         movlw   high (005h)
+                          M         movwf   (R1)   + 1
+                          M     else
+                          M       if (low (005h) == 0)
+                          M         clrf    R1
+                          M       else
+00027C 0E05               M         movlw   low (005h)
+00027E 6E03               M         movwf   R1
+                          M       endif
+                          M       if ((high (005h)) == 0)
+000280 6A04               M         clrf    (R1)   + 1
+                          M       else
+                          M         movlw   high (005h)
+                          M         movwf   (R1)   + 1
                           M       endif
                           M     endif
-000282 6E20               M         movwf   _flow_val
-                          M         MOVE?BB (R0)  + 1, (_flow_val) + 1
-000284 C002 F021          M         movff   (R0) + 1, (_flow_val) + 1
-                          M     endif
-                      00090         RETURN? 
-                          M     ifdef DEBUG_STACK
-                          M         CHK?RP  DEBUG_STACK
-                          M         decf    DEBUG_STACK, F
-                          M     endif
+                          M         L?CALL  MUL
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
                           M PREV_BANK = 0
                           M     endif
-000288 0012               M         return
-                      00091 
-                      00092         END
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 24
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    MUL
+                          M     else
+                          M       if ((MUL)   < 1)
+                          M         call    MUL
+                          M       else
+                          M         if ((MUL)   > $)
+                          M         call    MUL
+                          M         else
+                          M           if ((MUL)   < ($ - 3ffh))
+                          M         call    MUL
+                          M           else
+000282 DF96               M         rcall   MUL
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                          M         MOVE?AWW R2, T1
+                          M         MOVE?AB T1
+                          M         CHK?RP  T1
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
+                          M       if (((T1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (T1)
+                          M PREV_BANK = high (T1)
+                          M       endif
+                          M     endif
+000284 6E13               M         movwf   T1
+                          M         MOVE?BB (R2)  + 1, (T1)   + 1
+000286 C006 F014          M         movff   (R2) + 1, (T1) + 1
+                      00079         DIV?WCW T1, 00400h, _an_frequency
+                          M     if (00400h == 2)
+                          M         bcf     STATUS, C
+                          M       if (_an_frequency == T1)
+                          M         CHK?RP  _an_frequency
+                          M         rrcf    _an_frequency + 1, F
+                          M         rrcf    _an_frequency, F
+                          M       else
+                          M         CHK?RP  T1
+                          M         rrcf    T1  + 1, W
+                          M         MOVE?AB _an_frequency + 1
+                          M         CHK?RP  T1
+                          M         rrcf    T1,  W
+                          M         MOVE?AB _an_frequency
+                          M       endif
+                          M     else
+                          M         MOVE?WW T1,  R0
+                          M         MOVE?BB T1,  R0
+00028A C013 F001          M         movff   T1,  R0
+                          M         MOVE?BB (T1)  + 1, (R0)   + 1
+00028E C014 F002          M         movff   (T1) + 1, (R0) + 1
+                          M         MOVE?CW 00400h, R1
+                          M         CHK?RP  R1
+                          M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
+                          M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R1)
+                          M PREV_BANK = high (R1)
+                          M       endif
+                          M     endif
+                          M     ifdef USE_LINKER
+                          M         movlw   low (00400h)
+                          M         movwf   R1
+                          M         movlw   high (00400h)
+                          M         movwf   (R1)   + 1
+                          M     else
+                          M       if (low (00400h) == 0)
+000292 6A03               M         clrf    R1
+                          M       else
+                          M         movlw   low (00400h)
+                          M         movwf   R1
+                          M       endif
+                          M       if ((high (00400h)) == 0)
+                          M         clrf    (R1)   + 1
+                          M       else
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000294 0E04               M         movlw   high (00400h)
+000296 6E04               M         movwf   (R1)   + 1
+                          M       endif
+                          M     endif
+                          M         L?CALL  DIV
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    DIV
+                          M     else
+                          M       if ((DIV)   < 1)
+                          M         call    DIV
+                          M       else
+                          M         if ((DIV)   > $)
+                          M         call    DIV
+                          M         else
+                          M           if ((DIV)   < ($ - 3ffh))
+                          M         call    DIV
+                          M           else
+000298 DF73               M         rcall   DIV
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                          M         MOVE?AWW R0, _an_frequency
+                          M         MOVE?AB _an_frequency
+                          M         CHK?RP  _an_frequency
+                          M     if (((_an_frequency) > BANKA_END) & ((_an_frequency) < (0f01h + BANKA_END)))
+                          M       if (((_an_frequency) & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (_an_frequency)
+                          M PREV_BANK = high (_an_frequency)
+                          M       endif
+                          M     endif
+00029A 6E1E               M         movwf   _an_frequency
+                          M         MOVE?BB (R0)  + 1, (_an_frequency) + 1
+00029C C002 F01F          M         movff   (R0) + 1, (_an_frequency) + 1
+                          M     endif
+                      00080         LCDOUT?C        0FEh
+                          M         MOVE?CA 0FEh
+0002A0 0EFE               M         movlw   low (0FEh)
+                          M         L?CALL  LCDOUT
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    LCDOUT
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M     else
+                          M       if ((LCDOUT) < 1)
+                          M         call    LCDOUT
+                          M       else
+                          M         if ((LCDOUT) > $)
+                          M         call    LCDOUT
+                          M         else
+                          M           if ((LCDOUT) < ($ - 3ffh))
+                          M         call    LCDOUT
+                          M           else
+0002A2 DEB2               M         rcall   LCDOUT
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                      00081         LCDOUT?C        001h
+                          M         MOVE?CA 001h
+0002A4 0E01               M         movlw   low (001h)
+                          M         L?CALL  LCDOUT
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    LCDOUT
+                          M     else
+                          M       if ((LCDOUT) < 1)
+                          M         call    LCDOUT
+                          M       else
+                          M         if ((LCDOUT) > $)
+                          M         call    LCDOUT
+                          M         else
+                          M           if ((LCDOUT) < ($ - 3ffh))
+                          M         call    LCDOUT
+                          M           else
+0002A6 DEB0               M         rcall   LCDOUT
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                      00082         LCDOUTCOUNT?C   000h
+                          M         MOVE?CB 000h, R4 + 1
+                          M         CHK?RP  R4 + 1
+                          M     if (((R4 + 1) > BANKA_END) & ((R4 + 1) < (0f01h + BANKA_END)))
+                          M       if (((R4 + 1) & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R4 + 1)
+                          M PREV_BANK = high (R4 + 1)
+                          M       endif
+                          M     endif
+                          M     if (low (000h) == 0)
+0002A8 6A0A               M         clrf    R4 + 1
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 23
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M     else
+                          M         movlw   low (000h)
+                          M         movwf   R4 + 1
+                          M     endif
+                      00083         LCDOUTNUM?W     _an_frequency
+                          M         MOVE?WW _an_frequency, R2
+                          M         MOVE?BB _an_frequency, R2
+0002AA C01E F005          M         movff   _an_frequency, R2
+                          M         MOVE?BB (_an_frequency) + 1, (R2) + 1
+0002AE C01F F006          M         movff   (_an_frequency) + 1, (R2) + 1
+                      00084         LCDOUTDEC?      
+                          M         MOVE?CW LCDOUTJ, R8
+                          M         CHK?RP  R8
+                          M     if (((R8)    > BANKA_END) & ((R8)    < (0f01h + BANKA_END)))
+                          M       if (((R8)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R8)
+                          M PREV_BANK = high (R8)
+                          M       endif
+                          M     endif
+                          M     ifdef USE_LINKER
+                          M         movlw   low (LCDOUTJ)
+                          M         movwf   R8
+                          M         movlw   high (LCDOUTJ)
+                          M         movwf   (R8)   + 1
+                          M     else
+                          M       if (low (LCDOUTJ) == 0)
+                          M         clrf    R8
+                          M       else
+0002B2 0E06               M         movlw   low (LCDOUTJ)
+0002B4 6E11               M         movwf   R8
+                          M       endif
+                          M       if ((high (LCDOUTJ)) == 0)
+0002B6 6A12               M         clrf    (R8)   + 1
+                          M       else
+                          M         movlw   high (LCDOUTJ)
+                          M         movwf   (R8)   + 1
+                          M       endif
+                          M     endif
+                          M         L?CALL  SEROUT2DEC
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    SEROUT2DEC
+                          M     else
+                          M       if ((SEROUT2DEC) < 1)
+                          M         call    SEROUT2DEC
+                          M       else
+                          M         if ((SEROUT2DEC) > $)
+                          M         call    SEROUT2DEC
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         else
+                          M           if ((SEROUT2DEC) < ($ - 3ffh))
+                          M         call    SEROUT2DEC
+                          M           else
+0002B8 DEFB               M         rcall   SEROUT2DEC
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                      00085         LCDOUT?C        02Eh
+                          M         MOVE?CA 02Eh
+0002BA 0E2E               M         movlw   low (02Eh)
+                          M         L?CALL  LCDOUT
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    LCDOUT
+                          M     else
+                          M       if ((LCDOUT) < 1)
+                          M         call    LCDOUT
+                          M       else
+                          M         if ((LCDOUT) > $)
+                          M         call    LCDOUT
+                          M         else
+                          M           if ((LCDOUT) < ($ - 3ffh))
+                          M         call    LCDOUT
+                          M           else
+0002BC DEA5               M         rcall   LCDOUT
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                      00086         LCDOUTCOUNT?C   000h
+                          M         MOVE?CB 000h, R4 + 1
+                          M         CHK?RP  R4 + 1
+                          M     if (((R4 + 1) > BANKA_END) & ((R4 + 1) < (0f01h + BANKA_END)))
+                          M       if (((R4 + 1) & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R4 + 1)
+                          M PREV_BANK = high (R4 + 1)
+                          M       endif
+                          M     endif
+                          M     if (low (000h) == 0)
+0002BE 6A0A               M         clrf    R4 + 1
+                          M     else
+                          M         movlw   low (000h)
+                          M         movwf   R4 + 1
+                          M     endif
+                      00087         LCDOUTNUM?W     _an_frequency_dec
+                          M         MOVE?WW _an_frequency_dec, R2
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 25
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         MOVE?BB _an_frequency_dec, R2
+0002C0 C020 F005          M         movff   _an_frequency_dec, R2
+                          M         MOVE?BB (_an_frequency_dec) + 1, (R2) + 1
+0002C4 C021 F006          M         movff   (_an_frequency_dec) + 1, (R2) + 1
+                      00088         LCDOUTDEC?      
+                          M         MOVE?CW LCDOUTJ, R8
+                          M         CHK?RP  R8
+                          M     if (((R8)    > BANKA_END) & ((R8)    < (0f01h + BANKA_END)))
+                          M       if (((R8)    & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (R8)
+                          M PREV_BANK = high (R8)
+                          M       endif
+                          M     endif
+                          M     ifdef USE_LINKER
+                          M         movlw   low (LCDOUTJ)
+                          M         movwf   R8
+                          M         movlw   high (LCDOUTJ)
+                          M         movwf   (R8)   + 1
+                          M     else
+                          M       if (low (LCDOUTJ) == 0)
+                          M         clrf    R8
+                          M       else
+0002C8 0E06               M         movlw   low (LCDOUTJ)
+0002CA 6E11               M         movwf   R8
+                          M       endif
+                          M       if ((high (LCDOUTJ)) == 0)
+0002CC 6A12               M         clrf    (R8)   + 1
+                          M       else
+                          M         movlw   high (LCDOUTJ)
+                          M         movwf   (R8)   + 1
+                          M       endif
+                          M     endif
+                          M         L?CALL  SEROUT2DEC
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    SEROUT2DEC
+                          M     else
+                          M       if ((SEROUT2DEC) < 1)
+                          M         call    SEROUT2DEC
+                          M       else
+                          M         if ((SEROUT2DEC) > $)
+                          M         call    SEROUT2DEC
+                          M         else
+                          M           if ((SEROUT2DEC) < ($ - 3ffh))
+                          M         call    SEROUT2DEC
+                          M           else
+0002CE DEF0               M         rcall   SEROUT2DEC
+                          M           endif
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 26
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         endif
+                          M       endif
+                          M     endif
+                      00089         PAUSE?C 064h
+                          M     if (high (064h) == 0)
+                          M         MOVE?CA 064h
+0002D0 0E64               M         movlw   low (064h)
+                          M         L?CALL  PAUSE
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+                          M         call    PAUSE
+                          M     else
+                          M       if ((PAUSE) < 1)
+                          M         call    PAUSE
+                          M       else
+                          M         if ((PAUSE) > $)
+                          M         call    PAUSE
+                          M         else
+                          M           if ((PAUSE) < ($ - 3ffh))
+                          M         call    PAUSE
+                          M           else
+0002D2 DF34               M         rcall   PAUSE
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                          M     else
+                          M         MOVE?CB high (064h), R1 + 1
+                          M         MOVE?CA low (064h)
+                          M         L?CALL  PAUSEL
+                          M     endif
+                      00090         GOTO?L  _main
+                          M         L?GOTO  _main
+                          M     ifdef USE_LINKER
+                          M         CLRWDT?
+                          M     else
+                          M       if ($ == (_main))
+                          M         CLRWDT?
+                          M       endif
+                          M     endif
+                          M 
+                          M         RST?RP
+                          M     if (PREV_BANK != 0)
+                          M         movlb   0
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     ifdef USE_LINKER
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 27
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         goto    _main
+                          M     else
+                          M       if ((_main) < 1)
+                          M         goto    _main
+                          M       else
+                          M         if ((_main) > $)
+                          M         goto    _main
+                          M         else
+                          M           if ((_main) < ($ - 3ffh))
+                          M         goto    _main
+                          M           else
+0002D4 D79B               M         bra     _main
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                      00091         END?    
+  0000                    M     local loop
+0002D6 0003               M loop    sleep
+0002D8 D7FE               M         bra     loop
+                      00092 
+                      00093         END
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 28
 
 
 SYMBOL TABLE
@@ -1389,7 +1619,7 @@ BANK1_END                         000001FF
 BANK1_START                       00000100
 BANK2_END                         000002FF
 BANK2_START                       00000200
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 25
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 29
 
 
 SYMBOL TABLE
@@ -1448,7 +1678,7 @@ CCP2X                             00000005
 CCP2Y                             00000004
 CCP2_BIT                          00000001
 CCP2_PORTB                        00000003
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 26
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 30
 
 
 SYMBOL TABLE
@@ -1507,7 +1737,7 @@ DDRC                              TRISC
 DDRD                              TRISD
 DDRE                              TRISE
 DEBUGIN_BIT                       00000000
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 27
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 31
 
 
 SYMBOL TABLE
@@ -1566,7 +1796,7 @@ FSR2H                             00000FDA
 FSR2L                             00000FD9
 GCEN                              00000007
 GIE                               00000007
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 28
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 32
 
 
 SYMBOL TABLE
@@ -1577,7 +1807,6 @@ GIEL                              00000006
 GIE_GIEH                          00000007
 GO                                00000001
 GOP                               00000015
-GOSUB?L                           
 GOTO?L                            
 GO_DONE                           00000001
 GO_NOT_DONE                       00000001
@@ -1625,13 +1854,13 @@ INT1IF                            00000000
 INT1IP                            00000006
 INT1P                             00000006
 INT2                              00000002
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 29
+INT2E                             00000004
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 33
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-INT2E                             00000004
 INT2F                             00000001
 INT2IE                            00000004
 INT2IF                            00000001
@@ -1684,13 +1913,13 @@ LATC                              00000F8B
 LATC0                             00000000
 LATC1                             00000001
 LATC2                             00000002
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 30
+LATC3                             00000003
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 34
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-LATC3                             00000003
 LATC4                             00000004
 LATC5                             00000005
 LATC6                             00000006
@@ -1732,6 +1961,7 @@ LVV1                              00000001
 LVV2                              00000002
 LVV3                              00000003
 MCLR                              00000003
+MOD?WCW                           
 MOVE?AB                           
 MOVE?AT                           
 MOVE?AW                           
@@ -1743,7 +1973,7 @@ MOVE?BW
 MOVE?CA                           
 MOVE?CB                           
 MOVE?CT                           
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 31
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 35
 
 
 SYMBOL TABLE
@@ -1802,7 +2032,7 @@ PC                                00000FF9
 PCFG0                             00000000
 PCFG1                             00000001
 PCFG2                             00000002
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 32
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 36
 
 
 SYMBOL TABLE
@@ -1861,7 +2091,7 @@ R4                                00000009
 R5                                0000000B
 R6                                0000000D
 R7                                0000000F
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 33
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 37
 
 
 SYMBOL TABLE
@@ -1912,7 +2142,6 @@ RD                                00000000
 RD16                              00000007
 RE3                               00000003
 RESET_ORG                         00000000
-RETURN?                           
 RI                                00000004
 RM1                               00000016
 RM2                               00000017
@@ -1920,13 +2149,13 @@ RR1                               00000018
 RR2                               00000019
 RS1                               0000001A
 RS2                               0000001B
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 34
+RSEN                              00000001
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 38
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-RSEN                              00000001
 RST?RP                            
 RX                                00000007
 RX9                               00000006
@@ -1979,13 +2208,13 @@ STATUS                            00000FD8
 STKFUL                            00000007
 STKOVF                            00000007
 STKPTR                            00000FFC
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 35
+STKUNF                            00000006
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 39
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-STKUNF                            00000006
 SWDTE                             00000000
 SWDTEN                            00000000
 SYNC                              00000004
@@ -2038,13 +2267,13 @@ TMR0IP                            00000002
 TMR0L                             00000FD6
 TMR0ON                            00000007
 TMR1                              00000FCE
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 36
+TMR1CS                            00000001
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 40
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-TMR1CS                            00000001
 TMR1H                             00000FCF
 TMR1IE                            00000000
 TMR1IF                            00000000
@@ -2097,13 +2326,13 @@ TRISC1                            00000001
 TRISC2                            00000002
 TRISC3                            00000003
 TRISC4                            00000004
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 37
+TRISC5                            00000005
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 41
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-TRISC5                            00000005
 TRISC6                            00000006
 TRISC7                            00000007
 TRMT                              00000001
@@ -2156,13 +2385,13 @@ _CONFIG4L                         00300006
 _CONFIG5H                         00300009
 _CONFIG5L                         00300008
 _CONFIG6H                         0030000B
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 38
+_CONFIG6L                         0030000A
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 42
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-_CONFIG6L                         0030000A
 _CONFIG7H                         0030000D
 _CONFIG7L                         0030000C
 _CP0_OFF_5L                       000000FF
@@ -2215,13 +2444,13 @@ _PBADEN_OFF_3H                    000000FD
 _PBADEN_ON_3H                     000000FF
 _PORTH                            00000F82
 _PORTL                            00000F81
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 39
+_PWRT_OFF_2L                      000000FF
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 43
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-_PWRT_OFF_2L                      000000FF
 _PWRT_ON_2L                       000000FE
 _STVREN_OFF_4L                    000000FE
 _STVREN_ON_4L                     000000FF
@@ -2261,9 +2490,9 @@ _XINST_ON_4L                      000000FF
 __18F2420                         00000001
 _adval                            0000001C
 _an_frequency                     0000001E
-_flow_val                         00000020
-_get_flowrate                     0000024C
-_main                             0000020A
+_an_frequency_dec                 00000020
+_flow_val                         00000022
+_main                             0000020C
 adcinloop                         0000012E
 divloop                           00000188
 divok                             000001A2
@@ -2274,13 +2503,13 @@ lcdoutcom                         00000062
 lcdsend                           0000008C
 main                              00000200
 pauseloop                         00000140
-MPASM  5.51                         ADCIN.ASM   2-16-2018  10:08:00         PAGE 40
+pauseush                          0000016C
+MPASM  5.51                         ADCIN.ASM   3-8-2018  12:26:01         PAGE 44
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-pauseush                          0000016C
 pauseusloop                       00000166
 serout2ddig                       000000DC
 serout2send1                      000000FC
@@ -2298,13 +2527,14 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-0280 : XXXXXXXXXX------ ---------------- ---------------- ----------------
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXX------ ---------------- ----------------
 0000 : XXXXXXXX-------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Bytes Used:   658
-Program Memory Bytes Free: 15726
+Program Memory Bytes Used:   738
+Program Memory Bytes Free: 15646
 
 
 Errors   :     0

@@ -1,4 +1,4 @@
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -38,53 +38,57 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00008 ; Define statements.
                       00009 #define         CCP1_REG                 GPIO
                       00010 #define         CCP1_BIT                 2
-                      00011 #define         OSC              4 
-                      00012 
-  00000020            00013 RAM_START                       EQU     00020h
-  000000BF            00014 RAM_END                         EQU     000BFh
-  00000002            00015 RAM_BANKS                       EQU     00002h
-  00000020            00016 BANK0_START                     EQU     00020h
-  0000007F            00017 BANK0_END                       EQU     0007Fh
-  000000A0            00018 BANK1_START                     EQU     000A0h
-  000000BF            00019 BANK1_END                       EQU     000BFh
-  00002100            00020 EEPROM_START                    EQU     02100h
-  000021FF            00021 EEPROM_END                      EQU     021FFh
-                      00022 
-  00000020            00023 R0                              EQU     RAM_START + 000h
-  00000022            00024 R1                              EQU     RAM_START + 002h
-  00000024            00025 R2                              EQU     RAM_START + 004h
-  00000026            00026 R3                              EQU     RAM_START + 006h
-  00000028            00027 R4                              EQU     RAM_START + 008h
-  0000002A            00028 R5                              EQU     RAM_START + 00Ah
-  0000002C            00029 R6                              EQU     RAM_START + 00Ch
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  2
+                      00011 
+  00000020            00012 RAM_START                       EQU     00020h
+  000000BF            00013 RAM_END                         EQU     000BFh
+  00000002            00014 RAM_BANKS                       EQU     00002h
+  00000020            00015 BANK0_START                     EQU     00020h
+  0000007F            00016 BANK0_END                       EQU     0007Fh
+  000000A0            00017 BANK1_START                     EQU     000A0h
+  000000BF            00018 BANK1_END                       EQU     000BFh
+  00002100            00019 EEPROM_START                    EQU     02100h
+  000021FF            00020 EEPROM_END                      EQU     021FFh
+                      00021 
+  00000020            00022 R0                              EQU     RAM_START + 000h
+  00000022            00023 R1                              EQU     RAM_START + 002h
+  00000024            00024 R2                              EQU     RAM_START + 004h
+  00000026            00025 R3                              EQU     RAM_START + 006h
+  00000028            00026 R4                              EQU     RAM_START + 008h
+  0000002A            00027 R5                              EQU     RAM_START + 00Ah
+  0000002C            00028 R6                              EQU     RAM_START + 00Ch
+  0000002E            00029 R7                              EQU     RAM_START + 00Eh
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-  0000002E            00030 R7                              EQU     RAM_START + 00Eh
-  00000030            00031 R8                              EQU     RAM_START + 010h
-  00000032            00032 FLAGS                           EQU     RAM_START + 012h
-  00000033            00033 GOP                             EQU     RAM_START + 013h
-  00000034            00034 RM1                             EQU     RAM_START + 014h
-  00000035            00035 RM2                             EQU     RAM_START + 015h
-  00000036            00036 RR1                             EQU     RAM_START + 016h
-  00000037            00037 RR2                             EQU     RAM_START + 017h
-  00000038            00038 _analog_out                     EQU     RAM_START + 018h
-  0000003A            00039 _frequency                      EQU     RAM_START + 01Ah
-  0000003C            00040 T1                              EQU     RAM_START + 01Ch
-  00000005            00041 _PORTL                          EQU      GPIO
-  00000005            00042 _PORTH                          EQU      GPIO
-  00000085            00043 _TRISL                          EQU      TRISIO
-  00000085            00044 _TRISH                          EQU      TRISIO
-                      00045 
-                      00046 ; Constants.
-  00000004            00047 _counter                        EQU     00004h
-                      00048         INCLUDE "COUNT_~1.MAC"
+  00000030            00030 R8                              EQU     RAM_START + 010h
+  00000032            00031 FLAGS                           EQU     RAM_START + 012h
+  00000033            00032 GOP                             EQU     RAM_START + 013h
+  00000034            00033 RM1                             EQU     RAM_START + 014h
+  00000035            00034 RM2                             EQU     RAM_START + 015h
+  00000036            00035 RR1                             EQU     RAM_START + 016h
+  00000037            00036 RR2                             EQU     RAM_START + 017h
+  00000038            00037 _analog_out                     EQU     RAM_START + 018h
+  0000003A            00038 _frequency                      EQU     RAM_START + 01Ah
+  0000003C            00039 T1                              EQU     RAM_START + 01Ch
+  00000005            00040 _PORTL                          EQU      GPIO
+  00000005            00041 _PORTH                          EQU      GPIO
+  00000085            00042 _TRISL                          EQU      TRISIO
+  00000085            00043 _TRISH                          EQU      TRISIO
+                      00044 #define _TRISIO??4               TRISIO, 004h
+                      00045 #define _TRISIO??2               TRISIO, 002h
+                      00046 #define _GPIO??4                 GPIO, 004h
+                      00047 #define _GPIO??2                 GPIO, 002h
+                      00048 
+                      00049 ; Constants.
+  00000004            00050 _counter                        EQU     00004h
+  00000002            00051 _out                            EQU     00002h
+                      00052         INCLUDE "COUNT_~1.MAC"
                       00001 
-                      00075         LIST
-                      00049         INCLUDE "C:\PBP\PBPPIC14.LIB"
+                      00114         LIST
+                      00053         INCLUDE "C:\PBP\PBPPIC14.LIB"
                       00001 ;******************************************************************
                       00002 ;*  PBPPIC14.LIB                                                  *
                       00003 ;*                                                                *
@@ -100,28 +104,28 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       01110   LIST
 0000                  01111     ORG 0                       ; Reset vector at 0
                       01125   LIST
-0000   28AE           01126         goto    INIT            ; Finish initialization
+0000   2872           01126         goto    INIT            ; Finish initialization
                       01464   LIST
-0001   2065           01465 COUNT   call    CONVPIN         ; Convert pin to FSR and bit mask
+0001   2029           01465 COUNT   call    CONVPIN         ; Convert pin to FSR and bit mask
                       01477   LIST
 0002   00B4           01478 COUNTT  movwf   RM1             ; Save bit mask
-0003   2062           01479         call    INPUTT          ; Set pin to input
+0003   2026           01479         call    INPUTT          ; Set pin to input
 0004   1384           01480         bcf     FSR, 7          ; Point back to port
 0005   3032           01481         movlw   COUNT_DELAY     ; Calculate count time based on OSC
 0006   00A6           01482         movwf   R3
 0007   3000           01483         movlw   (COUNT_DELAY) >> 8
 0008   00A7           01484         movwf   R3 + 1
-0009   2093           01485         call    MUL             ; Time is R0, R2 + 1, R2 (hi to lo)
-000A   0AA0           01486         incf    R0, F           ; Bump up high and mid for dec
-000B   0AA5           01487         incf    R2 + 1, F
-000C   01A2           01488         clrf    R1              ; Zero counter
-000D   01A3           01489         clrf    R1 + 1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  3
+0009   2057           01485         call    MUL             ; Time is R0, R2 + 1, R2 (hi to lo)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000A   0AA0           01486         incf    R0, F           ; Bump up high and mid for dec
+000B   0AA5           01487         incf    R2 + 1, F
+000C   01A2           01488         clrf    R1              ; Zero counter
+000D   01A3           01489         clrf    R1 + 1
 000E   0800           01490         movf    INDF, W         ; Read pin
 000F   0534           01491         andwf   RM1, W          ; Isolate it
 0010   00A6           01492         movwf   R3              ; Save starting state as last
@@ -150,230 +154,129 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0022   0BA0           01510         decfsz  R0, F           ; 1 / 2
 0023   2811           01511         goto    countloop       ; 2 / 0
 0024   0822           01512         movf    R1, W           ; Result to W
-0025   28A9           01513         goto    DONE
-                      01985   LIST
-0026   00A9           01986 HPWM    movwf   R4 + 1          ; Save channel
-                      01987 
-                      01988         ; PS = (FOSC / 1024) / freq
-0027   3042           01989         movlw   low ((OSC * 1000000) / 1024)
-0028   00A0           01990         movwf   R0
-0029   300F           01991         movlw   ((OSC * 1000000) / 1024) >> 8
-002A   00A1           01992         movwf   R0 + 1
-002B   2077           01993         call    DIV             ; / freq (returns result in W and Z)
-002C   1903           01994         btfsc   STATUS, Z
-002D   1012           01995         bcf     T2CON, T2CKPS0
-002E   1D03           01996         btfss   STATUS, Z
-002F   1412           01997         bsf     T2CON, T2CKPS0
-0030   3EFC           01998         addlw   -4              ; Check for >= 4
-0031   1C03           01999         btfss   STATUS, C
-0032   1092           02000         bcf     T2CON, T2CKPS1
-0033   1803           02001         btfsc   STATUS, C
-0034   1492           02002         bsf     T2CON, T2CKPS1
-                      02003 
-                      02004         ; PR2 = ((FOSC / 4 / PS) / freq) - 1
-0035   3040           02005         movlw   low ((OSC * 1000000) / 4)
-0036   00A0           02006         movwf   R0
-0037   3042           02007         movlw   low (((OSC * 1000000) / 4) >> 8)
-0038   00A1           02008         movwf   R0 + 1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  4
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-0039   300F           02009         movlw   ((OSC * 1000000) / 4) >> 16
-003A   00A4           02010         movwf   R2
-003B   01A5           02011         clrf    R2 + 1
-003C   1812           02012         btfsc   T2CON, T2CKPS0  ; Shift for divide by PS
-003D   205C           02013         call    hpwm24          ; / 4 (PS = 4 or 16)
-003E   1892           02014         btfsc   T2CON, T2CKPS1
-003F   205C           02015         call    hpwm24          ; / 4 (PS = 16)
-0040   2079           02016         call    DIV32DIV        ; / freq
-0041   0320           02017         decf    R0, W           ; - 1
-0042   1683           02018         bsf     STATUS, RP0     ; Point to bank 1
-0043   0092           02019         movwf   PR2             ; Save PR2
-0044   1283           02020         bcf     STATUS, RP0     ; Point back to bank 0
-                      02021 
-                      02022         ; CCP = ((PR2 + 1) * 4) */ duty cycle (10 bit result)
-                      02023         ; (Multiply by 4 is not done. Result is shifted right 2 positions.)
-0045   0820           02024         movf    R0, W           ; R0 = PR2 + 1
-0046   00A2           02025         movwf   R1              ; Set up for multiply
-0047   0821           02026         movf    R0 + 1, W
-0048   00A3           02027         movwf   R1 + 1
-0049   0828           02028         movf    R4, W           ; R4 = duty cycle
-004A   00A6           02029         movwf   R3
-004B   00A7           02030         movwf   R3 + 1          ; Set high byte for max duty cycle (always on)
-004C   0F28           02031         incfsz  R4, W           ; Check for max duty cycle
-004D   01A7           02032         clrf    R3 + 1          ; Not at max - zero high byte
-004E   2093           02033         call    MUL
-004F   0825           02034         movf    R2 + 1, W
-                      02035       ifdef CCP2CON
-                      02036         decfsz  R4 + 1, F       ; Skip if channel 1
-                      02037         goto    hpwm2           ; Set channel 2
-                      02038       endif
-0050   0093           02039         movwf   CCPR1L          ; Set top 8 CCP bits
-0051   300C           02040         movlw   0ch             ; Set PWM mode and clear bottom 2 CCP bits
-0052   0095           02041         movwf   CCP1CON
-0053   1BA4           02042         btfsc   R2, 7           ; Set bottom 2 CCP bits
-0054   1695           02043         bsf     CCP1CON, 5
-0055   1B24           02044         btfsc   R2, 6
-0056   1615           02045         bsf     CCP1CON, 4
-                      02046 
-0057   1683           02047         bsf     STATUS, RP0     ; Point to TRIS
-0058   1105           02048         bcf     CCP1_REG, CCP1_BIT      ; Set CCP1 to output
-                      02049 
-0059   1283           02050 hpwmdone bcf    STATUS, RP0     ; Point back to bank 0
-005A   1512           02051         bsf     T2CON, TMR2ON   ; Start the timer
-005B   28A9           02052         goto    DONE            ; All set
-                      02053 
-                      02054       ifdef CCP2CON
-                      02055 hpwm2   movwf   CCPR2L          ; Set top 8 CCP bits
-                      02056         movlw   0ch             ; Set PWM mode and clear bottom 2 CCP bits
-                      02057         movwf   CCP2CON
-                      02058         btfsc   R2, 7           ; Set bottom 2 CCP bits
-                      02059         bsf     CCP2CON, 5
-                      02060         btfsc   R2, 6
-                      02061         bsf     CCP2CON, 4
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  5
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                      02062 
-                      02063         bsf     STATUS, RP0     ; Point to TRIS
-                      02064         bcf     CCP2_REG, CCP2_BIT      ; Set CCP2 to output
-                      02065         goto    hpwmdone
-                      02066       endif
-                      02067 
-005C   205D           02068 hpwm24  call    hpwm242         ; Divide 24 bits by 4
-005D   1003           02069 hpwm242 bcf     STATUS, C       ; Divide 24 bits by 2
-005E   0CA4           02070         rrf     R2, F
-005F   0CA1           02071         rrf     R0 + 1, F
-0060   0CA0           02072         rrf     R0, F
-0061   0008           02073         return
+0025   286D           01513         goto    DONE
                       05645   LIST
-0062   1784           05646 INPUTT  bsf     FSR, 7          ; Point to register bank 1
-0063   0480           05647         iorwf   INDF, F         ; Set bit to input
-0064   28A9           05648         goto    DONE            ; Done
+0026   1784           05646 INPUTT  bsf     FSR, 7          ; Point to register bank 1
+0027   0480           05647         iorwf   INDF, F         ; Set bit to input
+0028   286D           05648         goto    DONE            ; Done
                       05717   LIST
-0065   00A8           05718 CONVPIN movwf   R4              ; Put pin in RAM
-0066   3005           05719         movlw   _PORTL          ; Get low port address
-0067   19A8           05720         btfsc   R4, 3           ; Pin >= 8 ?
-0068   3005           05721         movlw   _PORTH          ; Yes
-0069   0084           05722         movwf   FSR             ; FSR points to proper port
+0029   00A8           05718 CONVPIN movwf   R4              ; Put pin in RAM
+002A   3005           05719         movlw   _PORTL          ; Get low port address
+002B   19A8           05720         btfsc   R4, 3           ; Pin >= 8 ?
+002C   3005           05721         movlw   _PORTH          ; Yes
+002D   0084           05722         movwf   FSR             ; FSR points to proper port
                       05741   LIST
-006A   3000           05742 CONVBIT movlw   cbtable >> 8    ; Get high address of jump table
-006B   008A           05743         movwf   PCLATH          ; Set program counter latch high
-006C   0828           05744         movf    R4, W           ; Get bit number
-006D   3907           05745         andlw   7               ; Isolate lower 3 bits
+002E   3000           05742 CONVBIT movlw   cbtable >> 8    ; Get high address of jump table
+002F   008A           05743         movwf   PCLATH          ; Set program counter latch high
+0030   0828           05744         movf    R4, W           ; Get bit number
+0031   3907           05745         andlw   7               ; Isolate lower 3 bits
                       05746         TABLE?C 8               ; Finish up in jump table
   0000                    M     local label
                           M     if ($ >> 8) != (($ + (8))     >> 8)
                           M         goto    label
                           M         ORG     (($ + 0ffh) & 0ff00h)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M label
                           M     endif
-006E   0782               M         addwf   PCL, F
-006F   3401           05747 cbtable retlw   01h
-0070   3402           05748         retlw   02h
-0071   3404           05749         retlw   04h
-0072   3408           05750         retlw   08h
-0073   3410           05751         retlw   10h
-0074   3420           05752         retlw   20h
-0075   3440           05753         retlw   40h
-0076   3480           05754         retlw   80h
+0032   0782               M         addwf   PCL, F
+0033   3401           05747 cbtable retlw   01h
+0034   3402           05748         retlw   02h
+0035   3404           05749         retlw   04h
+0036   3408           05750         retlw   08h
+0037   3410           05751         retlw   10h
+0038   3420           05752         retlw   20h
+0039   3440           05753         retlw   40h
+003A   3480           05754         retlw   80h
                       07258   LIST
-0077   01A5           07259 DIV     clrf    R2 + 1
-0078   01A4           07260         clrf    R2
+003B   01A5           07259 DIV     clrf    R2 + 1
+003C   01A4           07260         clrf    R2
                       07261 
-0079   3010           07262 DIV32DIV movlw   16
-007A   00A6           07263         movwf   R3
+003D   3010           07262 DIV32DIV movlw   16
+003E   00A6           07263         movwf   R3
                       07264 
-007B   0D21           07265 divloop rlf     R0 + 1, W
-007C   0DA4           07266         rlf     R2, F
-007D   0DA5           07267         rlf     R2 + 1, F
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  6
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-007E   0822           07268         movf    R1, W
-007F   02A4           07269         subwf   R2, F
-0080   0823           07270         movf    R1 + 1, W
-0081   1C03           07271         btfss   STATUS, C
-0082   0F23           07272         incfsz  R1 + 1, W
-0083   02A5           07273         subwf   R2 + 1, F
+003F   0D21           07265 divloop rlf     R0 + 1, W
+0040   0DA4           07266         rlf     R2, F
+0041   0DA5           07267         rlf     R2 + 1, F
+0042   0822           07268         movf    R1, W
+0043   02A4           07269         subwf   R2, F
+0044   0823           07270         movf    R1 + 1, W
+0045   1C03           07271         btfss   STATUS, C
+0046   0F23           07272         incfsz  R1 + 1, W
+0047   02A5           07273         subwf   R2 + 1, F
                       07274 
-0084   1803           07275         btfsc   STATUS, C
-0085   288D           07276         goto    divok
-0086   0822           07277         movf    R1, W
-0087   07A4           07278         addwf   R2, F
-0088   0823           07279         movf    R1 + 1, W
-0089   1803           07280         btfsc   STATUS, C
-008A   0F23           07281         incfsz  R1 + 1, W
-008B   07A5           07282         addwf   R2 + 1, F
+0048   1803           07275         btfsc   STATUS, C
+0049   2851           07276         goto    divok
+004A   0822           07277         movf    R1, W
+004B   07A4           07278         addwf   R2, F
+004C   0823           07279         movf    R1 + 1, W
+004D   1803           07280         btfsc   STATUS, C
+004E   0F23           07281         incfsz  R1 + 1, W
+004F   07A5           07282         addwf   R2 + 1, F
                       07283 
-008C   1003           07284         bcf     STATUS, C
+0050   1003           07284         bcf     STATUS, C
                       07285 
-008D   0DA0           07286 divok   rlf     R0, F
-008E   0DA1           07287         rlf     R0 + 1, F
+0051   0DA0           07286 divok   rlf     R0, F
+0052   0DA1           07287         rlf     R0 + 1, F
                       07288 
-008F   0BA6           07289         decfsz  R3, F
-0090   287B           07290         goto    divloop
-0091   0820           07291         movf    R0, W           ; Get low byte to W
-0092   28A9           07292         goto    DONE
+0053   0BA6           07289         decfsz  R3, F
+0054   283F           07290         goto    divloop
+0055   0820           07291         movf    R0, W           ; Get low byte to W
+0056   286D           07292         goto    DONE
                       07309   LIST
-0093   3010           07310 MUL     movlw   16              ; For 16 shifts
-0094   00A8           07311         movwf   R4
+0057   3010           07310 MUL     movlw   16              ; For 16 shifts
+0058   00A8           07311         movwf   R4
                       07312 
-0095   01A1           07313         clrf    R0 + 1
-0096   01A0           07314         clrf    R0
+0059   01A1           07313         clrf    R0 + 1
+005A   01A0           07314         clrf    R0
                       07315 
-0097   0CA7           07316 mulloop rrf     R3 + 1, F
-0098   0CA6           07317         rrf     R3, F
-0099   1C03           07318         btfss   STATUS, C
-009A   28A1           07319         goto    mull1           ; Skip add
-009B   0822           07320         movf    R1, W           ; 16-bit add with carry out
-009C   07A0           07321         addwf   R0, F
-009D   0823           07322         movf    R1 + 1, W
-009E   1803           07323         btfsc   STATUS, C
-009F   0F23           07324         incfsz  R1 + 1, W
-00A0   07A1           07325         addwf   R0 + 1, F
-00A1   0CA1           07326 mull1   rrf     R0 + 1, F
-00A2   0CA0           07327         rrf     R0, F
-00A3   0CA5           07328         rrf     R2 + 1, F
-00A4   0CA4           07329         rrf     R2, F
-00A5   0BA8           07330         decfsz  R4, F
-00A6   2897           07331         goto    mulloop
-00A7   0824           07332         movf    R2, W           ; Get low byte to W
-00A8   28A9           07333         goto    DONE
-                      07403   LIST
-00A9   1383           07404 DONE    bcf     STATUS, IRP     ; 1 Set FSR to bank 0/1
-00AA   1303           07405         bcf     STATUS, RP1     ; 1 Show direct bank 0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  7
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-00AB   1283           07406         bcf     STATUS, RP0     ; 1
+005B   0CA7           07316 mulloop rrf     R3 + 1, F
+005C   0CA6           07317         rrf     R3, F
+005D   1C03           07318         btfss   STATUS, C
+005E   2865           07319         goto    mull1           ; Skip add
+005F   0822           07320         movf    R1, W           ; 16-bit add with carry out
+0060   07A0           07321         addwf   R0, F
+0061   0823           07322         movf    R1 + 1, W
+0062   1803           07323         btfsc   STATUS, C
+0063   0F23           07324         incfsz  R1 + 1, W
+0064   07A1           07325         addwf   R0 + 1, F
+0065   0CA1           07326 mull1   rrf     R0 + 1, F
+0066   0CA0           07327         rrf     R0, F
+0067   0CA5           07328         rrf     R2 + 1, F
+0068   0CA4           07329         rrf     R2, F
+0069   0BA8           07330         decfsz  R4, F
+006A   285B           07331         goto    mulloop
+006B   0824           07332         movf    R2, W           ; Get low byte to W
+006C   286D           07333         goto    DONE
+                      07403   LIST
+006D   1383           07404 DONE    bcf     STATUS, IRP     ; 1 Set FSR to bank 0/1
+006E   1303           07405         bcf     STATUS, RP1     ; 1 Show direct bank 0
+006F   1283           07406         bcf     STATUS, RP0     ; 1
                       07407         CLRWDT?NOP              ; 1 Hit Watchdog timer
                           M     ifndef NO_CLRWDT
-00AC   0064               M         clrwdt
+0070   0064               M         clrwdt
                           M     else
                           M         nop
                           M     endif
-00AD   0008           07408 DONERET return                  ; 2 Done
+0071   0008           07408 DONERET return                  ; 2 Done
                       07432   LIST
-00AE                  07433 INIT
+0072                  07433 INIT
                       07471   LIST
-00AE                  07472 main
-                      00050 
-                      00051         MOVE?CB 040h, OSCCON
-                          M         CHK?RP  OSCCON
-                          M     if (((OSCCON) & 180h) == 0)
+0072                  07472 main
+                      00054 
+                      00055         MOVE?CT 001h, _TRISIO??4
+                          M         CHK?RP  TRISIO
+                          M     if (((TRISIO) & 180h) == 0)
                           M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
                           M       endif
@@ -387,9 +290,15 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 0
                           M     endif
                           M 
-                          M     if (((OSCCON) & 180h) == 80h)
+                          M     if (((TRISIO) & 180h) == 80h)
                           M       if (PREV_BANK == 0)
-00AE   1683               M         bsf     STATUS, RP0
+0072   1683               M         bsf     STATUS, RP0
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       endif
                           M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
@@ -401,7 +310,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   00000001                M PREV_BANK = 1
                           M     endif
                           M 
-                          M     if (((OSCCON) & 180h) == 100h)
+                          M     if (((TRISIO) & 180h) == 100h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
                           M       endif
@@ -411,17 +320,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  8
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M       endif
                           M PREV_BANK = 2
                           M     endif
                           M 
-                          M     if (((OSCCON) & 180h) == 180h)
+                          M     if (((TRISIO) & 180h) == 180h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
@@ -434,17 +337,90 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-                          M     if (low (040h) == 0)
-                          M         clrf    OSCCON
+                          M     if (((001h) & 1) == 1)
+0073   1605               M         bsf     TRISIO, 004h
                           M     else
-00AF   3040               M         movlw   low (040h)
-00B0   008F               M         movwf   OSCCON
+                          M         bcf     TRISIO, 004h
                           M     endif
-                      00052 
-                      00053         LABEL?L _mainloop       
+                      00056         MOVE?CT 000h, _TRISIO??2
+                          M         CHK?RP  TRISIO
+                          M     if (((TRISIO) & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((TRISIO) & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000001                M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if (((TRISIO) & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((TRISIO) & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+                          M     if (((000h) & 1) == 1)
+                          M         bsf     TRISIO, 002h
+                          M     else
+0074   1105               M         bcf     TRISIO, 002h
+                          M     endif
+                      00057 
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00058         LABEL?L _mainloop       
                           M         RST?RP
                           M     if ((PREV_BANK & 1) != 0)
-00B1   1283               M         bcf     STATUS, RP0
+0075   1283               M         bcf     STATUS, RP0
                           M     endif
                           M     if ((PREV_BANK & 2) != 0)
                           M         bcf     STATUS, RP1
@@ -455,10 +431,10 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M _mainloop
                           M         XALL
                           M     else
-00B2                      M _mainloop
+0076                      M _mainloop
                           M     endif
-                      00054         COUNT?CCW       _counter, 0FAh, _frequency
-                          M         MOVE?CW 0FAh, R1
+                      00059         COUNT?CCW       _counter, 003E8h, _frequency
+                          M         MOVE?CW 003E8h, R1
                           M         CHK?RP  R1
                           M     if (((R1)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -470,12 +446,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP0
                           M         bcf     STATUS, RP1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE  9
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M       endif
   00000000                M PREV_BANK = 0
                           M     endif
@@ -500,6 +470,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
@@ -521,26 +497,20 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-                          M     if (low (0FAh) == 0)
+                          M     if (low (003E8h) == 0)
                           M         clrf    R1
                           M     else
-00B2   30FA               M         movlw   low (0FAh)
-00B3   00A2               M         movwf   R1
+0076   30E8               M         movlw   low (003E8h)
+0077   00A2               M         movwf   R1
                           M     endif
-                          M     if (((0FAh) >> 8) == 0)
-00B4   01A3               M         clrf    (R1)   + 1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 10
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
+                          M     if (((003E8h) >> 8) == 0)
+                          M         clrf    (R1)   + 1
                           M     else
-                          M         movlw   (0FAh) >> 8
-                          M         movwf   (R1)   + 1
+0078   3003               M         movlw   (003E8h) >> 8
+0079   00A3               M         movwf   (R1)   + 1
                           M     endif
                           M         MOVE?CA _counter
-00B5   3004               M         movlw   low (_counter)
+007A   3004               M         movlw   low (_counter)
                           M         L?CALL  COUNT
                           M         RST?RP
                           M     if ((PREV_BANK & 1) != 0)
@@ -559,6 +529,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     PCLATH, 3
                           M         endif
                           M       endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       if (CODE_SIZE == 8)
                           M         if (((COUNT) & 1000h) == 0)
                           M         bcf     PCLATH, 4
@@ -588,12 +564,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         clrf    PCLATH
                           M           else
                           M             if (((COUNT) & 800h) == 0)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 11
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         bcf     PCLATH, 3
                           M             else
                           M         bsf     PCLATH, 3
@@ -610,7 +580,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M 
-00B6   2001               M         call    COUNT
+007B   2001               M         call    COUNT
                           M         MOVE?AWW R1, _frequency
                           M         MOVE?AB _frequency
                           M         CHK?RP  _frequency
@@ -618,6 +588,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
                           M       endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       if (PREV_BANK == 2)
                           M         bcf     STATUS, RP1
                           M       endif
@@ -647,12 +623,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 1)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 12
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         bcf     STATUS, RP0
                           M         bsf     STATUS, RP1
                           M       endif
@@ -675,8 +645,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00B7   00BA               M         movwf   _frequency
+007C   00BA               M         movwf   _frequency
                           M         MOVE?BB (R1)  + 1, (_frequency) + 1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         CHK?RP  (R1) + 1
                           M     if ((((R1) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -706,12 +682,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 1
                           M     endif
                           M 
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 13
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M     if ((((R1) + 1) & 180h) == 100h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
@@ -736,10 +706,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00B8   0823               M         movf    (R1) + 1, W
+007D   0823               M         movf    (R1) + 1, W
                           M         CHK?RP  (_frequency) + 1
                           M     if ((((_frequency) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -765,12 +741,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 14
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M       endif
                           M PREV_BANK = 1
                           M     endif
@@ -795,6 +765,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 1)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 2)
@@ -802,21 +778,482 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00B9   00BB               M         movwf   (_frequency) + 1
-                      00055         DIV?WCW _frequency, 001h, _frequency
+007E   00BB               M         movwf   (_frequency) + 1
+                      00060         CMPNE?TCL       _GPIO??4, 000h, L00001
+                          M     if (000h == 0)
+                          M         CLRWDT?
+                          M     ifndef NO_CLRWDT
+007F   0064               M         clrwdt
+                          M     endif
+                          M         BIT?GOTO 1, GPIO,  004h,  L00001
+                          M     if ($ == (L00001))
+                          M         CLRWDT?
+                          M     endif
+                          M 
+                          M     if (CODE_SIZE >= 4)
+                          M       if (((L00001) & 800h) == 0)
+                          M         bcf     PCLATH, 3
+                          M       else
+                          M         bsf     PCLATH, 3
+                          M       endif
+                          M     endif
+                          M     if (CODE_SIZE == 8)
+                          M       if (((L00001) & 1000h) == 0)
+                          M         bcf     PCLATH, 4
+                          M       else
+                          M         bsf     PCLATH, 4
+                          M       endif
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 0ff80h) != 0)
+                          M         CHK?RP  GPIO
+                          M         bcf     STATUS, DC
+                          M       if (1      == 0)
+                          M         btfss   GPIO,  004h
+                          M       else
+                          M         btfsc   GPIO,  004h
+                          M       endif
+                          M         bsf     STATUS, DC
+                          M         RST?RP
+                          M         btfsc   STATUS, DC
+                          M     else
+                          M         RST?RP
+                          M     if ((PREV_BANK & 1) != 0)
+                          M         bcf     STATUS, RP0
+                          M     endif
+                          M     if ((PREV_BANK & 2) != 0)
+                          M         bcf     STATUS, RP1
+                          M     endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+  00000000                M PREV_BANK = 0
+                          M       if (1      == 0)
+                          M         btfss   GPIO,  004h
+                          M       else
+0080   1A05               M         btfsc   GPIO,  004h
+                          M       endif
+                          M     endif
+                          M 
+0081   2887               M         goto    L00001
+                          M     else
+                          M       if (000h == 1)
+                          M         CLRWDT?
+                          M         BIT?GOTO 0, GPIO,  004h,  L00001
+                          M       else
+                          M         L?GOTO  L00001
+                          M       endif
+                          M     endif
+                      00061         HIGH?T  _GPIO??2
+                          M         MOVE?CT 1, GPIO,  002h
+                          M         CHK?RP  GPIO
+                          M     if (((GPIO)  & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000000                M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+                          M     if (((1)   & 1) == 1)
+0082   1505               M         bsf     GPIO,   002h
+                          M     else
+                          M         bcf     GPIO,   002h
+                          M     endif
+                          M         MOVE?CT 0, ((GPIO)  + 80h), 002h
+                          M         CHK?RP  ((GPIO) + 80h)
+                          M     if (((((GPIO) + 80h)) & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((((GPIO) + 80h)) & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+0083   1683               M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M       endif
+  00000001                M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if (((((GPIO) + 80h)) & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((((GPIO) + 80h)) & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+                          M     if (((0)   & 1) == 1)
+                          M         bsf     ((GPIO) + 80h), 002h
+                          M     else
+0084   1105               M         bcf     ((GPIO) + 80h), 002h
+                          M     endif
+                      00062         GOTO?L  L00002
+                          M         L?GOTO  L00002
+                          M     if ($ == (L00002))
+                          M         CLRWDT?
+                          M     endif
+                          M 
+                          M         RST?RP
+                          M     if ((PREV_BANK & 1) != 0)
+0085   1283               M         bcf     STATUS, RP0
+                          M     endif
+                          M     if ((PREV_BANK & 2) != 0)
+                          M         bcf     STATUS, RP1
+                          M     endif
+  00000000                M PREV_BANK = 0
+                          M 
+                          M     if ((L00002) < 1)
+                          M       if (CODE_SIZE >= 4)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         if (((L00002) & 800h) == 0)
+                          M         bcf     PCLATH, 3
+                          M         else
+                          M         bsf     PCLATH, 3
+                          M         endif
+                          M       endif
+                          M       if (CODE_SIZE == 8)
+                          M         if (((L00002) & 1000h) == 0)
+                          M         bcf     PCLATH, 4
+                          M         else
+                          M         bsf     PCLATH, 4
+                          M         endif
+                          M       endif
+                          M     else
+                          M       if ((L00002) > $)
+                          M         if (CODE_SIZE >= 4)
+                          M           if (((L00002) & 800h) == 0)
+                          M         bcf     PCLATH, 3
+                          M           else
+                          M         bsf     PCLATH, 3
+                          M           endif
+                          M         endif
+                          M         if (CODE_SIZE == 8)
+                          M           if (((L00002) & 1000h) == 0)
+                          M         bcf     PCLATH, 4
+                          M           else
+                          M         bsf     PCLATH, 4
+                          M           endif
+                          M         endif
+                          M       else
+                          M         if (CODE_SIZE >= 4)
+                          M           if (((L00002) & 1800h) == 0)
+                          M         clrf    PCLATH
+                          M           else
+                          M             if (((L00002) & 800h) == 0)
+                          M         bcf     PCLATH, 3
+                          M             else
+                          M         bsf     PCLATH, 3
+                          M             endif
+                          M             if (CODE_SIZE == 8)
+                          M               if (((L00002) & 1000h) == 0)
+                          M         bcf     PCLATH, 4
+                          M               else
+                          M         bsf     PCLATH, 4
+                          M               endif
+                          M             endif
+                          M           endif
+                          M         endif
+                          M       endif
+                          M     endif
+                          M 
+0086   288B               M         goto    L00002
+                      00063         LABEL?L L00001  
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         RST?RP
+                          M     if ((PREV_BANK & 1) != 0)
+                          M         bcf     STATUS, RP0
+                          M     endif
+                          M     if ((PREV_BANK & 2) != 0)
+                          M         bcf     STATUS, RP1
+                          M     endif
+  00000000                M PREV_BANK = 0
+                          M     ifdef PM_USED
+                          M         LALL
+                          M L00001
+                          M         XALL
+                          M     else
+0087                      M L00001
+                          M     endif
+                      00064         LOW?T   _GPIO??2
+                          M         MOVE?CT 0, GPIO,  002h
+                          M         CHK?RP  GPIO
+                          M     if (((GPIO)  & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000000                M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((GPIO)  & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+                          M     if (((0)   & 1) == 1)
+                          M         bsf     GPIO,   002h
+                          M     else
+0087   1105               M         bcf     GPIO,   002h
+                          M     endif
+                          M         MOVE?CT 0, ((GPIO)  + 80h), 002h
+                          M         CHK?RP  ((GPIO) + 80h)
+                          M     if (((((GPIO) + 80h)) & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((((GPIO) + 80h)) & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+0088   1683               M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000001                M PREV_BANK = 1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M     endif
+                          M 
+                          M     if (((((GPIO) + 80h)) & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((((GPIO) + 80h)) & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+                          M     if (((0)   & 1) == 1)
+                          M         bsf     ((GPIO) + 80h), 002h
+                          M     else
+0089   1105               M         bcf     ((GPIO) + 80h), 002h
+                          M     endif
+                      00065         LABEL?L L00002  
+                          M         RST?RP
+                          M     if ((PREV_BANK & 1) != 0)
+008A   1283               M         bcf     STATUS, RP0
+                          M     endif
+                          M     if ((PREV_BANK & 2) != 0)
+                          M         bcf     STATUS, RP1
+                          M     endif
+  00000000                M PREV_BANK = 0
+                          M     ifdef PM_USED
+                          M         LALL
+                          M L00002
+                          M         XALL
+                          M     else
+008B                      M L00002
+                          M     endif
+                      00066         DIV?WCW _frequency, 001h, T1
                           M     if (001h == 2)
                           M         bcf     STATUS, C
-                          M       if (_frequency == _frequency)
-                          M         CHK?RP  _frequency
-                          M         rrf     _frequency + 1, F
-                          M         rrf     _frequency, F
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M       if (T1   == _frequency)
+                          M         CHK?RP  T1
+                          M         rrf     T1   + 1, F
+                          M         rrf     T1,   F
                           M       else
                           M         CHK?RP  _frequency
                           M         rrf     _frequency + 1, W
-                          M         MOVE?AB _frequency + 1
+                          M         MOVE?AB T1   + 1
                           M         CHK?RP  _frequency
                           M         rrf     _frequency, W
-                          M         MOVE?AB _frequency
+                          M         MOVE?AB T1
                           M       endif
                           M     else
                           M         MOVE?WW _frequency, R0
@@ -824,12 +1261,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  _frequency
                           M     if (((_frequency) & 180h) == 0)
                           M       if (PREV_BANK == 1)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 15
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         bcf     STATUS, RP0
                           M       endif
                           M       if (PREV_BANK == 2)
@@ -865,6 +1296,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 23
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         bcf     STATUS, RP0
                           M       endif
                           M PREV_BANK = 2
@@ -883,13 +1320,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 16
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-00BA   083A               M         movf    _frequency, W
+008B   083A               M         movf    _frequency, W
                           M         CHK?RP  R0
                           M     if (((R0)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -924,6 +1355,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 1)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         bcf     STATUS, RP0
                           M         bsf     STATUS, RP1
                           M       endif
@@ -942,17 +1379,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 2)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 17
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         bsf     STATUS, RP0
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00BB   00A0               M         movwf   R0
+008C   00A0               M         movwf   R0
                           M         MOVE?BB (_frequency) + 1, (R0) + 1
                           M         CHK?RP  (_frequency) + 1
                           M     if ((((_frequency) + 1) & 180h) == 0)
@@ -983,6 +1414,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 1
                           M     endif
                           M 
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 25
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M     if ((((_frequency) + 1) & 180h) == 100h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
@@ -1001,12 +1438,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 18
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M       endif
                           M       if (PREV_BANK == 1)
                           M         bsf     STATUS, RP1
@@ -1016,7 +1447,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00BC   083B               M         movf    (_frequency) + 1, W
+008D   083B               M         movf    (_frequency) + 1, W
                           M         CHK?RP  (R0) + 1
                           M     if ((((R0) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -1042,6 +1473,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 26
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       endif
                           M PREV_BANK = 1
                           M     endif
@@ -1060,12 +1497,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 2
                           M     endif
                           M 
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 19
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M     if ((((R0) + 1) & 180h) == 180h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
@@ -1079,7 +1510,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00BD   00A1               M         movwf   (R0) + 1
+008E   00A1               M         movwf   (R0) + 1
                           M         MOVE?CW 001h, R1
                           M         CHK?RP  R1
                           M     if (((R1)    & 180h) == 0)
@@ -1101,6 +1532,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP0
                           M       endif
                           M       if (PREV_BANK == 2)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 27
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         bsf     STATUS, RP0
                           M         bcf     STATUS, RP1
                           M       endif
@@ -1119,12 +1556,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 20
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         bcf     STATUS, RP0
                           M       endif
                           M PREV_BANK = 2
@@ -1146,11 +1577,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (low (001h) == 0)
                           M         clrf    R1
                           M     else
-00BE   3001               M         movlw   low (001h)
-00BF   00A2               M         movwf   R1
+008F   3001               M         movlw   low (001h)
+0090   00A2               M         movwf   R1
                           M     endif
                           M     if (((001h) >> 8) == 0)
-00C0   01A3               M         clrf    (R1)   + 1
+0091   01A3               M         clrf    (R1)   + 1
                           M     else
                           M         movlw   (001h) >> 8
                           M         movwf   (R1)   + 1
@@ -1160,6 +1591,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if ((PREV_BANK & 1) != 0)
                           M         bcf     STATUS, RP0
                           M     endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 28
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M     if ((PREV_BANK & 2) != 0)
                           M         bcf     STATUS, RP1
                           M     endif
@@ -1178,12 +1615,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bcf     PCLATH, 4
                           M         else
                           M         bsf     PCLATH, 4
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 21
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         endif
                           M       endif
                           M     else
@@ -1219,13 +1650,285 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     PCLATH, 4
                           M               endif
                           M             endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 29
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M           endif
                           M         endif
                           M       endif
                           M     endif
                           M 
-00C1   2077               M         call    DIV
-                          M         MOVE?AWW R0, _frequency
+0092   203B               M         call    DIV
+                          M         MOVE?AWW R0, T1
+                          M         MOVE?AB T1
+                          M         CHK?RP  T1
+                          M     if (((T1)    & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000000                M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((T1)    & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if (((T1)    & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((T1)    & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 30
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+0093   00BC               M         movwf   T1
+                          M         MOVE?BB (R0)  + 1, (T1)   + 1
+                          M         CHK?RP  (R0) + 1
+                          M     if ((((R0) + 1) & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000000                M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if ((((R0) + 1) & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if ((((R0) + 1) & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 31
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if ((((R0) + 1) & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+0094   0821               M         movf    (R0) + 1, W
+                          M         CHK?RP  (T1) + 1
+                          M     if ((((T1) + 1) & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000000                M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if ((((T1) + 1) & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if ((((T1) + 1) & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 32
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if ((((T1) + 1) & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+0095   00BD               M         movwf   (T1) + 1
+                          M     endif
+                      00067         SUB?WCW T1, 0C8h, _frequency
+                          M     if (_frequency == T1)
+                          M         movlw   low (0C8h)
+                          M         CHK?RP  _frequency
+                          M         subwf   _frequency, F
+                          M         movlw   (0C8h) >> 8
+                          M         btfss   STATUS, C
+                          M         addlw   1
+                          M         subwf   _frequency + 1, F
+                          M     else
+0096   30C8               M         movlw   low (0C8h)
+                          M         CHK?RP  T1
+                          M     if (((T1)    & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+  00000000                M PREV_BANK = 0
+                          M     endif
+                          M 
+                          M     if (((T1)    & 180h) == 80h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M       if (PREV_BANK == 2)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 33
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP1
+                          M       endif
+                          M PREV_BANK = 1
+                          M     endif
+                          M 
+                          M     if (((T1)    & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 2
+                          M     endif
+                          M 
+                          M     if (((T1)    & 180h) == 180h)
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+                          M       endif
+                          M       if (PREV_BANK == 2)
+                          M         bsf     STATUS, RP0
+                          M       endif
+                          M PREV_BANK = 3
+                          M     endif
+0097   023C               M         subwf   T1,  W
                           M         MOVE?AB _frequency
                           M         CHK?RP  _frequency
                           M     if (((_frequency) & 180h) == 0)
@@ -1237,17 +1940,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 22
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         bcf     STATUS, RP1
                           M       endif
   00000000                M PREV_BANK = 0
                           M     endif
                           M 
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 34
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M     if (((_frequency) & 180h) == 80h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
@@ -1289,22 +1992,24 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00C2   00BA               M         movwf   _frequency
-                          M         MOVE?BB (R0)  + 1, (_frequency) + 1
-                          M         CHK?RP  (R0) + 1
-                          M     if ((((R0) + 1) & 180h) == 0)
+0098   00BA               M         movwf   _frequency
+0099   3000               M         movlw   (0C8h) >> 8
+009A   1C03               M         btfss   STATUS, C
+009B   3E01               M         addlw   1
+                          M         CHK?RP  T1
+                          M     if (((T1)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
                           M       endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 23
+                          M       if (PREV_BANK == 2)
+                          M         bcf     STATUS, RP1
+                          M       endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 35
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       if (PREV_BANK == 2)
-                          M         bcf     STATUS, RP1
-                          M       endif
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP0
                           M         bcf     STATUS, RP1
@@ -1312,7 +2017,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   00000000                M PREV_BANK = 0
                           M     endif
                           M 
-                          M     if ((((R0) + 1) & 180h) == 80h)
+                          M     if (((T1)    & 180h) == 80h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M       endif
@@ -1326,7 +2031,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 1
                           M     endif
                           M 
-                          M     if ((((R0) + 1) & 180h) == 100h)
+                          M     if (((T1)    & 180h) == 100h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
                           M       endif
@@ -1340,7 +2045,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 2
                           M     endif
                           M 
-                          M     if ((((R0) + 1) & 180h) == 180h)
+                          M     if (((T1)    & 180h) == 180h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
@@ -1353,16 +2058,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00C3   0821               M         movf    (R0) + 1, W
-                          M         CHK?RP  (_frequency) + 1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 24
+009C   023D               M         subwf   T1  + 1, W
+                          M         MOVE?AB _frequency + 1
+                          M         CHK?RP  _frequency + 1
+                          M     if (((_frequency + 1) & 180h) == 0)
+                          M       if (PREV_BANK == 1)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 36
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M     if ((((_frequency) + 1) & 180h) == 0)
-                          M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
                           M       endif
                           M       if (PREV_BANK == 2)
@@ -1375,7 +2081,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   00000000                M PREV_BANK = 0
                           M     endif
                           M 
-                          M     if ((((_frequency) + 1) & 180h) == 80h)
+                          M     if (((_frequency + 1) & 180h) == 80h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M       endif
@@ -1389,7 +2095,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 1
                           M     endif
                           M 
-                          M     if ((((_frequency) + 1) & 180h) == 100h)
+                          M     if (((_frequency + 1) & 180h) == 100h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
                           M       endif
@@ -1403,7 +2109,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 2
                           M     endif
                           M 
-                          M     if ((((_frequency) + 1) & 180h) == 180h)
+                          M     if (((_frequency + 1) & 180h) == 180h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
@@ -1414,17 +2120,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
                           M       endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 25
+                          M PREV_BANK = 3
+                          M     endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 37
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M PREV_BANK = 3
+009D   00BB               M         movwf   _frequency + 1
                           M     endif
-00C4   00BB               M         movwf   (_frequency) + 1
-                          M     endif
-                      00056         MUL?WCW _frequency, 07Fh, T1
+                      00068         MUL?WCW _frequency, 0FFh, T1
                           M         MOVE?WW _frequency, R3
                           M         MOVE?BB _frequency, R3
                           M         CHK?RP  _frequency
@@ -1473,14 +2179,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((_frequency) & 180h) == 180h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 26
+                          M         bsf     STATUS, RP1
+                          M       endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 38
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         bsf     STATUS, RP1
-                          M       endif
                           M       if (PREV_BANK == 1)
                           M         bsf     STATUS, RP1
                           M       endif
@@ -1489,7 +2195,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00C5   083A               M         movf    _frequency, W
+009E   083A               M         movf    _frequency, W
                           M         CHK?RP  R3
                           M     if (((R3)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -1532,14 +2238,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 2
                           M     endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 27
+                          M 
+                          M     if (((R3)    & 180h) == 180h)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 39
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M 
-                          M     if (((R3)    & 180h) == 180h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
@@ -1552,7 +2258,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00C6   00A6               M         movwf   R3
+009F   00A6               M         movwf   R3
                           M         MOVE?BB (_frequency) + 1, (R3) + 1
                           M         CHK?RP  (_frequency) + 1
                           M     if ((((_frequency) + 1) & 180h) == 0)
@@ -1591,14 +2297,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bcf     STATUS, RP0
                           M         bsf     STATUS, RP1
                           M       endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 28
+                          M       if (PREV_BANK == 3)
+                          M         bcf     STATUS, RP0
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 40
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
                           M       endif
                           M PREV_BANK = 2
                           M     endif
@@ -1616,7 +2322,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00C7   083B               M         movf    (_frequency) + 1, W
+00A0   083B               M         movf    (_frequency) + 1, W
                           M         CHK?RP  (R3) + 1
                           M     if ((((R3) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -1650,14 +2356,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
                           M       endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 29
+                          M       if (PREV_BANK == 1)
+                          M         bcf     STATUS, RP0
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 41
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
@@ -1679,8 +2385,8 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00C8   00A7               M         movwf   (R3) + 1
-                          M         MOVE?CW 07Fh, R1
+00A1   00A7               M         movwf   (R3) + 1
+                          M         MOVE?CW 0FFh, R1
                           M         CHK?RP  R1
                           M     if (((R1)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -1709,14 +2415,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 1
                           M     endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 30
+                          M 
+                          M     if (((R1)    & 180h) == 100h)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 42
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M 
-                          M     if (((R1)    & 180h) == 100h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
                           M       endif
@@ -1743,16 +2449,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-                          M     if (low (07Fh) == 0)
+                          M     if (low (0FFh) == 0)
                           M         clrf    R1
                           M     else
-00C9   307F               M         movlw   low (07Fh)
-00CA   00A2               M         movwf   R1
+00A2   30FF               M         movlw   low (0FFh)
+00A3   00A2               M         movwf   R1
                           M     endif
-                          M     if (((07Fh) >> 8) == 0)
-00CB   01A3               M         clrf    (R1)   + 1
+                          M     if (((0FFh) >> 8) == 0)
+00A4   01A3               M         clrf    (R1)   + 1
                           M     else
-                          M         movlw   (07Fh) >> 8
+                          M         movlw   (0FFh) >> 8
                           M         movwf   (R1)   + 1
                           M     endif
                           M         L?CALL  MUL
@@ -1768,14 +2474,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if ((MUL)   < 1)
                           M       if (CODE_SIZE >= 4)
                           M         if (((MUL)   & 800h) == 0)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 31
+                          M         bcf     PCLATH, 3
+                          M         else
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 43
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         bcf     PCLATH, 3
-                          M         else
                           M         bsf     PCLATH, 3
                           M         endif
                           M       endif
@@ -1824,17 +2530,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M 
-00CC   2093               M         call    MUL
+00A5   2057               M         call    MUL
                           M         MOVE?AWW R2, T1
                           M         MOVE?AB T1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 32
+                          M         CHK?RP  T1
+                          M     if (((T1)    & 180h) == 0)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 44
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         CHK?RP  T1
-                          M     if (((T1)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
                           M       endif
@@ -1886,16 +2592,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 33
+                          M       endif
+                          M PREV_BANK = 3
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 45
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       endif
-                          M PREV_BANK = 3
                           M     endif
-00CD   00BC               M         movwf   T1
+00A6   00BC               M         movwf   T1
                           M         MOVE?BB (R2)  + 1, (T1)   + 1
                           M         CHK?RP  (R2) + 1
                           M     if ((((R2) + 1) & 180h) == 0)
@@ -1945,21 +2651,21 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
                           M       endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 34
+                          M       if (PREV_BANK == 1)
+                          M         bsf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 46
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       if (PREV_BANK == 1)
-                          M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00CE   0825               M         movf    (R2) + 1, W
+00A7   0825               M         movf    (R2) + 1, W
                           M         CHK?RP  (T1) + 1
                           M     if ((((T1) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -2004,14 +2710,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M 
                           M     if ((((T1) + 1) & 180h) == 180h)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 35
+                          M       if (PREV_BANK == 0)
+                          M         bsf     STATUS, RP0
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 47
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 1)
@@ -2022,9 +2728,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00CF   00BD               M         movwf   (T1) + 1
-                      00057         DIV?WCW T1, 0FAh, _analog_out
-                          M     if (0FAh == 2)
+00A8   00BD               M         movwf   (T1) + 1
+                      00069         DIV?WCW T1, 0C8h, _analog_out
+                          M     if (0C8h == 2)
                           M         bcf     STATUS, C
                           M       if (_analog_out == T1)
                           M         CHK?RP  _analog_out
@@ -2063,14 +2769,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
                           M         bcf     STATUS, RP1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 36
+                          M       endif
+                          M       if (PREV_BANK == 3)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 48
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       endif
-                          M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP1
                           M       endif
                           M PREV_BANK = 1
@@ -2103,7 +2809,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00D0   083C               M         movf    T1,  W
+00A9   083C               M         movf    T1,  W
                           M         CHK?RP  R0
                           M     if (((R0)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -2122,14 +2828,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((R0)    & 180h) == 80h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 37
+                          M       endif
+                          M       if (PREV_BANK == 2)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 49
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       endif
-                          M       if (PREV_BANK == 2)
                           M         bsf     STATUS, RP0
                           M         bcf     STATUS, RP1
                           M       endif
@@ -2166,7 +2872,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00D1   00A0               M         movwf   R0
+00AA   00A0               M         movwf   R0
                           M         MOVE?BB (T1)  + 1, (R0)   + 1
                           M         CHK?RP  (T1) + 1
                           M     if ((((T1) + 1) & 180h) == 0)
@@ -2181,14 +2887,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bcf     STATUS, RP1
                           M       endif
   00000000                M PREV_BANK = 0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 38
+                          M     endif
+                          M 
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 50
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M     endif
-                          M 
                           M     if ((((T1) + 1) & 180h) == 80h)
                           M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP0
@@ -2230,7 +2936,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00D2   083D               M         movf    (T1) + 1, W
+00AB   083D               M         movf    (T1) + 1, W
                           M         CHK?RP  (R0) + 1
                           M     if ((((R0) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -2240,14 +2946,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bcf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 39
+                          M         bcf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 51
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         bcf     STATUS, RP0
-                          M         bcf     STATUS, RP1
                           M       endif
   00000000                M PREV_BANK = 0
                           M     endif
@@ -2293,20 +2999,20 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00D3   00A1               M         movwf   (R0) + 1
-                          M         MOVE?CW 0FAh, R1
+00AC   00A1               M         movwf   (R0) + 1
+                          M         MOVE?CW 0C8h, R1
                           M         CHK?RP  R1
                           M     if (((R1)    & 180h) == 0)
                           M       if (PREV_BANK == 1)
                           M         bcf     STATUS, RP0
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 40
+                          M       endif
+                          M       if (PREV_BANK == 2)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 52
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       endif
-                          M       if (PREV_BANK == 2)
                           M         bcf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
@@ -2357,22 +3063,22 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-                          M     if (low (0FAh) == 0)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 41
+                          M     if (low (0C8h) == 0)
+                          M         clrf    R1
+                          M     else
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 53
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         clrf    R1
-                          M     else
-00D4   30FA               M         movlw   low (0FAh)
-00D5   00A2               M         movwf   R1
+00AD   30C8               M         movlw   low (0C8h)
+00AE   00A2               M         movwf   R1
                           M     endif
-                          M     if (((0FAh) >> 8) == 0)
-00D6   01A3               M         clrf    (R1)   + 1
+                          M     if (((0C8h) >> 8) == 0)
+00AF   01A3               M         clrf    (R1)   + 1
                           M     else
-                          M         movlw   (0FAh) >> 8
+                          M         movlw   (0C8h) >> 8
                           M         movwf   (R1)   + 1
                           M     endif
                           M         L?CALL  DIV
@@ -2417,14 +3123,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           endif
                           M         endif
                           M       else
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 42
+                          M         if (CODE_SIZE >= 4)
+                          M           if (((DIV)   & 1800h) == 0)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 54
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         if (CODE_SIZE >= 4)
-                          M           if (((DIV)   & 1800h) == 0)
                           M         clrf    PCLATH
                           M           else
                           M             if (((DIV)   & 800h) == 0)
@@ -2444,7 +3150,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M 
-00D7   2077               M         call    DIV
+00B0   203B               M         call    DIV
                           M         MOVE?AWW R0, _analog_out
                           M         MOVE?AB _analog_out
                           M         CHK?RP  _analog_out
@@ -2476,14 +3182,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = 1
                           M     endif
                           M 
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 43
+                          M     if (((_analog_out) & 180h) == 100h)
+                          M       if (PREV_BANK == 0)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 55
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M     if (((_analog_out) & 180h) == 100h)
-                          M       if (PREV_BANK == 0)
                           M         bsf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 1)
@@ -2509,7 +3215,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00D8   00B8               M         movwf   _analog_out
+00B1   00B8               M         movwf   _analog_out
                           M         MOVE?BB (R0)  + 1, (_analog_out) + 1
                           M         CHK?RP  (R0) + 1
                           M     if ((((R0) + 1) & 180h) == 0)
@@ -2535,14 +3241,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bcf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 44
+                          M         bcf     STATUS, RP1
+                          M       endif
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 56
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         bcf     STATUS, RP1
-                          M       endif
                           M PREV_BANK = 1
                           M     endif
                           M 
@@ -2573,7 +3279,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00D9   0821               M         movf    (R0) + 1, W
+00B2   0821               M         movf    (R0) + 1, W
                           M         CHK?RP  (_analog_out) + 1
                           M     if ((((_analog_out) + 1) & 180h) == 0)
                           M       if (PREV_BANK == 1)
@@ -2594,14 +3300,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bsf     STATUS, RP0
                           M       endif
                           M       if (PREV_BANK == 2)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 45
+                          M         bsf     STATUS, RP0
+                          M         bcf     STATUS, RP1
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 57
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         bsf     STATUS, RP0
-                          M         bcf     STATUS, RP1
                           M       endif
                           M       if (PREV_BANK == 3)
                           M         bcf     STATUS, RP1
@@ -2636,366 +3342,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M PREV_BANK = 3
                           M     endif
-00DA   00B9               M         movwf   (_analog_out) + 1
+00B3   00B9               M         movwf   (_analog_out) + 1
                           M     endif
-                      00058         MOVE?CW 07Fh, _analog_out
-                          M         CHK?RP  _analog_out
-                          M     if (((_analog_out) & 180h) == 0)
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-  00000000                M PREV_BANK = 0
-                          M     endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 46
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M 
-                          M     if (((_analog_out) & 180h) == 80h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M PREV_BANK = 1
-                          M     endif
-                          M 
-                          M     if (((_analog_out) & 180h) == 100h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 2
-                          M     endif
-                          M 
-                          M     if (((_analog_out) & 180h) == 180h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 3
-                          M     endif
-                          M     if (low (07Fh) == 0)
-                          M         clrf    _analog_out
-                          M     else
-00DB   307F               M         movlw   low (07Fh)
-00DC   00B8               M         movwf   _analog_out
-                          M     endif
-                          M     if (((07Fh) >> 8) == 0)
-00DD   01B9               M         clrf    (_analog_out) + 1
-                          M     else
-                          M         movlw   (07Fh) >> 8
-                          M         movwf   (_analog_out) + 1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 47
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M     endif
-                      00059         HPWM?CWC        001h, _analog_out, 0F5h
-                          M         MOVE?WB _analog_out, R4
-                          M         MOVE?BB _analog_out, R4
-                          M         CHK?RP  _analog_out
-                          M     if (((_analog_out) & 180h) == 0)
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-  00000000                M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     if (((_analog_out) & 180h) == 80h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M PREV_BANK = 1
-                          M     endif
-                          M 
-                          M     if (((_analog_out) & 180h) == 100h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 2
-                          M     endif
-                          M 
-                          M     if (((_analog_out) & 180h) == 180h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 48
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 3
-                          M     endif
-00DE   0838               M         movf    _analog_out, W
-                          M         CHK?RP  R4
-                          M     if (((R4)    & 180h) == 0)
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-  00000000                M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     if (((R4)    & 180h) == 80h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M PREV_BANK = 1
-                          M     endif
-                          M 
-                          M     if (((R4)    & 180h) == 100h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 2
-                          M     endif
-                          M 
-                          M     if (((R4)    & 180h) == 180h)
-                          M       if (PREV_BANK == 0)
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 49
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M         bsf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 3
-                          M     endif
-00DF   00A8               M         movwf   R4
-                          M         MOVE?CW 0F5h, R1
-                          M         CHK?RP  R1
-                          M     if (((R1)    & 180h) == 0)
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-  00000000                M PREV_BANK = 0
-                          M     endif
-                          M 
-                          M     if (((R1)    & 180h) == 80h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP1
-                          M       endif
-                          M PREV_BANK = 1
-                          M     endif
-                          M 
-                          M     if (((R1)    & 180h) == 100h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bcf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 3)
-                          M         bcf     STATUS, RP0
-                          M       endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 50
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M PREV_BANK = 2
-                          M     endif
-                          M 
-                          M     if (((R1)    & 180h) == 180h)
-                          M       if (PREV_BANK == 0)
-                          M         bsf     STATUS, RP0
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 1)
-                          M         bsf     STATUS, RP1
-                          M       endif
-                          M       if (PREV_BANK == 2)
-                          M         bsf     STATUS, RP0
-                          M       endif
-                          M PREV_BANK = 3
-                          M     endif
-                          M     if (low (0F5h) == 0)
-                          M         clrf    R1
-                          M     else
-00E0   30F5               M         movlw   low (0F5h)
-00E1   00A2               M         movwf   R1
-                          M     endif
-                          M     if (((0F5h) >> 8) == 0)
-00E2   01A3               M         clrf    (R1)   + 1
-                          M     else
-                          M         movlw   (0F5h) >> 8
-                          M         movwf   (R1)   + 1
-                          M     endif
-                          M         MOVE?CA 001h
-00E3   3001               M         movlw   low (001h)
-                          M         L?CALL  HPWM
-                          M         RST?RP
-                          M     if ((PREV_BANK & 1) != 0)
-                          M         bcf     STATUS, RP0
-                          M     endif
-                          M     if ((PREV_BANK & 2) != 0)
-                          M         bcf     STATUS, RP1
-                          M     endif
-  00000000                M PREV_BANK = 0
-                          M 
-                          M     if ((HPWM)  < 1)
-                          M       if (CODE_SIZE >= 4)
-                          M         if (((HPWM)  & 800h) == 0)
-                          M         bcf     PCLATH, 3
-                          M         else
-                          M         bsf     PCLATH, 3
-                          M         endif
-                          M       endif
-                          M       if (CODE_SIZE == 8)
-                          M         if (((HPWM)  & 1000h) == 0)
-                          M         bcf     PCLATH, 4
-                          M         else
-                          M         bsf     PCLATH, 4
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 51
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-                          M         endif
-                          M       endif
-                          M     else
-                          M       if ((HPWM)  > $)
-                          M         if (CODE_SIZE >= 4)
-                          M           if (((HPWM)  & 800h) == 0)
-                          M         bcf     PCLATH, 3
-                          M           else
-                          M         bsf     PCLATH, 3
-                          M           endif
-                          M         endif
-                          M         if (CODE_SIZE == 8)
-                          M           if (((HPWM)  & 1000h) == 0)
-                          M         bcf     PCLATH, 4
-                          M           else
-                          M         bsf     PCLATH, 4
-                          M           endif
-                          M         endif
-                          M       else
-                          M         if (CODE_SIZE >= 4)
-                          M           if (((HPWM)  & 1800h) == 0)
-                          M         clrf    PCLATH
-                          M           else
-                          M             if (((HPWM)  & 800h) == 0)
-                          M         bcf     PCLATH, 3
-                          M             else
-                          M         bsf     PCLATH, 3
-                          M             endif
-                          M             if (CODE_SIZE == 8)
-                          M               if (((HPWM)  & 1000h) == 0)
-                          M         bcf     PCLATH, 4
-                          M               else
-                          M         bsf     PCLATH, 4
-                          M               endif
-                          M             endif
-                          M           endif
-                          M         endif
-                          M       endif
-                          M     endif
-                          M 
-00E4   2026               M         call    HPWM
-                      00060         GOTO?L  _mainloop
+                      00070         GOTO?L  _mainloop
                           M         L?GOTO  _mainloop
                           M     if ($ == (_mainloop))
                           M         CLRWDT?
@@ -3007,17 +3356,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M     if ((PREV_BANK & 2) != 0)
                           M         bcf     STATUS, RP1
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 52
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M     endif
   00000000                M PREV_BANK = 0
                           M 
                           M     if ((_mainloop) < 1)
                           M       if (CODE_SIZE >= 4)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 58
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         if (((_mainloop) & 800h) == 0)
                           M         bcf     PCLATH, 3
                           M         else
@@ -3066,21 +3415,21 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M             endif
                           M           endif
                           M         endif
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 53
+                          M       endif
+                          M     endif
+                          M 
+00B4   2876               M         goto    _mainloop
+                      00071         END?    
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 59
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M       endif
-                          M     endif
-                          M 
-00E5   28B2               M         goto    _mainloop
-                      00061         END?    
   0000                    M     local loop
-00E6   0063               M loop    sleep
+00B5   0063               M loop    sleep
                           M         L?GOTO  loop
-                          M     if ($ == (_89loop))
+                          M     if ($ == (_107loop))
                           M         CLRWDT?
                           M     endif
                           M 
@@ -3093,55 +3442,55 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
   00000000                M PREV_BANK = 0
                           M 
-                          M     if ((_89loop) < 1)
+                          M     if ((_107loop) < 1)
                           M       if (CODE_SIZE >= 4)
-                          M         if (((_89loop) & 800h) == 0)
+                          M         if (((_107loop) & 800h) == 0)
                           M         bcf     PCLATH, 3
                           M         else
                           M         bsf     PCLATH, 3
                           M         endif
                           M       endif
                           M       if (CODE_SIZE == 8)
-                          M         if (((_89loop) & 1000h) == 0)
+                          M         if (((_107loop) & 1000h) == 0)
                           M         bcf     PCLATH, 4
                           M         else
                           M         bsf     PCLATH, 4
                           M         endif
                           M       endif
                           M     else
-                          M       if ((_89loop) > $)
+                          M       if ((_107loop) > $)
                           M         if (CODE_SIZE >= 4)
-                          M           if (((_89loop) & 800h) == 0)
+                          M           if (((_107loop) & 800h) == 0)
                           M         bcf     PCLATH, 3
                           M           else
                           M         bsf     PCLATH, 3
                           M           endif
                           M         endif
                           M         if (CODE_SIZE == 8)
-                          M           if (((_89loop) & 1000h) == 0)
+                          M           if (((_107loop) & 1000h) == 0)
                           M         bcf     PCLATH, 4
                           M           else
                           M         bsf     PCLATH, 4
                           M           endif
                           M         endif
                           M       else
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 54
+                          M         if (CODE_SIZE >= 4)
+                          M           if (((_107loop) & 1800h) == 0)
+                          M         clrf    PCLATH
+                          M           else
+                          M             if (((_107loop) & 800h) == 0)
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 60
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                          M         if (CODE_SIZE >= 4)
-                          M           if (((_89loop) & 1800h) == 0)
-                          M         clrf    PCLATH
-                          M           else
-                          M             if (((_89loop) & 800h) == 0)
                           M         bcf     PCLATH, 3
                           M             else
                           M         bsf     PCLATH, 3
                           M             endif
                           M             if (CODE_SIZE == 8)
-                          M               if (((_89loop) & 1000h) == 0)
+                          M               if (((_107loop) & 1000h) == 0)
                           M         bcf     PCLATH, 4
                           M               else
                           M         bsf     PCLATH, 4
@@ -3152,10 +3501,10 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M 
-00E7   28E6               M         goto    _89loop
-                      00062 
-                      00063         END
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 55
+00B6   28B5               M         goto    _107loop
+                      00072 
+                      00073         END
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 61
 
 
 SYMBOL TABLE
@@ -3214,7 +3563,7 @@ CLRWDT?NOP
 CM0                               00000000
 CM1                               00000001
 CM2                               00000002
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 56
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 62
 
 
 SYMBOL TABLE
@@ -3224,11 +3573,12 @@ CMCON0                            00000019
 CMCON1                            0000001A
 CMIE                              00000003
 CMIF                              00000003
+CMPNE?TCL                         
 CMSYNC                            00000000
 CODE_SIZE                         00000002
-CONVBIT                           0000006A
+CONVBIT                           0000002E
 CONVBIT_USED                      00000001
-CONVPIN                           00000065
+CONVPIN                           00000029
 CONVPIN_USED                      00000001
 COUNT                             00000001
 COUNT?CCW                         
@@ -3248,12 +3598,12 @@ DEBUG_BIT                         00000000
 DEBUG_DELAY                       00000193
 DEBUG_MODE                        00000001
 DEBUG_REG                         00000005
-DIV                               00000077
-DIV32DIV                          00000079
+DIV                               0000003B
+DIV32DIV                          0000003D
 DIV?WCW                           
 DIV_USED                          00000001
-DONE                              000000A9
-DONERET                           000000AD
+DONE                              0000006D
+DONERET                           00000071
 DONE_USED                         00000001
 EEADR                             0000009B
 EECON1                            0000009C
@@ -3272,13 +3622,13 @@ GIE                               00000007
 GO                                00000001
 GOP                               00000033
 GOTO?L                            
-GO_DONE                           00000001
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 57
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 63
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+GO_DONE                           00000001
 GO_NOT_DONE                       00000001
 GP0                               00000000
 GP1                               00000001
@@ -3289,9 +3639,7 @@ GP5                               00000005
 GPIE                              00000003
 GPIF                              00000000
 GPIO                              00000005
-HPWM                              00000026
-HPWM?CWC                          
-HPWM_USED                         00000001
+HIGH?T                            
 HSER_BAUD                         00000960
 HSER_BITS                         00000008
 HSER_RCSTA                        00000090
@@ -3304,8 +3652,8 @@ I2CSTOPFLAG                       FLAGS, 5
 I2CSTOPSTRFLAG                    FLAGS, 6
 I2CWRITEFLAG                      FLAGS, 4
 INDF                              00000000
-INIT                              000000AE
-INPUTT                            00000062
+INIT                              00000072
+INPUTT                            00000026
 INPUTT_USED                       00000001
 INTCON                            0000000B
 INTE                              00000004
@@ -3329,15 +3677,17 @@ IRCF0                             00000004
 IRCF1                             00000005
 IRCF2                             00000006
 IRP                               00000007
+L00001                            00000087
+L00002                            0000008B
 L?CALL                            
 L?GOTO                            
-LABEL?L                           
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 58
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 64
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+LABEL?L                           
 LCDCDFLAG                         FLAGS, 0
 LCDINITFLAG                       FLAGS, 1
 LCD_BITS                          00000004
@@ -3352,6 +3702,7 @@ LCD_RSBIT                         00000004
 LCD_RSREG                         00000005
 LCD_RWBIT                         00000004
 LCD_RWREG                         00000005
+LOW?T                             
 LTS                               00000001
 MOVE?AB                           
 MOVE?AT                           
@@ -3374,7 +3725,7 @@ MOVE?WB
 MOVE?WT                           
 MOVE?WW                           
 MOVE?WWA                          
-MUL                               00000093
+MUL                               00000057
 MUL?WCW                           
 MUL_USED                          00000001
 NOT_BOD                           00000000
@@ -3385,18 +3736,18 @@ NOT_POR                           00000001
 NOT_T1SYNC                        00000002
 NOT_TO                            00000004
 OPTION_REG                        00000081
-OSC                               4
+OSC                               00000004
 OSCCON                            0000008F
 OSCTUNE                           00000090
 OSFIE                             00000002
-OSFIF                             00000002
-OSTS                              00000003
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 59
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 65
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+OSFIF                             00000002
+OSTS                              00000003
 PCL                               00000002
 PCLATH                            0000000A
 PCON                              0000008E
@@ -3434,6 +3785,7 @@ RST?RP
 SBODEN                            00000004
 SCS                               00000000
 STATUS                            00000003
+SUB?WCW                           
 SWDTEN                            00000000
 T0CS                              00000005
 T0IE                              00000005
@@ -3447,15 +3799,15 @@ T1GE                              00000006
 T1GINV                            00000007
 T1GSS                             00000001
 T1IE                              00000000
-T1IF                              00000000
-T1OSCEN                           00000003
-T2CKPS0                           00000000
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 60
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 66
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+T1IF                              00000000
+T1OSCEN                           00000003
+T2CKPS0                           00000000
 T2CKPS1                           00000001
 T2CON                             00000012
 T2IE                              00000001
@@ -3506,15 +3858,15 @@ WDTCON                            00000018
 WDTPS0                            00000001
 WDTPS1                            00000002
 WDTPS2                            00000003
-WDTPS3                            00000004
-WPU                               00000095
-WPU0                              00000000
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 61
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 67
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+WDTPS3                            00000004
+WPU                               00000095
+WPU0                              00000000
 WPU1                              00000001
 WPU2                              00000002
 WPU4                              00000004
@@ -3558,22 +3910,24 @@ _FOSC_INTOSCCLK                   00003FFD
 _FOSC_INTOSCIO                    00003FFC
 _FOSC_LP                          00003FF8
 _FOSC_XT                          00003FF9
+_GPIO??2                          GPIO, 002h
+_GPIO??4                          GPIO, 004h
 _HS_OSC                           00003FFA
 _IDLOC0                           00002000
 _IDLOC1                           00002001
 _IDLOC2                           00002002
 _IDLOC3                           00002003
-_IESO_OFF                         00003BFF
-_IESO_ON                          00003FFF
-_INTOSC                           00003FFD
-_INTOSCIO                         00003FFC
-_INTRC_OSC_CLKOUT                 00003FFD
-MPASM  5.51                      COUNT_~1.ASM   2-27-2018  18:15:59         PAGE 62
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 68
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
 _INTRC_OSC_NOCLKOUT               00003FFC
 _LP_OSC                           00003FF8
 _MCLRE_OFF                        00003FDF
@@ -3583,6 +3937,8 @@ _PORTL                            00000005
 _PWRTE_OFF                        00003FFF
 _PWRTE_ON                         00003FEF
 _TRISH                            00000085
+_TRISIO??2                        TRISIO, 002h
+_TRISIO??4                        TRISIO, 004h
 _TRISL                            00000085
 _USED                             00000001
 _WDTE_OFF                         00003FF7
@@ -3594,35 +3950,38 @@ __12F683                          00000001
 _analog_out                       00000038
 _counter                          00000004
 _frequency                        0000003A
-_mainloop                         000000B2
-cbtable                           0000006F
+_mainloop                         00000076
+_out                              00000002
+cbtable                           00000033
 countloop                         00000011
-divloop                           0000007B
-divok                             0000008D
-hpwm24                            0000005C
-hpwm242                           0000005D
-hpwmdone                          00000059
-main                              000000AE
-mull1                             000000A1
-mulloop                           00000097
+divloop                           0000003F
+divok                             00000051
+main                              00000072
+mull1                             00000065
+mulloop                           0000005B
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 
 0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXX-------- ----------------
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXX---------
 2000 : -------X-------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Words Used:   232
-Program Memory Words Free:  1816
+Program Memory Words Used:   183
+Program Memory Words Free:  1865
+
+
+MPASM  5.51                      COUNT_~1.ASM   3-5-2018  10:08:01         PAGE 69
+
+
+
 
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
-Messages :     0 reported,     2 suppressed
+Messages :     0 reported,     4 suppressed
 
 

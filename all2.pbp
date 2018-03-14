@@ -131,7 +131,7 @@ get_temp_value:
     
     if (t1resistance > resistor_ref[0]) or (t1resistance < resistor_ref[11]) then
    '     LCDOUT $FE, 1, dec t1resistance
-        LCDOUT $FE, $C0, "out of range" 
+        'LCDOUT $FE, $C0, "out of range" 
     else 
         For i = 0 to 11 
             if t1resistance < resistor_ref[i] and t1resistance >= resistor_ref[i+1] then
@@ -187,8 +187,8 @@ return
 get_flowrate:
  '   COUNT PORTB.5, 250, frequency     'whats min count to still be accurate....?
  '   frequency = frequency/1           'would be times 2 (for 500) but the /4 for clk issues
-    ADCON0 = %00000101 'AN4
-    adcin 1, an_frequency                 'Analog voltage 0-5V proportional to 0-500Hz (0 to 1024)
+    ADCON0 = %00010001 'AN4
+    adcin 4, an_frequency                 'Analog voltage 0-5V proportional to 0-500Hz (0 to 1024)
     flow_val = (an_frequency*50)/1178   'litres per minute times 10, (((*500/1024)*60/6900)*10) 
 return
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

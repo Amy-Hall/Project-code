@@ -45,6 +45,43 @@ MUL?WCW macro Win, Cin, Wout
     endm
 MUL_USED = 1
 
+SUB?WCW macro Win, Cin, Wout
+    if (Wout == Win)
+        movlw   low (Cin)
+        CHK?RP  Wout
+        subwf   Wout, F
+        movlw   (Cin) >> 8
+        btfss   STATUS, C
+        addlw   1
+        subwf   Wout + 1, F
+    else
+        movlw   low (Cin)
+        CHK?RP  Win
+        subwf   Win, W
+        MOVE?AB Wout
+        movlw   (Cin) >> 8
+        btfss   STATUS, C
+        addlw   1
+        CHK?RP  Win
+        subwf   Win + 1, W
+        MOVE?AB Wout + 1
+    endif
+    endm
+
+CMPNE?TCL macro Regin, Bitin, Cin, Label
+    if (Cin == 0)
+        CLRWDT?
+        BIT?GOTO 1, Regin, Bitin, Label
+    else
+      if (Cin == 1)
+        CLRWDT?
+        BIT?GOTO 0, Regin, Bitin, Label
+      else
+        L?GOTO  Label
+      endif
+    endif
+    endm
+
 COUNT?CCW macro Cin1, Cin2, Wout
         MOVE?CW Cin2, R1
         MOVE?CA Cin1
@@ -63,13 +100,15 @@ GOTO?L macro Label
         L?GOTO  Label
     endm
 
-HPWM?CWC macro Cin1, Win, Cin2
-        MOVE?WB Win, R4
-        MOVE?CW Cin2, R1
-        MOVE?CA Cin1
-        L?CALL  HPWM
+HIGH?T macro Regin, Bitin
+        MOVE?CT 1, Regin, Bitin
+        MOVE?CT 0, ((Regin) + 80h), Bitin
     endm
-HPWM_USED = 1
+
+LOW?T macro Regin, Bitin
+        MOVE?CT 0, Regin, Bitin
+        MOVE?CT 0, ((Regin) + 80h), Bitin
+    endm
 
 
 	LIST

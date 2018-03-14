@@ -37,6 +37,14 @@ DIV?WCW macro Win, Cin, Wout
     endm
 DIV_USED = 1
 
+MOD?WCW macro Win, Cin, Wout
+        MOVE?WW Win, R0
+        MOVE?CW Cin, R1
+        L?CALL  DIV
+        MOVE?WW R2, Wout
+    endm
+DIV_USED = 1
+
 MUL?WCW macro Win, Cin, Wout
         MOVE?WW Win, R3
         MOVE?CW Cin, R1
@@ -56,27 +64,6 @@ END? macro
     local loop
 loop    sleep
         bra     loop
-    endm
-
-GOSUB?L macro Label
-    local dlabel
-    ifdef DEBUG_STACK
-        CHK?RP  DEBUG_STACK
-      ifdef DEBUG_STACK_ADDR
-        bcf     STATUS, C
-        rlcf    DEBUG_STACK, W
-        addlw   DEBUG_STACK_ADDR
-        movwf   FSR0L
-        clrf    FSR0H
-        movlw   low (dlabel)
-        movwf   POSTINC0
-        movlw   high (dlabel)
-        movwf   INDF0
-      endif
-        incf    DEBUG_STACK, F
-    endif
-        L?CALL  Label
-dlabel
     endm
 
 GOTO?L macro Label
@@ -115,15 +102,6 @@ PAUSE?C macro Cin
     endif
     endm
 PAUSE_USED = 1
-
-RETURN? macro
-    ifdef DEBUG_STACK
-        CHK?RP  DEBUG_STACK
-        decf    DEBUG_STACK, F
-    endif
-        RST?RP
-        return
-    endm
 
 
 	LIST

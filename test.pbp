@@ -1,12 +1,30 @@
-   LED Con 4        ' Alias GPIO.4 to LED
+
+TRISIO.2 =0
+TRISIO.4 =1
+
+frequency var word
+analog_out var word
+
    ANSEL = 0     ' Set all digital
    CMCON0 = 7    ' Analog comparators off
  
 mainloop:
-   Low LED       ' Turn on LED connected to GPIO.0
-   Pause 500     ' Delay for .5 seconds
-   High LED      ' Turn off LED connected to GPIO.0
-   Pause 500     ' Delay for .5 seconds
+   COUNT GPIO.4, 1000, frequency
+   
+'   if (frequency > 0) then
+'       Low GPIO.2       ' Turn on LED connected to GPIO.0
+'       Pause 500     ' Delay for .5 seconds
+'       High GPIO.2      ' Turn off LED connected to GPIO.0
+'       Pause 500     ' Delay for .5 seconds
+'   else
+'        Low GPIO.2
+'   endif 
+
+    frequency = frequency/1            'would be times 2 (for 500) but the /4 for clk issues
+    analog_out = (frequency*102)/200              '0 to 5V out proportional to 0 to 400 frequency Hz (same as 255/500)
+
+'    analog_out = 50
+   HPWm 1, analog_out, 245 
    Goto mainloop ' Go back to mainloop and blink LED forever
  
    End

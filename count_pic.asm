@@ -8,7 +8,6 @@ _USED			EQU	1
 ; Define statements.
 #define		CCP1_REG		 GPIO
 #define		CCP1_BIT		 2
-#define		OSC		 4 
 
 RAM_START       		EQU	00020h
 RAM_END         		EQU	000BFh
@@ -42,21 +41,32 @@ _PORTL           		EQU	 GPIO
 _PORTH           		EQU	 GPIO
 _TRISL           		EQU	 TRISIO
 _TRISH           		EQU	 TRISIO
+#define _TRISIO??4       	 TRISIO, 004h
+#define _TRISIO??2       	 TRISIO, 002h
+#define _GPIO??4         	 GPIO, 004h
+#define _GPIO??2         	 GPIO, 002h
 
 ; Constants.
 _counter         		EQU	00004h
+_out             		EQU	00002h
 	INCLUDE	"COUNT_~1.MAC"
 	INCLUDE	"C:\PBP\PBPPIC14.LIB"
 
-	MOVE?CB	040h, OSCCON
+	MOVE?CT	001h, _TRISIO??4
+	MOVE?CT	000h, _TRISIO??2
 
 	LABEL?L	_mainloop	
-	COUNT?CCW	_counter, 0FAh, _frequency
-	DIV?WCW	_frequency, 001h, _frequency
-	MUL?WCW	_frequency, 07Fh, T1
-	DIV?WCW	T1, 0FAh, _analog_out
-	MOVE?CW	07Fh, _analog_out
-	HPWM?CWC	001h, _analog_out, 0F5h
+	COUNT?CCW	_counter, 003E8h, _frequency
+	CMPNE?TCL	_GPIO??4, 000h, L00001
+	HIGH?T	_GPIO??2
+	GOTO?L	L00002
+	LABEL?L	L00001	
+	LOW?T	_GPIO??2
+	LABEL?L	L00002	
+	DIV?WCW	_frequency, 001h, T1
+	SUB?WCW	T1, 0C8h, _frequency
+	MUL?WCW	_frequency, 0FFh, T1
+	DIV?WCW	T1, 0C8h, _analog_out
 	GOTO?L	_mainloop
 	END?	
 
