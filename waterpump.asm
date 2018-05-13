@@ -6,7 +6,7 @@ _USED			EQU	1
 
 
 ; Define statements.
-#define		OSC		 1
+#define		OSC		 4
 #define		LCD_DREG		 PORTC
 #define		LCD_DBIT		 4
 #define		LCD_RSREG		 PORTC
@@ -64,12 +64,12 @@ _TRISH           		EQU	 TRISC
 	INCLUDE	"C:\PBP\PBPPIC18.LIB"
 
 	MOVE?CB	040h, OSCCON
-	MOVE?CB	001h, ADCON0
 	MOVE?CB	000h, ADCON1
 	MOVE?CB	087h, ADCON2
 	MOVE?CB	0FFh, TRISA
 	MOVE?CB	000h, TRISC
-	ADCIN?CW	004h, _throttle
+	MOVE?CB	00Dh, ADCON0
+	ADCIN?CW	003h, _throttle
 	MUL?WCW	_throttle, 00Dh, T1
 	DIV?WCW	T1, 003FFh, T1
 	ADD?CWW	00Dh, T1, _pwm_val

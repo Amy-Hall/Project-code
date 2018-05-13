@@ -18,8 +18,9 @@ define CCP1_BIT 2
 p_ref var word
 p_pwm_val var word
 p_val var word 
-p_val_lcd var word
-p_in var word    
+pressure var word
+p_in var word 
+pressure_ref var word   
  
 ADCON1 = %00000000 ' Right-Justify result in ADRESH:ADRESL registers
 ADCON2 = %10000111
@@ -31,6 +32,12 @@ CCP1CON = %00001100  ' Set CCP1 to PWM
 T2CON = %00000111    ' Turn on Timer2, Prescale=16 (last bits 00=1 01=4)
 PR2 = %11111111     ' Set PR2 to get 60Hz out
 
+p_pwm_val=50
+CCP1CON.4 = p_pwm_val.0   ' Store duty to registers as
+CCP1CON.5 = p_pwm_val.1   ' a 10-bit word
+CCPR1L = p_pwm_val >> 2
+
+pause 1000
 
 p_pwm_val=100
 CCP1CON.4 = p_pwm_val.0   ' Store duty to registers as
@@ -41,16 +48,15 @@ CCPR1L = p_pwm_val >> 2
 main:
     ADCON0 = %00001101                   'AN3
     adcin 3, p_ref                    'flowrate*10, want from 0-1024 to between 0 and 44
-    'keep flow ref as 0-1024, convert to pressure only to show user, convert input pressure to something representative between 0-1024
-  '  flow_ref = (flow_ref*44)/1024
+    pressure_ref = (p_ref*63)/8        'p_ref/8000*1024
     gosub get_pressure
     gosub get_water_p_pwm           
     CCP1CON.4 = p_pwm_val.0   ' Store duty to registers as
     CCP1CON.5 = p_pwm_val.1   ' a 10-bit word
     CCPR1L = p_pwm_val >> 2     
     
-    LCDOUT $FE, 1, "pres=", dec p_val_lcd, "  ",  dec p_val
-    LCDOUT $FE, $C0, "ref=", dec p_ref, " pwm=", dec p_pwm_val
+    LCDOUT $FE, 1, "p_in=", dec p_in, "  pres=", dec pressure, "  "
+    LCDOUT $FE, $C0, "p_val=", dec p_val,"  ref=", dec p_ref, " pres_ref= ", dec pressure_ref, " pwm=", dec p_pwm_val
     pause 250
     goto main
 end
@@ -58,8 +64,8 @@ end
 get_pressure:
     ADCON0 = %00010001                'AN3
     adcin 4, p_in
-    p_val = ((p_in*51)/30)-326   'convert to a value between 0 and 1024 representing pressures 0 to 800Pa
-    p_val_lcd = (p_in*50)/64 
+    p_val = ((p_in*60)/56)-35   'convert to a value between 0 and 1024 representing pressures 0 to 8000Pa
+    pressure = (p_in*25)/3 - 277
 return
 
 
@@ -67,7 +73,7 @@ get_water_p_pwm:
     If (p_val < p_ref) then
         IF (p_pwm_val < 120) then
             if ((p_ref-p_val)>5) then
-                p_pwm_val= p_pwm_val + ((p_ref-p_val)/5)
+                p_pwm_val= p_pwm_val + ((p_ref-p_val)/50)
             else
                 p_pwm_val = p_pwm_val + 1
             endif
@@ -78,7 +84,7 @@ get_water_p_pwm:
     if (p_val > p_ref) then
         IF (p_pwm_val >50) then
             if ((p_val-p_ref)>5) then
-                p_pwm_val = p_pwm_val - ((p_val-p_ref)/5)
+                p_pwm_val = p_pwm_val - ((p_val-p_ref)/50)
             else
                 p_pwm_val = p_pwm_val - 1
             endif

@@ -1,4 +1,4 @@
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  1
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -41,7 +41,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00006 
                       00007 
                       00008 ; Define statements.
-                      00009 #define         OSC              1
+                      00009 #define         OSC              4
                       00010 #define         LCD_DREG                 PORTC
                       00011 #define         LCD_DBIT                 4
                       00012 #define         LCD_RSREG                PORTC
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00022 
   00000000            00023 RAM_START                       EQU     00000h
   000002FF            00024 RAM_END                         EQU     002FFh
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  2
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -115,27 +115,29 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00008 ;*  Version   : 2.47                                              *
                       00009 ;*  Notes     :                                                   *
                       00010 ;******************************************************************
-                      01147   LIST
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  3
+                      00074   LIST
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      00075 ; Oscillator is 4MHz
+                      01147   LIST
 000000                01148     ORG RESET_ORG               ; Reset vector at 0
                       01152   LIST
 000000 6A00           01153         clrf    FLAGS           ; Clear all flags on reset
                       01157   LIST
-000002 EF25 F001      01158         goto    INIT            ; Finish initialization
+000002 EF3A F001      01158         goto    INIT            ; Finish initialization
                       01916   LIST
 000006 6E0A           01917 HPWM    movwf   R4 + 1          ; Save channel
                       01918 
                       01919         ; PS = (FOSC / 1024) / freq
-000008 0ED0           01920         movlw   low ((OSC * 1000000) / 1024)
+000008 0E42           01920         movlw   low ((OSC * 1000000) / 1024)
 00000A 6E01           01921         movwf   R0
-00000C 0E03           01922         movlw   ((OSC * 1000000) / 1024) >> 8
+00000C 0E0F           01922         movlw   ((OSC * 1000000) / 1024) >> 8
 00000E 6E02           01923         movwf   R0 + 1
-000010 ECE5 F000      01924         call    DIV             ; / freq (returns result in W and Z)
+000010 ECFA F000      01924         call    DIV             ; / freq (returns result in W and Z)
 000014 B4D8           01925         btfsc   STATUS, Z
 000016 90CA           01926         bcf     T2CON, T2CKPS0
 000018 A4D8           01927         btfss   STATUS, Z
@@ -147,18 +149,18 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000024 82CA           01933         bsf     T2CON, T2CKPS1
                       01934 
                       01935         ; PR2 = ((FOSC / 4 / PS) / freq) - 1
-000026 0E90           01936         movlw   low ((OSC * 1000000) / 4)
+000026 0E40           01936         movlw   low ((OSC * 1000000) / 4)
 000028 6E01           01937         movwf   R0
-00002A 0ED0           01938         movlw   low (((OSC * 1000000) / 4) >> 8)
+00002A 0E42           01938         movlw   low (((OSC * 1000000) / 4) >> 8)
 00002C 6E02           01939         movwf   R0 + 1
-00002E 0E03           01940         movlw   ((OSC * 1000000) / 4) >> 16
+00002E 0E0F           01940         movlw   ((OSC * 1000000) / 4) >> 16
 000030 6E05           01941         movwf   R2
 000032 6A06           01942         clrf    R2 + 1
 000034 B0CA           01943         btfsc   T2CON, T2CKPS0  ; Shift for divide by PS
 000036 D828           01944         rcall   hpwm24          ; / 4 (PS = 4 or 16)
 000038 B2CA           01945         btfsc   T2CON, T2CKPS1
 00003A D826           01946         rcall   hpwm24          ; / 4 (PS = 16)
-00003C ECE7 F000      01947         call    DIV32DIV        ; / freq
+00003C ECFC F000      01947         call    DIV32DIV        ; / freq
 000040 0401           01948         decf    R0, W           ; - 1
 000042 6ECB           01949         movwf   PR2             ; Save PR2
                       01950 
@@ -173,14 +175,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000050 6E08           01959         movwf   R3 + 1          ; Set high byte for max duty cycle (always on)
 000052 3C09           01960         incfsz  R4, W           ; Check for max duty cycle
 000054 6A08           01961         clrf    R3 + 1          ; Not at max - zero high byte
-000056 ECFD F000      01962         call    MUL
-00005A 5006           01963         movf    R2 + 1, W
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  4
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+000056 EC12 F001      01962         call    MUL
+00005A 5006           01963         movf    R2 + 1, W
                       01964       ifdef CCP2CON
 00005C 2E0A           01965         decfsz  R4 + 1, F       ; Skip if channel 1
 00005E D00B           01966         bra     hpwm2           ; Set channel 2
@@ -196,7 +198,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00006E 9494           01976         bcf     (CCP1_REG) + 12h, CCP1_BIT      ; Set CCP1 to output
                       01977 
 000070 84CA           01978 hpwmdone bsf    T2CON, TMR2ON   ; Start the timer
-000072 EF22 F001      01979         goto    DUNN            ; All set
+000072 EF37 F001      01979         goto    DUNN            ; All set
                       01980 
                       01981       ifdef CCP2CON
 000076 6EBB           01982 hpwm2   movwf   CCPR2L          ; Set top 8 CCP bits
@@ -232,14 +234,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       02928     if (LCD_BITS == 8)
                       02929         clrf    (LCD_DREG) + 12h        ; Set port to all output
                       02930     else
-                      02931       if (LCD_DBIT == 0)
-                      02932         movlw   0f0h
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  5
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      02931       if (LCD_DBIT == 0)
+                      02932         movlw   0f0h
                       02933       else
 0000A4 0E0F           02934         movlw   0fh
                       02935       endif
@@ -253,8 +255,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0000AE 0E3A           02943         movlw   high 15000      ; Wait at least 15ms
 0000B0 6E02           02944         movwf   R0 + 1
 0000B2 0E98           02945         movlw   low 15000
-Error[113]  : Symbol not previously defined (PAUSEUSL)
-0000B4 EC00 F000      02946         call    PAUSEUSL
+0000B4 ECE6 F000      02946         call    PAUSEUSL
                       02947 
 0000B8 0E33           02948         movlw   33h             ; Init lcd
 0000BA 6E07           02949         movwf   R3              ; Save char
@@ -263,20 +264,17 @@ Error[113]  : Symbol not previously defined (PAUSEUSL)
 0000BE 0E13           02952         movlw   high 5000       ; Wait at least 5ms
 0000C0 6E02           02953         movwf   R0 + 1
 0000C2 0E88           02954         movlw   low 5000
-Error[113]  : Symbol not previously defined (PAUSEUSL)
-0000C4 EC00 F000      02955         call    PAUSEUSL
+0000C4 ECE6 F000      02955         call    PAUSEUSL
                       02956 
 0000C8 D829           02957         rcall   lcdloop         ; Send init again
                       02958 
 0000CA 0E64           02959         movlw   100             ; Wait at least 100us
-Error[113]  : Symbol not previously defined (PAUSEUS)
-0000CC EC00 F000      02960         call    PAUSEUS
+0000CC ECE5 F000      02960         call    PAUSEUS
                       02961 
 0000D0 D825           02962         rcall   lcdloop         ; Send init more time
                       02963 
 0000D2 0E64           02964         movlw   100             ; Wait at least 100us
-Error[113]  : Symbol not previously defined (PAUSEUS)
-0000D4 EC00 F000      02965         call    PAUSEUS
+0000D4 ECE5 F000      02965         call    PAUSEUS
                       02966 
                       02967     if (LCD_BITS != 8)
 0000D8 0E22           02968         movlw   22h             ; Set 4-bit mode
@@ -293,14 +291,14 @@ Error[113]  : Symbol not previously defined (PAUSEUS)
                       02979     else
                       02980       if (LCD_LINES == 1)
                       02981         movlw   20h             ; 4-bit mode, 1 line, 5x7 font
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  6
+                      02982       else
+0000DE 0E28           02983         movlw   28h             ; 4-bit mode, 2+ lines, 5x7 font
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      02982       else
-0000DE 0E28           02983         movlw   28h             ; 4-bit mode, 2+ lines, 5x7 font
                       02984       endif
                       02985     endif
 0000E0 D807           02986         rcall   lcdoutcom       ; Send function set
@@ -330,15 +328,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000100 0E07           03010         movlw   high LCD_COMMANDUS      ; Wait for command to complete
 000102 6E02           03011         movwf   R0 + 1
 000104 0ED0           03012         movlw   low LCD_COMMANDUS
-Error[113]  : Symbol not previously defined (PAUSEUSL)
-000106 EC00 F000      03013         call    PAUSEUSL
+000106 ECE6 F000      03013         call    PAUSEUSL
 00010A 80D8           03014         bsf     STATUS, C       ; Set no timeout for Serout2mod
 00010C 0012           03015         return
                       03016 
 00010E 8000           03017 lcdchkcd bsf    LCDCDFLAG       ; Indicate first nibble (or command next time)
 000110 08FE           03018         sublw   0feh            ; Command next time? (char still in W)
 000112 B4D8           03019         btfsc   STATUS, Z
-000114 EF22 F001      03020         goto    DUNN            ; Yes - nothing to do this time (C set)
+000114 EF37 F001      03020         goto    DUNN            ; Yes - nothing to do this time (C set)
                       03021 
 000118 8082           03022         bsf     LCD_RSREG, LCD_RSBIT    ; Set data register select
                       03023 
@@ -352,15 +349,15 @@ Error[113]  : Symbol not previously defined (PAUSEUSL)
                       03031       endif
                       03032       if (OSC > 20)
                       03033         bra     $ + 2
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  7
+                      03034       endif
+                      03035       if (OSC > 25)
+                      03036         bra     $ + 2
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      03034       endif
-                      03035       if (OSC > 25)
-                      03036         bra     $ + 2
                       03037       endif
                       03038       if (OSC > 33)
                       03039         nop
@@ -411,15 +408,15 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03084 
 00012A 9682           03085         bcf     LCD_EREG, LCD_EBIT      ; Not enabled - that's four
 00012C 3A07           03086         swapf   R3, F           ; Get to other nibble
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  8
+                      03087 
+                      03088       if (OSC > 20)
+                      03089         nop                     ; Minimum 1us not-enabled time
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      03087 
-                      03088       if (OSC > 20)
-                      03089         nop                     ; Minimum 1us not-enabled time
                       03090       endif
                       03091       if (OSC > 25)
                       03092         bra     $ + 2
@@ -436,10 +433,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03103     endif
                       03104 
 000132 0E32           03105         movlw   LCD_DATAUS      ; Wait for data operation to complete
-Error[113]  : Symbol not previously defined (PAUSEUS)
-000134 EC00 F000      03106         call    PAUSEUS
+000134 ECE5 F000      03106         call    PAUSEUS
 000138 80D8           03107         bsf     STATUS, C       ; Set no timeout for Serout2mod
-00013A EF22 F001      03108         goto    DUNN
+00013A EF37 F001      03108         goto    DUNN
                       05040   LIST
 00013E 9E15           05041 SEROUT2DEC bcf  GOP, 7          ; Blanking off
 000140 500A           05042         movf    R4 + 1, W       ; 0 digits?
@@ -470,16 +466,16 @@ Error[113]  : Symbol not previously defined (PAUSEUS)
                       05067         btfss   STATUS, C       ; Timed out?
                       05068         return                  ; Yes
                       05069       endif
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE  9
+000160 6A04           05070         clrf    R1 + 1          ; Find 10s
+000162 0E0A           05071         movlw   10
+000164 D802           05072         rcall   serout2ddig     ; Do the work
+                      05073       ifdef SEROUT2TO_USED
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-000160 6A04           05070         clrf    R1 + 1          ; Find 10s
-000162 0E0A           05071         movlw   10
-000164 D802           05072         rcall   serout2ddig     ; Do the work
-                      05073       ifdef SEROUT2TO_USED
                       05074         btfss   STATUS, C       ; Timed out?
                       05075         return                  ; Yes
                       05076       endif
@@ -491,7 +487,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00016E 6E02           05082         movwf   R0 + 1
 000170 5005           05083         movf    R2, W
 000172 6E01           05084         movwf   R0
-000174 ECE5 F000      05085         call    DIV             ; Do the math
+000174 ECFA F000      05085         call    DIV             ; Do the math
 000178 5001           05086         movf    R0, W           ; Get the result
                       05087 ;       bra     SEROUT2SEND     ; Fall through
                       05094   LIST
@@ -512,7 +508,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000190 BE15           05109         btfsc   GOP, 7          ; If blanking on, don't send
 000192 0012           05110         return
 000194 0F30           05111         addlw   '0'             ; Add ASCII offset
-000196 EF1C F001      05112         goto    JUMPMAN         ; Send it
+000196 EF31 F001      05112         goto    JUMPMAN         ; Send it
                       05930   LIST
 00019A                05931 ADCIN
                       05932       ifdef ADCON2
@@ -529,24 +525,23 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0001AE 6EC0           05943         movwf   ADCON2
                       05944       else
                       05945         rlcf    WREG, F         ; Move channel into proper position
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 10
+                      05946         rlcf    WREG, F
+                      05947         rlcf    WREG, F
+                      05948         andlw   038h            ; Mask channel
+                      05949         iorlw   (((ADC_CLOCK) & 3) << 6) | 1    ; Set up clock source and turn on ADC
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      05946         rlcf    WREG, F
-                      05947         rlcf    WREG, F
-                      05948         andlw   038h            ; Mask channel
-                      05949         iorlw   (((ADC_CLOCK) & 3) << 6) | 1    ; Set up clock source and turn on ADC
                       05950         movwf   ADCON0
                       05951       endif
                       05952       if ((ADC_SAMPLEUS) != 0)
 0001B0 0E00           05953         movlw   (ADC_SAMPLEUS) >> 8     ; Get sample time
 0001B2 6E02           05954         movwf   R0 + 1
 0001B4 0E32           05955         movlw   low (ADC_SAMPLEUS)
-Error[113]  : Symbol not previously defined (PAUSEUSL)
-0001B6 EC00 F000      05956         call    PAUSEUSL        ; Wait sample time
+0001B6 ECE6 F000      05956         call    PAUSEUSL        ; Wait sample time
                       05957       endif
 0001BA 82C2           05958         bsf     ADCON0, GO_DONE ; Start conversion
 0001BC B2C2           05959 adcinloop btfsc ADCON0, GO_DONE ; Wait for conversion to complete
@@ -559,104 +554,131 @@ Error[113]  : Symbol not previously defined (PAUSEUSL)
 0001C2 6E02           05966         movwf   R0 + 1
 0001C4 50C3           05967         movf    ADRESL, W
                       05968       endif
-0001C6 EF22 F001      05969         goto    DUNN
-                      07496   LIST
-0001CA 6A06           07497 DIV     clrf    R2 + 1
-0001CC 6A05           07498         clrf    R2
-                      07499 
-0001CE 0E10           07500 DIV32DIV movlw   16
-0001D0 6E07           07501         movwf   R3
-                      07502 
-0001D2 3402           07503 divloop rlcf    R0 + 1, W
-0001D4 3605           07504         rlcf    R2, F
-0001D6 3606           07505         rlcf    R2 + 1, F
-0001D8 5003           07506         movf    R1, W
-0001DA 5E05           07507         subwf   R2, F
-0001DC 5004           07508         movf    R1 + 1, W
-0001DE 5A06           07509         subwfb  R2 + 1, F
-                      07510 
-0001E0 E205           07511         bc      divok
-0001E2 5003           07512         movf    R1, W
-0001E4 2605           07513         addwf   R2, F
-0001E6 5004           07514         movf    R1 + 1, W
-0001E8 2206           07515         addwfc  R2 + 1, F
-                      07516 
-0001EA 90D8           07517         bcf     STATUS, C
-                      07518 
-0001EC 3601           07519 divok   rlcf    R0, F
-0001EE 3602           07520         rlcf    R0 + 1, F
-                      07521 
-0001F0 2E07           07522         decfsz  R3, F
-0001F2 D7EF           07523         bra     divloop
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 11
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
-0001F4 5001           07524         movf    R0, W           ; Get low byte to W
-0001F6 EF22 F001      07525         goto    DUNN
-                      07542   LIST
-0001FA 5003           07543 MUL     movf    R1, W
-0001FC 0207           07544         mulwf   R3              ; R1 * R3 = PRODHL
-                      07545 
-0001FE CFF4 F006      07546         movff   PRODH, R2 + 1
-000202 CFF3 F005      07547         movff   PRODL, R2
-                      07548 
-000206 5004           07549         movf    R1 + 1, W
-000208 0208           07550         mulwf   R3 + 1          ; R1 + 1 * R3 + 1 = PRODHL
-                      07551 
-00020A CFF4 F002      07552         movff   PRODH, R0 + 1
-00020E CFF3 F001      07553         movff   PRODL, R0
-                      07554 
-000212 5003           07555         movf    R1, W
-000214 0208           07556         mulwf   R3 + 1          ; R1 * R3 + 1 = PRODHL
-                      07557 
-000216 50F3           07558         movf    PRODL, W        ; Add cross products
-000218 2606           07559         addwf   R2 + 1, F
-00021A 50F4           07560         movf    PRODH, W
-00021C 2201           07561         addwfc  R0, F
-00021E 6AE8           07562         clrf    WREG
-000220 2202           07563         addwfc  R0 + 1, F
-                      07564 
-000222 5004           07565         movf    R1 + 1, W
-000224 0207           07566         mulwf   R3              ; R1 + 1 * R3 = PRODHL
-                      07567 
-000226 50F3           07568         movf    PRODL, W        ; Add cross products
-000228 2606           07569         addwf   R2 + 1, F
-00022A 50F4           07570         movf    PRODH, W
-00022C 2201           07571         addwfc  R0, F
-00022E 6AE8           07572         clrf    WREG
-000230 2202           07573         addwfc  R0 + 1, F
-                      07574 
-000232 5005           07575         movf    R2, W           ; Get low byte to W
-000234 EF22 F001      07576         goto    DUNN
-                      07627   LIST
-000238 6EE9           07628 JUMPMAN movwf   FSR0L
-00023A 6AFB           07629         clrf    PCLATU
-00023C 5012           07630         movf    R8 + 1, W
-00023E 6EFA           07631         movwf   PCLATH
-000240 5011           07632         movf    R8, W
-000242 6EF9           07633         movwf   PCL
-                      07647   LIST
-000244 0100           07648 DUNN    movlb   0               ; 1 Reset banks to 0
-                      07649 DUNN3   CLRWDT?NOP              ; 1 Hit Watchdog timer
+0001C6 EF37 F001      05969         goto    DUNN
+                      06284   LIST
+0001CA 6A02           06285 PAUSEUS clrf    R0 + 1          ; 1
+0001CC 0FE8           06286 PAUSEUSL addlw  -24             ; 1 Subtract overhead
+0001CE 6E01           06287         movwf   R0              ; 1
+0001D0 1E02           06288         comf    R0 + 1, F       ; 1
+0001D2 0EFC           06289         movlw   -4              ; 1
+0001D4 A0D8           06290         btfss   STATUS, C       ; 1 / 2
+0001D6 D003           06291         bra     pauseush        ; 2 / 0
+0001D8 2601           06292 pauseusloop addwf R0, F         ; 1
+0001DA B0D8           06293         btfsc   STATUS, C       ; 1 / 2
+0001DC D7FD           06294         bra     pauseusloop     ; 2 / 0
+0001DE 2601           06295 pauseush addwf  R0, F           ; 1 Do an extra countdown
+                      06296         CLRWDT?NOP              ; 1 Keep Watchdog clear
                           M     ifndef NO_CLRWDT
-000246 0004               M         clrwdt
+0001E0 0004               M         clrwdt
                           M     else
                           M         nop
                           M     endif
-000248 0012           07650 DUNNRET return                  ; 2 Done
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 12
+0001E2 3E02           06297         incfsz  R0 + 1, F       ; 1 / 2
+0001E4 D7F9           06298         bra     pauseusloop     ; 2 / 0
+0001E6 B001           06299         btfsc   R0, 0           ; 1 / 2
+0001E8 D000           06300         bra     $ + 2           ; 2 / 0 Burn an extra cycle
+0001EA A201           06301         btfss   R0, 1           ; 1 / 2
+0001EC D002           06302         bra     pauseusdone     ; 2 / 0
+0001EE 0000           06303         nop                     ; 1
+0001F0 D000           06304         bra     $ + 2           ; 2 Burn an extra 2 cycles
+0001F2 0012           06305 pauseusdone return              ; 2 + 3 (call + setup)
+                      07496   LIST
+0001F4 6A06           07497 DIV     clrf    R2 + 1
+0001F6 6A05           07498         clrf    R2
+                      07499 
+0001F8 0E10           07500 DIV32DIV movlw   16
+0001FA 6E07           07501         movwf   R3
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                      07502 
+0001FC 3402           07503 divloop rlcf    R0 + 1, W
+0001FE 3605           07504         rlcf    R2, F
+000200 3606           07505         rlcf    R2 + 1, F
+000202 5003           07506         movf    R1, W
+000204 5E05           07507         subwf   R2, F
+000206 5004           07508         movf    R1 + 1, W
+000208 5A06           07509         subwfb  R2 + 1, F
+                      07510 
+00020A E205           07511         bc      divok
+00020C 5003           07512         movf    R1, W
+00020E 2605           07513         addwf   R2, F
+000210 5004           07514         movf    R1 + 1, W
+000212 2206           07515         addwfc  R2 + 1, F
+                      07516 
+000214 90D8           07517         bcf     STATUS, C
+                      07518 
+000216 3601           07519 divok   rlcf    R0, F
+000218 3602           07520         rlcf    R0 + 1, F
+                      07521 
+00021A 2E07           07522         decfsz  R3, F
+00021C D7EF           07523         bra     divloop
+00021E 5001           07524         movf    R0, W           ; Get low byte to W
+000220 EF37 F001      07525         goto    DUNN
+                      07542   LIST
+000224 5003           07543 MUL     movf    R1, W
+000226 0207           07544         mulwf   R3              ; R1 * R3 = PRODHL
+                      07545 
+000228 CFF4 F006      07546         movff   PRODH, R2 + 1
+00022C CFF3 F005      07547         movff   PRODL, R2
+                      07548 
+000230 5004           07549         movf    R1 + 1, W
+000232 0208           07550         mulwf   R3 + 1          ; R1 + 1 * R3 + 1 = PRODHL
+                      07551 
+000234 CFF4 F002      07552         movff   PRODH, R0 + 1
+000238 CFF3 F001      07553         movff   PRODL, R0
+                      07554 
+00023C 5003           07555         movf    R1, W
+00023E 0208           07556         mulwf   R3 + 1          ; R1 * R3 + 1 = PRODHL
+                      07557 
+000240 50F3           07558         movf    PRODL, W        ; Add cross products
+000242 2606           07559         addwf   R2 + 1, F
+000244 50F4           07560         movf    PRODH, W
+000246 2201           07561         addwfc  R0, F
+000248 6AE8           07562         clrf    WREG
+00024A 2202           07563         addwfc  R0 + 1, F
+                      07564 
+00024C 5004           07565         movf    R1 + 1, W
+00024E 0207           07566         mulwf   R3              ; R1 + 1 * R3 = PRODHL
+                      07567 
+000250 50F3           07568         movf    PRODL, W        ; Add cross products
+000252 2606           07569         addwf   R2 + 1, F
+000254 50F4           07570         movf    PRODH, W
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+000256 2201           07571         addwfc  R0, F
+000258 6AE8           07572         clrf    WREG
+00025A 2202           07573         addwfc  R0 + 1, F
+                      07574 
+00025C 5005           07575         movf    R2, W           ; Get low byte to W
+00025E EF37 F001      07576         goto    DUNN
+                      07627   LIST
+000262 6EE9           07628 JUMPMAN movwf   FSR0L
+000264 6AFB           07629         clrf    PCLATU
+000266 5012           07630         movf    R8 + 1, W
+000268 6EFA           07631         movwf   PCLATH
+00026A 5011           07632         movf    R8, W
+00026C 6EF9           07633         movwf   PCL
+                      07647   LIST
+00026E 0100           07648 DUNN    movlb   0               ; 1 Reset banks to 0
+                      07649 DUNN3   CLRWDT?NOP              ; 1 Hit Watchdog timer
+                          M     ifndef NO_CLRWDT
+000270 0004               M         clrwdt
+                          M     else
+                          M         nop
+                          M     endif
+000272 0012           07650 DUNNRET return                  ; 2 Done
                       07663   LIST
-00024A                07664 INIT
+000274                07664 INIT
                       07708   LIST
-00024A                07709 main
+000274                07709 main
                       00065 
                       00066         MOVE?CB 040h, OSCCON
                           M         CHK?RP  OSCCON
@@ -669,24 +691,10 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (low (040h) == 0)
                           M         clrf    OSCCON
                           M     else
-00024A 0E40               M         movlw   low (040h)
-00024C 6ED3               M         movwf   OSCCON
+000274 0E40               M         movlw   low (040h)
+000276 6ED3               M         movwf   OSCCON
                           M     endif
-                      00067         MOVE?CB 001h, ADCON0
-                          M         CHK?RP  ADCON0
-                          M     if (((ADCON0) > BANKA_END) & ((ADCON0) < (0f01h + BANKA_END)))
-                          M       if (((ADCON0) & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (ADCON0)
-                          M PREV_BANK = high (ADCON0)
-                          M       endif
-                          M     endif
-                          M     if (low (001h) == 0)
-                          M         clrf    ADCON0
-                          M     else
-00024E 0E01               M         movlw   low (001h)
-000250 6EC2               M         movwf   ADCON0
-                          M     endif
-                      00068         MOVE?CB 000h, ADCON1
+                      00067         MOVE?CB 000h, ADCON1
                           M         CHK?RP  ADCON1
                           M     if (((ADCON1) > BANKA_END) & ((ADCON1) < (0f01h + BANKA_END)))
                           M       if (((ADCON1) & 0f00h) != (PREV_BANK << 8))
@@ -695,32 +703,32 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     if (low (000h) == 0)
-000252 6AC1               M         clrf    ADCON1
+000278 6AC1               M         clrf    ADCON1
                           M     else
                           M         movlw   low (000h)
-                          M         movwf   ADCON1
-                          M     endif
-                      00069         MOVE?CB 087h, ADCON2
-                          M         CHK?RP  ADCON2
-                          M     if (((ADCON2) > BANKA_END) & ((ADCON2) < (0f01h + BANKA_END)))
-                          M       if (((ADCON2) & 0f00h) != (PREV_BANK << 8))
-                          M         movlb   high (ADCON2)
-                          M PREV_BANK = high (ADCON2)
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 13
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
+                          M         movwf   ADCON1
+                          M     endif
+                      00068         MOVE?CB 087h, ADCON2
+                          M         CHK?RP  ADCON2
+                          M     if (((ADCON2) > BANKA_END) & ((ADCON2) < (0f01h + BANKA_END)))
+                          M       if (((ADCON2) & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (ADCON2)
+                          M PREV_BANK = high (ADCON2)
                           M       endif
                           M     endif
                           M     if (low (087h) == 0)
                           M         clrf    ADCON2
                           M     else
-000254 0E87               M         movlw   low (087h)
-000256 6EC0               M         movwf   ADCON2
+00027A 0E87               M         movlw   low (087h)
+00027C 6EC0               M         movwf   ADCON2
                           M     endif
-                      00070         MOVE?CB 0FFh, TRISA
+                      00069         MOVE?CB 0FFh, TRISA
                           M         CHK?RP  TRISA
                           M     if (((TRISA) > BANKA_END) & ((TRISA) < (0f01h + BANKA_END)))
                           M       if (((TRISA) & 0f00h) != (PREV_BANK << 8))
@@ -731,10 +739,10 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (low (0FFh) == 0)
                           M         clrf    TRISA
                           M     else
-000258 0EFF               M         movlw   low (0FFh)
-00025A 6E92               M         movwf   TRISA
+00027E 0EFF               M         movlw   low (0FFh)
+000280 6E92               M         movwf   TRISA
                           M     endif
-                      00071         MOVE?CB 000h, TRISC
+                      00070         MOVE?CB 000h, TRISC
                           M         CHK?RP  TRISC
                           M     if (((TRISC) > BANKA_END) & ((TRISC) < (0f01h + BANKA_END)))
                           M       if (((TRISC) & 0f00h) != (PREV_BANK << 8))
@@ -743,14 +751,34 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     if (low (000h) == 0)
-00025C 6A94               M         clrf    TRISC
+000282 6A94               M         clrf    TRISC
                           M     else
                           M         movlw   low (000h)
                           M         movwf   TRISC
                           M     endif
-                      00072         ADCIN?CW        004h, _throttle
-                          M         MOVE?CA 004h
-00025E 0E04               M         movlw   low (004h)
+                      00071         MOVE?CB 00Dh, ADCON0
+                          M         CHK?RP  ADCON0
+                          M     if (((ADCON0) > BANKA_END) & ((ADCON0) < (0f01h + BANKA_END)))
+                          M       if (((ADCON0) & 0f00h) != (PREV_BANK << 8))
+                          M         movlb   high (ADCON0)
+                          M PREV_BANK = high (ADCON0)
+                          M       endif
+                          M     endif
+                          M     if (low (00Dh) == 0)
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         clrf    ADCON0
+                          M     else
+000284 0E0D               M         movlw   low (00Dh)
+000286 6EC2               M         movwf   ADCON0
+                          M     endif
+                      00072         ADCIN?CW        003h, _throttle
+                          M         MOVE?CA 003h
+000288 0E03               M         movlw   low (003h)
                           M         L?CALL  ADCIN
                           M         RST?RP
                           M     if (PREV_BANK != 0)
@@ -765,18 +793,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    ADCIN
                           M       else
                           M         if ((ADCIN) > $)
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 14
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         call    ADCIN
                           M         else
                           M           if ((ADCIN) < ($ - 3ffh))
                           M         call    ADCIN
                           M           else
-000260 DF9C               M         rcall   ADCIN
+00028A DF87               M         rcall   ADCIN
                           M           endif
                           M         endif
                           M       endif
@@ -790,18 +812,24 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_throttle)
                           M       endif
                           M     endif
-000262 6E1E               M         movwf   _throttle
+00028C 6E1E               M         movwf   _throttle
                           M         MOVE?BB (R0)  + 1, (_throttle) + 1
-000264 C002 F01F          M         movff   (R0) + 1, (_throttle) + 1
+00028E C002 F01F          M         movff   (R0) + 1, (_throttle) + 1
                       00073         MUL?WCW _throttle, 00Dh, T1
                           M         MOVE?WW _throttle, R3
                           M         MOVE?BB _throttle, R3
-000268 C01E F007          M         movff   _throttle, R3
+000292 C01E F007          M         movff   _throttle, R3
                           M         MOVE?BB (_throttle) + 1, (R3) + 1
-00026C C01F F008          M         movff   (_throttle) + 1, (R3) + 1
+000296 C01F F008          M         movff   (_throttle) + 1, (R3) + 1
                           M         MOVE?CW 00Dh, R1
                           M         CHK?RP  R1
                           M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       if (((R1)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (R1)
                           M PREV_BANK = high (R1)
@@ -816,20 +844,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (low (00Dh) == 0)
                           M         clrf    R1
                           M       else
-000270 0E0D               M         movlw   low (00Dh)
-000272 6E03               M         movwf   R1
+00029A 0E0D               M         movlw   low (00Dh)
+00029C 6E03               M         movwf   R1
                           M       endif
                           M       if ((high (00Dh)) == 0)
-000274 6A04               M         clrf    (R1)   + 1
+00029E 6A04               M         clrf    (R1)   + 1
                           M       else
                           M         movlw   high (00Dh)
                           M         movwf   (R1)   + 1
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 15
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M       endif
                           M     endif
                           M         L?CALL  MUL
@@ -851,7 +873,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((MUL)   < ($ - 3ffh))
                           M         call    MUL
                           M           else
-000276 DFC1               M         rcall   MUL
+0002A0 DFC1               M         rcall   MUL
                           M           endif
                           M         endif
                           M       endif
@@ -861,13 +883,19 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  T1
                           M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
                           M       if (((T1)    & 0f00h) != (PREV_BANK << 8))
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         movlb   high (T1)
                           M PREV_BANK = high (T1)
                           M       endif
                           M     endif
-000278 6E13               M         movwf   T1
+0002A2 6E13               M         movwf   T1
                           M         MOVE?BB (R2)  + 1, (T1)   + 1
-00027A C006 F014          M         movff   (R2) + 1, (T1) + 1
+0002A4 C006 F014          M         movff   (R2) + 1, (T1) + 1
                       00074         DIV?WCW T1, 003FFh, T1
                           M     if (003FFh == 2)
                           M         bcf     STATUS, C
@@ -883,18 +911,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         rrcf    T1,  W
                           M         MOVE?AB T1
                           M       endif
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 16
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M     else
                           M         MOVE?WW T1,  R0
                           M         MOVE?BB T1,  R0
-00027E C013 F001          M         movff   T1,  R0
+0002A8 C013 F001          M         movff   T1,  R0
                           M         MOVE?BB (T1)  + 1, (R0)   + 1
-000282 C014 F002          M         movff   (T1) + 1, (R0) + 1
+0002AC C014 F002          M         movff   (T1) + 1, (R0) + 1
                           M         MOVE?CW 003FFh, R1
                           M         CHK?RP  R1
                           M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
@@ -912,14 +934,20 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (low (003FFh) == 0)
                           M         clrf    R1
                           M       else
-000286 0EFF               M         movlw   low (003FFh)
-000288 6E03               M         movwf   R1
+0002B0 0EFF               M         movlw   low (003FFh)
+0002B2 6E03               M         movwf   R1
                           M       endif
                           M       if ((high (003FFh)) == 0)
                           M         clrf    (R1)   + 1
                           M       else
-00028A 0E03               M         movlw   high (003FFh)
-00028C 6E04               M         movwf   (R1)   + 1
+0002B4 0E03               M         movlw   high (003FFh)
+0002B6 6E04               M         movwf   (R1)   + 1
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       endif
                           M     endif
                           M         L?CALL  DIV
@@ -941,13 +969,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((DIV)   < ($ - 3ffh))
                           M         call    DIV
                           M           else
-00028E DF9D               M         rcall   DIV
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 17
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
+0002B8 DF9D               M         rcall   DIV
                           M           endif
                           M         endif
                           M       endif
@@ -961,9 +983,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (T1)
                           M       endif
                           M     endif
-000290 6E13               M         movwf   T1
+0002BA 6E13               M         movwf   T1
                           M         MOVE?BB (R0)  + 1, (T1)   + 1
-000292 C002 F014          M         movff   (R0) + 1, (T1) + 1
+0002BC C002 F014          M         movff   (R0) + 1, (T1) + 1
                           M     endif
                       00075         ADD?CWW 00Dh, T1, _pwm_val
                           M     if (_pwm_val == T1)
@@ -979,8 +1001,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   (00Dh) >> 8
                           M         addwfc  _pwm_val + 1, F
                           M       endif
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M     else
-000296 0E0D               M         movlw   low (00Dh)
+0002C0 0E0D               M         movlw   low (00Dh)
                           M         CHK?RP  T1
                           M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
                           M       if (((T1)    & 0f00h) != (PREV_BANK << 8))
@@ -988,7 +1016,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (T1)
                           M       endif
                           M     endif
-000298 2413               M         addwf   T1,  W
+0002C2 2413               M         addwf   T1,  W
                           M         MOVE?AB _pwm_val
                           M         CHK?RP  _pwm_val
                           M     if (((_pwm_val) > BANKA_END) & ((_pwm_val) < (0f01h + BANKA_END)))
@@ -997,22 +1025,16 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_pwm_val)
                           M       endif
                           M     endif
-00029A 6E1C               M         movwf   _pwm_val
-00029C 0E00               M         movlw   (00Dh) >> 8
+0002C4 6E1C               M         movwf   _pwm_val
+0002C6 0E00               M         movlw   (00Dh) >> 8
                           M         CHK?RP  T1
                           M     if (((T1)    > BANKA_END) & ((T1)    < (0f01h + BANKA_END)))
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 18
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M       if (((T1)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (T1)
                           M PREV_BANK = high (T1)
                           M       endif
                           M     endif
-00029E 2014               M         addwfc  T1  + 1, W
+0002C8 2014               M         addwfc  T1  + 1, W
                           M         MOVE?AB _pwm_val + 1
                           M         CHK?RP  _pwm_val + 1
                           M     if (((_pwm_val + 1) > BANKA_END) & ((_pwm_val + 1) < (0f01h + BANKA_END)))
@@ -1021,12 +1043,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_pwm_val + 1)
                           M       endif
                           M     endif
-0002A0 6E1D               M         movwf   _pwm_val + 1
+0002CA 6E1D               M         movwf   _pwm_val + 1
                           M     endif
                       00076         HPWM?CWC        001h, _pwm_val, 0F5h
                           M         MOVE?WB _pwm_val, R4
                           M         MOVE?BB _pwm_val, R4
-0002A2 C01C F009          M         movff   _pwm_val, R4
+0002CC C01C F009          M         movff   _pwm_val, R4
                           M         MOVE?CW 0F5h, R1
                           M         CHK?RP  R1
                           M     if (((R1)    > BANKA_END) & ((R1)    < (0f01h + BANKA_END)))
@@ -1038,34 +1060,34 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         movlw   low (0F5h)
                           M         movwf   R1
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         movlw   high (0F5h)
                           M         movwf   (R1)   + 1
                           M     else
                           M       if (low (0F5h) == 0)
                           M         clrf    R1
                           M       else
-0002A6 0EF5               M         movlw   low (0F5h)
-0002A8 6E03               M         movwf   R1
+0002D0 0EF5               M         movlw   low (0F5h)
+0002D2 6E03               M         movwf   R1
                           M       endif
                           M       if ((high (0F5h)) == 0)
-0002AA 6A04               M         clrf    (R1)   + 1
+0002D4 6A04               M         clrf    (R1)   + 1
                           M       else
                           M         movlw   high (0F5h)
                           M         movwf   (R1)   + 1
                           M       endif
                           M     endif
                           M         MOVE?CA 001h
-0002AC 0E01               M         movlw   low (001h)
+0002D6 0E01               M         movlw   low (001h)
                           M         L?CALL  HPWM
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 19
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M PREV_BANK = 0
                           M     endif
                           M 
@@ -1081,14 +1103,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((HPWM)  < ($ - 3ffh))
                           M         call    HPWM
                           M           else
-0002AE DEAB               M         rcall   HPWM
+0002D8 DE96               M         rcall   HPWM
                           M           endif
                           M         endif
                           M       endif
                           M     endif
                       00077         LCDOUT?C        0FEh
                           M         MOVE?CA 0FEh
-0002B0 0EFE               M         movlw   low (0FEh)
+0002DA 0EFE               M         movlw   low (0FEh)
                           M         L?CALL  LCDOUT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
@@ -1097,6 +1119,12 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M 
                           M     ifdef USE_LINKER
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         call    LCDOUT
                           M     else
                           M       if ((LCDOUT) < 1)
@@ -1108,23 +1136,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((LCDOUT) < ($ - 3ffh))
                           M         call    LCDOUT
                           M           else
-0002B2 DEF1               M         rcall   LCDOUT
+0002DC DEDC               M         rcall   LCDOUT
                           M           endif
                           M         endif
                           M       endif
                           M     endif
                       00078         LCDOUT?C        001h
                           M         MOVE?CA 001h
-0002B4 0E01               M         movlw   low (001h)
+0002DE 0E01               M         movlw   low (001h)
                           M         L?CALL  LCDOUT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 20
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         movlb   0
                           M PREV_BANK = 0
                           M     endif
@@ -1141,7 +1163,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((LCDOUT) < ($ - 3ffh))
                           M         call    LCDOUT
                           M           else
-0002B6 DEEF               M         rcall   LCDOUT
+0002E0 DEDA               M         rcall   LCDOUT
                           M           endif
                           M         endif
                           M       endif
@@ -1156,7 +1178,13 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     if (low (000h) == 0)
-0002B8 6A0A               M         clrf    R4 + 1
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0002E2 6A0A               M         clrf    R4 + 1
                           M     else
                           M         movlw   low (000h)
                           M         movwf   R4 + 1
@@ -1164,9 +1192,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00080         LCDOUTNUM?W     _throttle
                           M         MOVE?WW _throttle, R2
                           M         MOVE?BB _throttle, R2
-0002BA C01E F005          M         movff   _throttle, R2
+0002E4 C01E F005          M         movff   _throttle, R2
                           M         MOVE?BB (_throttle) + 1, (R2) + 1
-0002BE C01F F006          M         movff   (_throttle) + 1, (R2) + 1
+0002E8 C01F F006          M         movff   (_throttle) + 1, (R2) + 1
                       00081         LCDOUTDEC?      
                           M         MOVE?CW LCDOUTJ, R8
                           M         CHK?RP  R8
@@ -1178,12 +1206,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M     ifdef USE_LINKER
                           M         movlw   low (LCDOUTJ)
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 21
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         movwf   R8
                           M         movlw   high (LCDOUTJ)
                           M         movwf   (R8)   + 1
@@ -1191,11 +1213,11 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (low (LCDOUTJ) == 0)
                           M         clrf    R8
                           M       else
-0002C2 0E94               M         movlw   low (LCDOUTJ)
-0002C4 6E11               M         movwf   R8
+0002EC 0E94               M         movlw   low (LCDOUTJ)
+0002EE 6E11               M         movwf   R8
                           M       endif
                           M       if ((high (LCDOUTJ)) == 0)
-0002C6 6A12               M         clrf    (R8)   + 1
+0002F0 6A12               M         clrf    (R8)   + 1
                           M       else
                           M         movlw   high (LCDOUTJ)
                           M         movwf   (R8)   + 1
@@ -1215,19 +1237,25 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    SEROUT2DEC
                           M       else
                           M         if ((SEROUT2DEC) > $)
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         call    SEROUT2DEC
                           M         else
                           M           if ((SEROUT2DEC) < ($ - 3ffh))
                           M         call    SEROUT2DEC
                           M           else
-0002C8 DF3A               M         rcall   SEROUT2DEC
+0002F2 DF25               M         rcall   SEROUT2DEC
                           M           endif
                           M         endif
                           M       endif
                           M     endif
                       00082         LCDOUT?C        0FEh
                           M         MOVE?CA 0FEh
-0002CA 0EFE               M         movlw   low (0FEh)
+0002F4 0EFE               M         movlw   low (0FEh)
                           M         L?CALL  LCDOUT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
@@ -1237,12 +1265,6 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M 
                           M     ifdef USE_LINKER
                           M         call    LCDOUT
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 22
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M     else
                           M       if ((LCDOUT) < 1)
                           M         call    LCDOUT
@@ -1253,14 +1275,14 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((LCDOUT) < ($ - 3ffh))
                           M         call    LCDOUT
                           M           else
-0002CC DEE4               M         rcall   LCDOUT
+0002F6 DECF               M         rcall   LCDOUT
                           M           endif
                           M         endif
                           M       endif
                           M     endif
                       00083         LCDOUT?C        0C0h
                           M         MOVE?CA 0C0h
-0002CE 0EC0               M         movlw   low (0C0h)
+0002F8 0EC0               M         movlw   low (0C0h)
                           M         L?CALL  LCDOUT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
@@ -1274,13 +1296,19 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if ((LCDOUT) < 1)
                           M         call    LCDOUT
                           M       else
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 23
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M         if ((LCDOUT) > $)
                           M         call    LCDOUT
                           M         else
                           M           if ((LCDOUT) < ($ - 3ffh))
                           M         call    LCDOUT
                           M           else
-0002D0 DEE2               M         rcall   LCDOUT
+0002FA DECD               M         rcall   LCDOUT
                           M           endif
                           M         endif
                           M       endif
@@ -1295,13 +1323,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     if (low (000h) == 0)
-0002D2 6A0A               M         clrf    R4 + 1
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 23
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
+0002FC 6A0A               M         clrf    R4 + 1
                           M     else
                           M         movlw   low (000h)
                           M         movwf   R4 + 1
@@ -1309,9 +1331,9 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00085         LCDOUTNUM?W     _pwm_val
                           M         MOVE?WW _pwm_val, R2
                           M         MOVE?BB _pwm_val, R2
-0002D4 C01C F005          M         movff   _pwm_val, R2
+0002FE C01C F005          M         movff   _pwm_val, R2
                           M         MOVE?BB (_pwm_val) + 1, (R2) + 1
-0002D8 C01D F006          M         movff   (_pwm_val) + 1, (R2) + 1
+000302 C01D F006          M         movff   (_pwm_val) + 1, (R2) + 1
                       00086         LCDOUTDEC?      
                           M         MOVE?CW LCDOUTJ, R8
                           M         CHK?RP  R8
@@ -1330,11 +1352,17 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (low (LCDOUTJ) == 0)
                           M         clrf    R8
                           M       else
-0002DC 0E94               M         movlw   low (LCDOUTJ)
-0002DE 6E11               M         movwf   R8
+000306 0E94               M         movlw   low (LCDOUTJ)
+000308 6E11               M         movwf   R8
                           M       endif
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
                           M       if ((high (LCDOUTJ)) == 0)
-0002E0 6A12               M         clrf    (R8)   + 1
+00030A 6A12               M         clrf    (R8)   + 1
                           M       else
                           M         movlw   high (LCDOUTJ)
                           M         movwf   (R8)   + 1
@@ -1355,24 +1383,18 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         if ((SEROUT2DEC) > $)
                           M         call    SEROUT2DEC
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 24
-
-
-LOC  OBJECT CODE     LINE SOURCE TEXT
-  VALUE
-
                           M         else
                           M           if ((SEROUT2DEC) < ($ - 3ffh))
                           M         call    SEROUT2DEC
                           M           else
-0002E2 DF2D               M         rcall   SEROUT2DEC
+00030C DF18               M         rcall   SEROUT2DEC
                           M           endif
                           M         endif
                           M       endif
                           M     endif
                       00087 
                       00088         END
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 25
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 25
 
 
 SYMBOL TABLE
@@ -1431,7 +1453,7 @@ BANK0_START                       00000080
 BANK1_END                         000001FF
 BANK1_START                       00000100
 BANK2_END                         000002FF
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 26
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 26
 
 
 SYMBOL TABLE
@@ -1490,7 +1512,7 @@ CCP2M3                            00000003
 CCP2X                             00000005
 CCP2Y                             00000004
 CCP2_BIT                          00000001
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 27
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 27
 
 
 SYMBOL TABLE
@@ -1549,7 +1571,7 @@ DDRB                              TRISB
 DDRC                              TRISC
 DDRD                              TRISD
 DDRE                              TRISE
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 28
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 28
 
 
 SYMBOL TABLE
@@ -1560,17 +1582,17 @@ DEBUGIN_MODE                      00000001
 DEBUGIN_REG                       00000F81
 DEBUG_BAUD                        00000960
 DEBUG_BIT                         00000000
-DEBUG_DELAY                       0000016C
+DEBUG_DELAY                       00000193
 DEBUG_MODE                        00000001
 DEBUG_REG                         00000F81
-DIV                               000001CA
-DIV32DIV                          000001CE
+DIV                               000001F4
+DIV32DIV                          000001F8
 DIV?WCW                           
 DIV_USED                          00000001
 DONE                              00000001
-DUNN                              00000244
-DUNN3                             00000246
-DUNNRET                           00000248
+DUNN                              0000026E
+DUNN3                             00000270
+DUNNRET                           00000272
 DUNN_USED                         00000001
 D_A                               00000005
 D_NOT_A                           00000005
@@ -1608,7 +1630,7 @@ FSR2H                             00000FDA
 FSR2L                             00000FD9
 GCEN                              00000007
 GIE                               00000007
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 29
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 29
 
 
 SYMBOL TABLE
@@ -1637,13 +1659,13 @@ HPWM_USED                         00000001
 HSER2_BAUD                        00000960
 HSER2_BITS                        00000008
 HSER2_RCSTA                       00000090
-HSER2_SPBRG                       00000006
+HSER2_SPBRG                       00000019
 HSER2_TXSTA                       00000020
 HSER_BAUD                         00000960
 HSER_BITS                         00000008
 HSER_PORT                         00000001
 HSER_RCSTA                        00000090
-HSER_SPBRG                        00000006
+HSER_SPBRG                        00000019
 HSER_TXSTA                        00000020
 I2CFIRSTFLAG                      FLAGS, 2
 I2CREADFLAG                       FLAGS, 3
@@ -1654,7 +1676,7 @@ IDLEN                             00000007
 INDF0                             00000FEF
 INDF1                             00000FE7
 INDF2                             00000FDF
-INIT                              0000024A
+INIT                              00000274
 INT0                              00000000
 INT0E                             00000004
 INT0F                             00000001
@@ -1667,7 +1689,7 @@ INT1IE                            00000003
 INT1IF                            00000000
 INT1IP                            00000006
 INT1P                             00000006
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 30
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 30
 
 
 SYMBOL TABLE
@@ -1696,7 +1718,7 @@ IRCF1                             00000005
 IRCF2                             00000006
 IRVST                             00000005
 IVRST                             00000005
-JUMPMAN                           00000238
+JUMPMAN                           00000262
 JUMPMAN_USED                      00000001
 KBI0                              00000004
 KBI1                              00000005
@@ -1726,7 +1748,7 @@ LATC                              00000F8B
 LATC0                             00000000
 LATC1                             00000001
 LATC2                             00000002
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 31
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 31
 
 
 SYMBOL TABLE
@@ -1785,7 +1807,7 @@ MOVE?BW
 MOVE?CA                           
 MOVE?CB                           
 MOVE?CT                           
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 32
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 32
 
 
 SYMBOL TABLE
@@ -1801,7 +1823,7 @@ MOVE?WB
 MOVE?WT                           
 MOVE?WW                           
 MOVE?WWA                          
-MUL                               000001FA
+MUL                               00000224
 MUL?WCW                           
 MUL_USED                          00000001
 N                                 00000004
@@ -1821,7 +1843,7 @@ NOT_TO                            00000003
 NOT_W                             00000002
 NOT_WRITE                         00000002
 OERR                              00000001
-OSC                               1
+OSC                               4
 OSC1                              00000007
 OSC2                              00000006
 OSCCON                            00000FD3
@@ -1832,6 +1854,8 @@ OSCTUNE                           00000F9B
 OSTS                              00000003
 OV                                00000003
 P                                 00000004
+PAUSEUS                           000001CA
+PAUSEUSL                          000001CC
 PAUSEUS_USED                      00000001
 PC                                00000FF9
 PCFG0                             00000000
@@ -1842,14 +1866,14 @@ PCL                               00000FF9
 PCLATH                            00000FFA
 PCLATU                            00000FFB
 PD                                00000002
-PEIE                              00000006
-PEIE_GIEL                         00000006
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 33
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 33
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PEIE                              00000006
+PEIE_GIEL                         00000006
 PEN                               00000002
 PGC                               00000006
 PGD                               00000007
@@ -1901,14 +1925,14 @@ RA0                               00000000
 RA1                               00000001
 RA2                               00000002
 RA3                               00000003
-RA4                               00000004
-RA5                               00000005
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 34
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 34
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+RA4                               00000004
+RA5                               00000005
 RA6                               00000006
 RA7                               00000007
 RAM_BANKS                         00000003
@@ -1960,14 +1984,14 @@ RX                                00000007
 RX9                               00000006
 RX9D                              00000000
 RXDTP                             00000005
-R_NOT_W                           00000002
-R_W                               00000002
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 35
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 35
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+R_NOT_W                           00000002
+R_W                               00000002
 S                                 00000003
 SBOREN                            00000006
 SCK                               00000003
@@ -2019,14 +2043,14 @@ SWDTEN                            00000000
 SYNC                              00000004
 T016BIT                           00000006
 T08BIT                            00000006
-T0CKI                             00000004
-T0CON                             00000FD5
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 36
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 36
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+T0CKI                             00000004
+T0CON                             00000FD5
 T0CS                              00000005
 T0IE                              00000005
 T0IF                              00000002
@@ -2078,14 +2102,14 @@ TMR1IE                            00000000
 TMR1IF                            00000000
 TMR1IP                            00000000
 TMR1L                             00000FCE
-TMR1ON                            00000000
-TMR2                              00000FCC
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 37
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 37
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TMR1ON                            00000000
+TMR2                              00000FCC
 TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2IP                            00000001
@@ -2137,14 +2161,14 @@ TRISC7                            00000007
 TRMT                              00000001
 TUN0                              00000000
 TUN1                              00000001
-TUN2                              00000002
-TUN3                              00000003
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 38
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 38
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TUN2                              00000002
+TUN3                              00000003
 TUN4                              00000004
 TX                                00000006
 TX9                               00000006
@@ -2196,14 +2220,14 @@ _CONFIG7L                         0030000C
 _CP0_OFF_5L                       000000FF
 _CP0_ON_5L                        000000FE
 _CP1_OFF_5L                       000000FF
-_CP1_ON_5L                        000000FD
-_CPB_OFF_5H                       000000FF
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 39
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 39
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_CP1_ON_5L                        000000FD
+_CPB_OFF_5H                       000000FF
 _CPB_ON_5H                        000000BF
 _CPD_OFF_5H                       000000FF
 _CPD_ON_5H                        0000007F
@@ -2255,14 +2279,14 @@ _STVREN_OFF_4L                    000000FE
 _STVREN_ON_4L                     000000FF
 _TRISH                            00000F94
 _TRISL                            00000F93
-_USED                             00000001
-_WDTPS_1024_2H                    000000F5
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 40
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 40
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_USED                             00000001
+_WDTPS_1024_2H                    000000F5
 _WDTPS_128_2H                     000000EF
 _WDTPS_16384_2H                   000000FD
 _WDTPS_16_2H                      000000E9
@@ -2296,8 +2320,8 @@ __18F2420                         00000001
 _pwm_val                          0000001C
 _throttle                         0000001E
 adcinloop                         000001BC
-divloop                           000001D2
-divok                             000001EC
+divloop                           000001FC
+divok                             00000216
 hpwm2                             00000076
 hpwm24                            00000088
 hpwm242                           0000008A
@@ -2307,10 +2331,13 @@ lcdloop                           0000011C
 lcdout1                           000000F2
 lcdoutcom                         000000F0
 lcdsend                           0000011A
-main                              0000024A
+main                              00000274
+pauseusdone                       000001F2
+pauseush                          000001DE
+pauseusloop                       000001D8
 serout2ddig                       0000016A
 serout2send1                      0000018A
-MPASM  5.51                      WATERP~1.ASM   2-2-2018  13:45:16         PAGE 41
+MPASM  5.51                      WATERP~1.ASM   3-21-2018  11:33:54         PAGE 41
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
@@ -2327,16 +2354,17 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXX------------ ----------------
+02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0300 : XXXXXXXXXXXXXX-- ---------------- ---------------- ----------------
 0000 : XXXXXXXX-------- ---------------- ---------------- ----------------
 
 All other memory blocks unused.
 
-Program Memory Bytes Used:   748
-Program Memory Bytes Free: 15636
+Program Memory Bytes Used:   790
+Program Memory Bytes Free: 15594
 
 
-Errors   :     7
+Errors   :     0
 Warnings :     0 reported,     4 suppressed
 Messages :     0 reported,     0 suppressed
 

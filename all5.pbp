@@ -1,0 +1,383 @@
+    '****************************************************************
+'*  Notes   : Temperature and water loops combined        *
+'*          : Not tested
+'*          : Temp loop needs to be made proportional                                        *
+'****************************************************************
+define OSC 4
+OSCCON = %01000000
+
+DEFINE LCD_DREG PORTC
+DEFINE LCD_DBIT 4
+DEFINE LCD_RSREG PORTC
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTC
+DEFINE LCD_EBIT 3
+DEFINE LCD_BITS 4
+DEFINE LCD_LINES 2
+DEFINE ADC_BITS 10
+DEFINE ADC_SAMPLEUS 50 ' Set sampling time in uS
+
+define CCP1_REG PORTC
+define CCP1_BIT 2
+
+TRISA = %11111111 ' Set PORTA to all input 
+TRISB.2= 1
+TRISC = %00000000  'Set PORTC to output
+ADCON1 = %00000111 ' Right-Justify result in ADRESH:ADRESL registers
+ADCON2 = %10000111
+'TRISC.2 = 0          ' Set PORTC.2 (CCP1) to output
+
+'Set up manual hpwm for flow:
+CCP1CON = %00001100  ' Set CCP1 to PWM
+T2CON = %00000111    ' Turn on Timer2, Prescale=16 (last bits 00=1 01=4)
+PR2 = %11111111     ' Set PR2 to get 60Hz out
+
+t1adval VAR WORD
+t1resistance var WORD
+t1res_upper var word     
+t1res_lower var word     
+t1temp_upper var word 
+t1temp_lower var word
+t2adval VAR WORD
+t2resistance var WORD
+t2res_upper var word     
+t2res_lower var word     
+t2temp_upper var word 
+t2temp_lower var word  
+resistor_ref var word[27]
+temp_ref var WORD[27]
+i var word
+x var word
+n var word 
+loops var word
+t1temp_ref var word
+t1temp_val var word
+t1temp_integer var word
+t1temp_decimal var word
+t1temp_rem var word
+t2temp_ref var word
+t2temp_val var word
+t2temp_integer var word
+t2temp_decimal var word
+t2temp_rem var word
+throttle var word
+temp_pwm_val var word
+dT_1 var word
+dT_2 var word
+n1  var word
+n2   var word
+flow_ref var word
+flow_pwm_val var word
+an_frequency var word
+flow_val var word     '100 times actual flowrate
+flow_decimal var word
+p_ref var word
+p_pwm_val var word
+p_val var word 
+pressure var word
+p_in var word 
+pressure_ref var word
+an_3 var word
+setting var word
+
+
+dT_1 = 100  'temp diff at which starts being proportional
+dT_2 = 10 'temp diff starts going one at a time
+n1 = 5      'speed (n) when far away
+n2 = 50    'speed (n) when very close
+
+temp_ref[0] = 5
+temp_ref[1] = 10
+temp_ref[2] = 15
+temp_ref[3] = 16
+temp_ref[4] = 18
+temp_ref[5] = 20
+temp_ref[6] = 22
+temp_ref[7] = 24
+temp_ref[8] = 26
+temp_ref[9] = 28
+temp_ref[10] = 30
+temp_ref[11] = 32
+temp_ref[12] = 34
+temp_ref[13] = 35
+temp_ref[14] = 40
+temp_ref[15] = 45
+temp_ref[16] = 50
+temp_ref[17] = 55
+temp_ref[18] = 60
+temp_ref[19] = 65
+temp_ref[20] = 70
+temp_ref[21] = 75
+temp_ref[22] = 80
+temp_ref[23] = 85
+temp_ref[24] = 90
+temp_ref[25] = 95
+temp_ref[26] = 100
+
+resistor_ref[0]= 5083
+resistor_ref[1]= 4081
+resistor_ref[2]= 3299  '15  
+resistor_ref[3]= 3176  '16
+resistor_ref[4]= 2931  '18
+resistor_ref[5]= 2686  '20
+resistor_ref[6]= 2492  '22
+resistor_ref[7]= 2297  '24
+resistor_ref[8]= 2123  '26
+resistor_ref[9]= 1968  '28
+resistor_ref[10]= 1814  '30
+resistor_ref[11]= 1690  '32
+resistor_ref[12]= 1566  '34   
+resistor_ref[13]= 1503  '35
+resistor_ref[14]= 1254
+resistor_ref[15]= 1051
+resistor_ref[16]= 886
+resistor_ref[17]= 750
+resistor_ref[18]= 639
+resistor_ref[19]= 546
+resistor_ref[20]= 468
+resistor_ref[21]= 404
+resistor_ref[22]= 350
+resistor_ref[23]= 304
+resistor_ref[24]= 266
+resistor_ref[25]= 233
+resistor_ref[26]= 204
+
+'Set at 100 just so it doesnt start at zero and stop flow when reprogramme
+flow_pwm_val=100
+p_pwm_val=100
+CCP1CON.4 = flow_pwm_val.0   ' Store duty to registers as
+CCP1CON.5 = flow_pwm_val.1   ' a 10-bit word
+CCPR1L = flow_pwm_val >> 2
+loops = 0
+
+'''''''''''''''''''''''''''main'''''''''''''''''''''''
+main:
+    if loops == 10 then loops = 0 
+    loops = loops +1    
+    ADCON0 = %00001001 'AN2
+    ADCIN 2, t1temp_ref
+    t1temp_ref = ((t1temp_ref*25)/255)  
+    Gosub get_temp_value
+    gosub get_air_temp
+    gosub get_temp_pwm 
+    HPWM 2, temp_pwm_val, 245    'This multiplied by 4, actually gives 62Hz    
+     
+    ADCON0 = %00001101   'AN3
+    adcin 3, an_3                    
+    gosub get_flowrate
+    gosub get_pressure
+    flow_ref = (an_3*44)/1024        'want from 0-1024 to between 0 and 44 
+    pressure_ref = (an_3*41)/2        'p_ref/1024*21000 
+    
+    if PORTB.2 == 0 then              
+        gosub get_water_pwm                  
+        CCP1CON.4 = flow_pwm_val.0   ' Store duty to registers as
+        CCP1CON.5 = flow_pwm_val.1   ' a 10-bit word
+        CCPR1L =flow_pwm_val>> 2 
+
+    else   
+        gosub get_water_p_pwm           
+        CCP1CON.4 = p_pwm_val.0   ' Store duty to registers as
+        CCP1CON.5 = p_pwm_val.1   ' a 10-bit word
+        CCPR1L = p_pwm_val >> 2 
+        pause 100
+    
+    endif
+    
+    LCDout $FE, 1, "Temp: ", dec t1temp_ref, " ", dec t1temp_integer, " ", dec t2temp_integer
+ '   LCDout $FE, $C0, "Flow: ", dec flow_ref, "  ", dec flow_val
+    lcdout $FE, $C0, dec temp_pwm_val
+    lcdout $FE, $94, "Pressure:", dec pressure_ref, " ", dec pressure
+    if PORTB.2 == 0 then        
+        lcdout  $FE, $D4,  "Flow  ",  dec flow_pwm_val
+    else 
+        lcdout  $FE, $D4,  "Pressure  ",  dec p_pwm_val
+    endif
+
+    goto main
+end
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+''''''''''puts the value of t1 temp into t1temp integer/decimal''''''''''
+get_temp_value:
+    ADCON0 = %00000001
+    ADCIN 0, t1adval 
+    t1resistance = ((1024*55)/t1adval)*40 -2200
+    
+    
+    if (t1resistance > resistor_ref[0]) or (t1resistance < resistor_ref[27]) then
+   '     LCDOUT $FE, 1, dec t1resistance
+        'LCDOUT $FE, $C0, "out of range" 
+    else 
+        For i = 0 to 19 
+            if t1resistance < resistor_ref[i] and t1resistance >= resistor_ref[i+1] then
+                t1res_lower = resistor_ref[i+1]
+                t1res_upper = resistor_ref[i] 
+                t1temp_lower = temp_ref[i] 
+                t1temp_upper = temp_ref[i+1] 
+            endif 
+        next i  
+        
+        if t1temp_upper <= 15 or t1temp_lower >= 35 then 
+            t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*5*100/(t1res_upper - t1res_lower)))/10
+        endif
+        if t1temp_lower = 15 or t1temp_lower = 34 then
+            t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*100/(t1res_upper - t1res_lower)))/10
+        else 
+            t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*2*100/(t1res_upper - t1res_lower)))/10
+        endif
+        t1temp_integer = t1temp_val/10
+        t1temp_rem = t1temp_val//10
+        If t1temp_rem >= 8 then 
+            t1temp_integer = t1temp_integer + 1
+            t1temp_decimal = 0
+        endif
+        if t1temp_rem < 8 and t1temp_rem > 2 then t1temp_decimal = 5
+        if t1temp_rem < 3 then t1temp_decimal = 0
+    endif
+return
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+''''''''''puts the value of temp of air in into air_temp integer/decimal''''''''''
+get_air_temp:
+    ADCON0 = %00000101
+    ADCIN 1, t2adval 
+    t2resistance = ((1024*55)/t2adval)*40 -2200
+    
+    if (t2resistance > resistor_ref[0]) or (t2resistance < resistor_ref[19]) then
+   '     LCDOUT $FE, 1, dec t1resistance
+        'LCDOUT $FE, $C0, "out of range" 
+    else 
+        For i = 0 to 19 
+            if t2resistance < resistor_ref[i] and t2resistance >= resistor_ref[i+1] then
+                t2res_lower = resistor_ref[i+1]
+                t2res_upper = resistor_ref[i] 
+                t2temp_lower = temp_ref[i] 
+                t2temp_upper = temp_ref[i+1] 
+            endif 
+        next i  
+        if t2temp_upper <= 15 or t2temp_lower >= 35 then 
+            t2temp_val = (t2temp_upper*100 - ((t2resistance-t2res_lower)*5*100/(t2res_upper - t2res_lower)))/10
+        endif
+        if t2temp_lower = 15 or t2temp_lower = 34 then
+            t2temp_val = (t2temp_upper*100 - ((t2resistance-t2res_lower)*100/(t2res_upper - t2res_lower)))/10
+        else 
+            t2temp_val = (t2temp_upper*100 - ((t2resistance-t2res_lower)*2*100/(t2res_upper - t2res_lower)))/10
+        endif
+        t2temp_integer = t2temp_val/10
+        t2temp_decimal = t2temp_val//10
+        If t2temp_decimal >= 5 then t2temp_integer = t2temp_integer + 1
+    endif
+return
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''determine pwm output for heater''''''''''''''''''''''''''
+ get_temp_pwm:  
+ 
+        if (t1temp_integer > t1temp_ref) then
+            if (temp_pwm_val >0) then
+                temp_pwm_val = temp_pwm_val - 1
+            else
+                temp_pwm_val = 0
+            endif
+        endif 
+        if (t1temp_integer < t1temp_ref) then
+            if t2temp_integer < 70 then
+                if (temp_pwm_val <254) then
+                    temp_pwm_val = temp_pwm_val + 1
+                else 
+                    temp_pwm_val = 254
+                endif
+            else
+                temp_pwm_val = temp_pwm_val - 1
+            endif
+        endif
+        if temp_pwm_val > 254 then temp_pwm_val = 254
+        if t1temp_ref == 0  then temp_pwm_val = 0
+return  
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+''''''''''''''''Count function to get current flow rate '''''''''''''''''''''''
+get_flowrate:
+ '   COUNT PORTB.5, 250, frequency     'whats min count to still be accurate....?
+ '   frequency = frequency/1           'would be times 2 (for 500) but the /4 for clk issues
+    ADCON0 = %00010001 'AN4
+    adcin 4, an_frequency                 'Analog voltage 0-5V proportional to 0-500Hz (0 to 1024)
+    flow_val = (an_frequency*50)/1178   'litres per minute times 10, (((*500/1024)*60/6900)*10) 
+return
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+''''''''''''''''''Determine new pwm output to water pump''''''''''''''''''''''''''''''''
+
+get_water_pwm:
+
+    if loops==4 then
+        If (flow_val < flow_ref) then
+            IF (flow_pwm_val < 120) then
+                if ((flow_ref-flow_val)>2) then                 'changed 20 to 5
+                   flow_pwm_val=flow_pwm_val + (4*(flow_ref-flow_val)/5)
+                else
+                   flow_pwm_val=flow_pwm_val + 1
+                endif
+            else
+               flow_pwm_val= 120
+            endif
+        endif
+        if (flow_val > flow_ref) then
+            IF (flow_pwm_val >50) then
+                if ((flow_val-flow_ref)>2) then                  'changed 20 to 5
+                   flow_pwm_val=flow_pwm_val - (4*(flow_val-flow_ref)/5)
+                else
+                   flow_pwm_val=flow_pwm_val - 1
+                endif
+            else
+               flow_pwm_val= 50
+            endif 
+        endif 
+        IF ((flow_val == flow_ref) and (flow_ref ==0)) then
+            flow_pwm_val = 50
+        endif  
+    endif
+return
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+''''''''''''get current water pressure''''''''''''''''''''''''''''''''''''''''''''''''''
+get_pressure:
+    ADCON0 = %00010001                'AN3
+    adcin 4, p_in
+    p_val = ((p_in*60)/56)-35   'convert to a value between 0 and 1024 representing pressures 0 to 8000Pa
+    pressure = (p_in*23 + 162) 
+return
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''' determine pwm o/p for pressure control loop ''''''''''''''''''''''''''''''''
+get_water_p_pwm:
+    If (pressure < pressure_ref) then
+        IF (p_pwm_val < 120) then
+            if ((pressure_ref-pressure)>1000) then
+                p_pwm_val= p_pwm_val + ((pressure_ref-pressure)/700)
+            else
+                p_pwm_val = p_pwm_val + 1
+     
+            endif
+            If p_pwm_val > 120 then p_pwm_val = 120
+      
+        else
+            p_pwm_val = 120
+        endif
+    endif
+    if (pressure > pressure_ref) then
+        IF (p_pwm_val > 50) then                        'changed from 1000 to 50
+            if ((pressure-pressure_ref)>1000) then
+                p_pwm_val = p_pwm_val - ((pressure-pressure_ref)/700)
+            else
+                p_pwm_val = p_pwm_val - 1
+            endif
+            if pressure_ref == 0 then p_pwm_val = 50
+        else
+            p_pwm_val = 50
+        endif 
+    endif
+return
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

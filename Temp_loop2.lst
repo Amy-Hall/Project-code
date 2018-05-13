@@ -1,4 +1,4 @@
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  1
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00022 
   00000000            00023 RAM_START                       EQU     00000h
   000002FF            00024 RAM_END                         EQU     002FFh
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  2
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   0000005E            00075 _temp_ref                       EQU     RAM_START + 05Eh
   00000F81            00076 _PORTL                          EQU      PORTB
   00000F82            00077 _PORTH                          EQU      PORTC
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  3
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -175,7 +175,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00002A 0E42           01938         movlw   low (((OSC * 1000000) / 4) >> 8)
 00002C 6E02           01939         movwf   R0 + 1
 00002E 0E0F           01940         movlw   ((OSC * 1000000) / 4) >> 16
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  4
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -234,7 +234,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000086 D7F4           01991         bra     hpwmdone
                       01992       endif
                       01993 
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  5
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  5
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -293,7 +293,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0000CC ECF3 F000      02960         call    PAUSEUS
                       02961 
 0000D0 D825           02962         rcall   lcdloop         ; Send init more time
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  6
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  6
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -352,7 +352,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000106 ECF4 F000      03013         call    PAUSEUSL
 00010A 80D8           03014         bsf     STATUS, C       ; Set no timeout for Serout2mod
 00010C 0012           03015         return
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  7
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  7
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -411,7 +411,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       03066         andlw   0fh
                       03067       else
 000126 0BF0           03068         andlw   0f0h
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  8
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  8
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -470,7 +470,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000150 D80C           05050         rcall   serout2ddig     ; Do the work
                       05051       ifdef SEROUT2TO_USED
                       05052         btfss   STATUS, C       ; Timed out?
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE  9
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE  9
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -529,7 +529,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000190 BE19           05109         btfsc   GOP, 7          ; If blanking on, don't send
 000192 0012           05110         return
 000194 0F30           05111         addlw   '0'             ; Add ASCII offset
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 10
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 10
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -588,7 +588,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0001DC 0E03           06236         movlw   (PAUSE_DELAY) >> 8      ; 1
 0001DE 6E02           06237         movwf   R0 + 1          ; 1
 0001E0 0EDF           06238         movlw   low (PAUSE_DELAY)       ; 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 11
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 11
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -647,7 +647,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000230 5003           07276         movf    R1, W           ; Flags = LSB(R0) - LSB(R1)
 000232 5C01           07277         subwf   R0, W
 000234 0E04           07278 cmpnoteq movlw  4               ; W = 4 if R0 < R1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 12
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 12
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -706,7 +706,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       07542   LIST
 000290 5003           07543 MUL     movf    R1, W
 000292 0207           07544         mulwf   R3              ; R1 * R3 = PRODHL
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 13
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 13
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -765,7 +765,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       07708   LIST
 0002E0                07709 main
                       00086 
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 14
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 14
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -824,7 +824,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   low (00Ah)
                           M         movwf   _dT_2
                           M         movlw   high (00Ah)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 15
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 15
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -883,7 +883,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         movlw   low (032h)
                           M         movwf   _n2
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 16
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 16
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -942,7 +942,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M     ifdef USE_LINKER
                           M         movlw   low (00Ah)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 17
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 17
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1001,7 +1001,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M     ifdef USE_LINKER
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 18
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 18
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1060,7 +1060,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_temp_ref + 0000Ah)
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 19
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 19
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1119,7 +1119,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   high (_temp_ref + 0000Eh)
                           M PREV_BANK = high (_temp_ref + 0000Eh)
                           M       endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 20
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 20
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1178,7 +1178,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((_temp_ref + 00012h) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_temp_ref + 00012h)
                           M PREV_BANK = high (_temp_ref + 00012h)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 21
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 21
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1237,7 +1237,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((_temp_ref + 00016h) > BANKA_END) & ((_temp_ref + 00016h) < (0f01h + BANKA_END)))
                           M       if (((_temp_ref + 00016h) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_temp_ref + 00016h)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 22
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 22
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1296,7 +1296,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  _resistor_ref + 00002h
                           M     if (((_resistor_ref + 00002h) > BANKA_END) & ((_resistor_ref + 00002h) < (0f01h + BANKA_END)))
                           M       if (((_resistor_ref + 00002h) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 23
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 23
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1355,7 +1355,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00107         MOVE?CW 00A7Dh, _resistor_ref + 00006h
                           M         CHK?RP  _resistor_ref + 00006h
                           M     if (((_resistor_ref + 00006h) > BANKA_END) & ((_resistor_ref + 00006h) < (0f01h + BANKA_END)))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 24
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 24
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1414,7 +1414,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                       00109         MOVE?CW 00715h, _resistor_ref + 0000Ah
                           M         CHK?RP  _resistor_ref + 0000Ah
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 25
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 25
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1473,7 +1473,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00111         MOVE?CW 004E6h, _resistor_ref + 0000Eh
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 26
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 26
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1532,7 +1532,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00038A 6E57               M         movwf   (_resistor_ref + 00010h) + 1
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 27
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 27
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1591,7 +1591,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000398 0E02               M         movlw   high (002EEh)
 00039A 6E5B               M         movwf   (_resistor_ref + 00014h) + 1
                           M       endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 28
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 28
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1650,7 +1650,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (low (000h) == 0)
 0003A8 6A94               M         clrf    TRISC
                           M     else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 29
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 29
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1709,7 +1709,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M       if ((high (000h)) == 0)
 0003B2 6A27               M         clrf    (_n)   + 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 30
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 30
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1768,7 +1768,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0003B4 EC60 F002          M         call    _get_temp_value
                           M         else
                           M           if ((_get_temp_value) < ($ - 3ffh))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 31
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 31
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1827,7 +1827,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?AB _t1temp_ref
                           M         CHK?RP  _t1temp_ref
                           M     if (((_t1temp_ref) > BANKA_END) & ((_t1temp_ref) < (0f01h + BANKA_END)))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 32
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 32
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1886,7 +1886,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M       if ((MUL)   < 1)
                           M         call    MUL
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 33
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 33
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -1945,7 +1945,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (R1)
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 34
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 34
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2004,7 +2004,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
 0003EC 6E13               M         movwf   T1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 35
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 35
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2063,7 +2063,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    MUL
                           M         else
                           M           if ((MUL)   < ($ - 3ffh))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 36
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 36
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2122,7 +2122,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000408 EC95 F003          M         call    _get_temp_pwm
                           M         else
                           M           if ((_get_temp_pwm) < ($ - 3ffh))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 37
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 37
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2181,7 +2181,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     else
                           M       if ((HPWM)  < 1)
                           M         call    HPWM
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 38
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 38
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2240,7 +2240,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M     else
                           M       if ((LCDOUT) < 1)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 39
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 39
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2299,7 +2299,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         clrf    R8
                           M       else
 00042E 0E94               M         movlw   low (LCDOUTJ)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 40
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 40
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2358,7 +2358,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M         else
                           M           if ((LCDOUT) < ($ - 3ffh))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 41
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 41
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2417,7 +2417,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         if ((LCDOUT) > $)
                           M         call    LCDOUT
                           M         else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 42
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 42
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2476,7 +2476,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         if ((LCDOUT) > $)
                           M         call    LCDOUT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 43
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 43
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2535,7 +2535,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M       else
                           M         if ((LCDOUT) > $)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 44
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 44
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2594,7 +2594,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00045E 6E11               M         movwf   R8
                           M       endif
                           M       if ((high (LCDOUTJ)) == 0)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 45
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 45
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2653,7 +2653,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M           else
 000466 DE17               M         rcall   LCDOUT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 46
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 46
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2712,7 +2712,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BB (_pwm_val) + 1, (R2) + 1
 000472 C02D F006          M         movff   (_pwm_val) + 1, (R2) + 1
                       00150         LCDOUTDEC?      
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 47
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 47
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2771,7 +2771,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                       00151         LCDOUT?C        020h
                           M         MOVE?CA 020h
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 48
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 48
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2830,7 +2830,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00153         LCDOUT?C        020h
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 49
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 49
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2889,7 +2889,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((R8)    > BANKA_END) & ((R8)    < (0f01h + BANKA_END)))
                           M       if (((R8)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (R8)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 50
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 50
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -2948,7 +2948,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 51
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 51
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3007,7 +3007,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((R4 + 1) > BANKA_END) & ((R4 + 1) < (0f01h + BANKA_END)))
                           M       if (((R4 + 1) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (R4 + 1)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 52
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 52
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3066,7 +3066,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         call    SEROUT2DEC
                           M     else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 53
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 53
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3125,7 +3125,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0004BE D7FE               M         bra     loop
                       00164 
                       00165         LABEL?L _get_temp_value 
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 54
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 54
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3184,7 +3184,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         endif
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 55
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 55
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3243,7 +3243,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M 
                           M     ifdef USE_LINKER
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 56
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 56
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3302,7 +3302,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
 0004EC 0E32               M         movlw   low (032h)
 0004EE 6E03               M         movwf   R1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 57
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 57
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3361,7 +3361,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         subwfb  _t1resistance + 1, F
                           M     else
 0004FA 0E98               M         movlw   low (00898h)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 58
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 58
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3420,7 +3420,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_resistor_ref)
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 59
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 59
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3479,7 +3479,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
 000524 505C               M         movf    _resistor_ref + 00016h, W
                           M         L?CALL  CMPLT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 60
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 60
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3538,7 +3538,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M 
                           M     ifdef USE_LINKER
                           M         call    LOR
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 61
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 61
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3597,7 +3597,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bcf     STATUS, OV
                           M         CHK?RP  STATUS
                           M       if (1      == 0)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 62
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 62
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3656,7 +3656,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         bra     L00001
                           M             endif
                           M           endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 63
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 63
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3715,7 +3715,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00054A EC4B F000          M         call    LCDOUT
                           M           else
                           M         rcall   LCDOUT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 64
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 64
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3774,7 +3774,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((LCDOUT) < ($ - 3ffh))
 000556 EC4B F000          M         call    LCDOUT
                           M           else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 65
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 65
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3833,7 +3833,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         else
                           M           if ((LCDOUT) < ($ - 3ffh))
 000562 EC4B F000          M         call    LCDOUT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 66
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 66
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3892,7 +3892,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M         else
                           M           if ((LCDOUT) < ($ - 3ffh))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 67
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 67
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -3951,7 +3951,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         if ((LCDOUT) > $)
                           M         call    LCDOUT
                           M         else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 68
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 68
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4010,7 +4010,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         if ((LCDOUT) > $)
                           M         call    LCDOUT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 69
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 69
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4069,7 +4069,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    LCDOUT
                           M       else
                           M         if ((LCDOUT) > $)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 70
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 70
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4128,7 +4128,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         LALL
                           M L00001
                           M         XALL
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 71
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 71
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4187,7 +4187,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  R1 + 1
                           M     if (((R1 + 1) > BANKA_END) & ((R1 + 1) < (0f01h + BANKA_END)))
                           M       if (((R1 + 1) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 72
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 72
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4246,7 +4246,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         btfsc   STATUS, Z
                           M       endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 73
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 73
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4305,7 +4305,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00194         AOUT?WWW        _resistor_ref, _i, T1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 74
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 74
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4364,7 +4364,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         if ((CMPLT) > $)
                           M         call    CMPLT
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 75
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 75
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4423,7 +4423,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0005E2 6E15               M         movwf   T2
 0005E4 0E00               M         movlw   (001h) >> 8
                           M         CHK?RP  _i
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 76
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 76
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4482,7 +4482,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((T2)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (T2)
                           M PREV_BANK = high (T2)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 77
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 77
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4541,7 +4541,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (PREV_BANK != 0)
                           M         movlb   0
                           M PREV_BANK = 0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 78
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 78
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4600,7 +4600,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                           M 
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 79
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 79
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4659,7 +4659,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           else
                           M             if ((L00005) < ($ - 3ffh))
                           M         goto    L00005
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 80
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 80
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4718,7 +4718,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  T1 + 1
                           M     if (((T1 + 1) > BANKA_END) & ((T1 + 1) < (0f01h + BANKA_END)))
                           M       if (((T1 + 1) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 81
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 81
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4777,7 +4777,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((_i)    > BANKA_END) & ((_i)    < (0f01h + BANKA_END)))
                           M       if (((_i)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_i)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 82
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 82
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4836,7 +4836,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  _i
                           M     if (((_i)    > BANKA_END) & ((_i)    < (0f01h + BANKA_END)))
                           M       if (((_i)    & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 83
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 83
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4895,7 +4895,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
   0000                    M     local endlabel
                           M     if (001h == 1)
                           M         CHK?RP  _i
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 84
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 84
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -4954,7 +4954,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 85
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 85
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5013,7 +5013,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   0
                           M PREV_BANK = 0
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 86
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 86
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5072,7 +5072,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if ((MUL)   < 1)
                           M         call    MUL
                           M       else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 87
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 87
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5131,7 +5131,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  T2
                           M     if (((T2)    > BANKA_END) & ((T2)    < (0f01h + BANKA_END)))
                           M       if (((T2)    & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 88
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 88
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5190,7 +5190,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movwf   (R1)   + 1
                           M     else
                           M       if (low (032h) == 0)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 89
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 89
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5249,7 +5249,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BA _t1res_lower
                           M         CHK?RP  T3
                           M         subwf   T3,   F
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 90
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 90
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5308,7 +5308,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((T3 + 1) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (T3 + 1)
                           M PREV_BANK = high (T3 + 1)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 91
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 91
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5367,7 +5367,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 000718 C002 F018          M         movff   (R0) + 1, (T3) + 1
                       00215         SUB?WWW T1, T3, _t1temp_val
                           M     if (_t1temp_val == T1)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 92
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 92
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5426,7 +5426,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?AB _t1temp_val + 1
                           M         CHK?RP  _t1temp_val + 1
                           M     if (((_t1temp_val + 1) > BANKA_END) & ((_t1temp_val + 1) < (0f01h + BANKA_END)))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 93
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 93
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5485,7 +5485,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 94
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 94
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5544,7 +5544,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         call    CMPLE
                           M     else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 95
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 95
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5603,7 +5603,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M             endif
                           M           endif
                           M         endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 96
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 96
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5662,7 +5662,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?CA low (000h)
 000752 0E00               M         movlw   low (low (000h))
                           M         L?CALL  CMPLE
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 97
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 97
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5721,7 +5721,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           if ((L00009) > $)
                           M         btfsc   STATUS, OV
                           M         goto    L00009
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 98
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 98
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5780,7 +5780,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((_t1temp_ref) > BANKA_END) & ((_t1temp_ref) < (0f01h + BANKA_END)))
                           M       if (((_t1temp_ref) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_t1temp_ref)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 99
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 99
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5839,7 +5839,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BB T1,  R0
 00076A C013 F001          M         movff   T1,  R0
                           M         MOVE?BB (T1)  + 1, (R0)   + 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 100
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 100
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5898,7 +5898,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         btfss   STATUS, Z
                           M       else
                           M         btfsc   STATUS, Z
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 101
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 101
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -5957,7 +5957,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         endif
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 102
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 102
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6016,7 +6016,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_t1temp_ref)
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 103
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 103
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6075,7 +6075,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00079A C014 F002          M         movff   (T1) + 1, (R0) + 1
                           M         MOVE?WWA _n2,  R1
                           M         MOVE?BB (_n2) + 1, (R1)   + 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 104
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 104
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6134,7 +6134,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         subwfb  T2   + 1, F
                           M     else
                           M         MOVE?BA _t1temp_ref
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 105
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 105
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6193,7 +6193,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0007B4 6E16               M         movwf   T2 + 1
                           M     endif
                       00230         CMPLT?WWB       T2, _n1, T2
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 106
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 106
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6252,7 +6252,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00231         LAND?BBW        T1, T2, T2
                           M         MOVE?BB T1,   R0
 0007CA C013 F001          M         movff   T1,  R0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 107
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 107
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6311,7 +6311,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     if (((T2)    > BANKA_END) & ((T2)    < (0f01h + BANKA_END)))
                           M       if (((T2)    & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (T2)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 108
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 108
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6370,7 +6370,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     endif
                           M       if (1      == 0)
                           M         btfss   STATUS, Z
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 109
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 109
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6429,7 +6429,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef PM_USED
                           M         LALL
                           M L00013
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 110
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 110
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6488,7 +6488,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((_t1temp_val) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_t1temp_val)
                           M PREV_BANK = high (_t1temp_val)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 111
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 111
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6547,7 +6547,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         rcall   CMPGE
                           M           endif
                           M         endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 112
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 112
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6606,7 +6606,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       else
                           M         btfsc   STATUS, Z
                           M       endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 113
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 113
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6665,7 +6665,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         XALL
                           M     else
 000818                    M L00015
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 114
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 114
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6724,7 +6724,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       if (((_pwm_val) & 0f00h) != (PREV_BANK << 8))
                           M         movlb   high (_pwm_val)
                           M PREV_BANK = high (_pwm_val)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 115
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 115
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6783,7 +6783,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M     ifdef USE_LINKER
                           M         goto    L00008
                           M     else
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 116
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 116
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6842,7 +6842,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 117
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 117
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6901,7 +6901,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           else
                           M             if ((L00017) < ($ - 7fh))
                           M         btfsc   STATUS, OV
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 118
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 118
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -6960,7 +6960,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (_t1temp_val)
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 119
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 119
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7019,7 +7019,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 00084A C014 F002          M         movff   (T1) + 1, (R0) + 1
                           M         MOVE?WWA _dT_1, R1
                           M         MOVE?BB (_dT_1) + 1, (R1) + 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 120
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 120
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7078,7 +7078,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M         bsf     STATUS, OV
                           M         RST?RP
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 121
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 121
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7137,7 +7137,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00248         ADD?WCW _pwm_val, 006h, _pwm_val
                           M     if (_pwm_val == _pwm_val)
                           M       if ((006h) == 1)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 122
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 122
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7196,7 +7196,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  _t1temp_val
                           M     if (((_t1temp_val) > BANKA_END) & ((_t1temp_val) < (0f01h + BANKA_END)))
                           M       if (((_t1temp_val) & 0f00h) != (PREV_BANK << 8))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 123
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 123
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7255,7 +7255,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?WW T1,   R0
                           M         MOVE?BB T1,  R0
 000872 C013 F001          M         movff   T1,  R0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 124
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 124
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7314,7 +7314,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         CHK?RP  T2
                           M         subwf   T2,   F
                           M         MOVE?BA _t1temp_val + 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 125
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 125
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7373,7 +7373,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlb   high (T2 + 1)
                           M PREV_BANK = high (T2 + 1)
                           M       endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 126
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 126
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7432,7 +7432,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M PREV_BANK = high (T2)
                           M       endif
                           M     endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 127
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 127
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7491,7 +7491,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0008B4 0004               M         clrwdt
                           M     endif
                           M         MOVE?BA T2
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 128
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 128
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7550,7 +7550,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         RST?RP
                           M     if (PREV_BANK != 0)
                           M         movlb   0
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 129
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 129
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7609,7 +7609,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   (004h) >> 8
                           M         CHK?RP  _pwm_val
                           M         addwfc  _pwm_val + 1, W
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 130
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 130
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7668,7 +7668,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         MOVE?BA _t1temp_val + 1
                           M         CHK?RP  _t1temp_val + 1
                           M     if (((_t1temp_val + 1) > BANKA_END) & ((_t1temp_val + 1) < (0f01h + BANKA_END)))
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 131
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 131
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7727,7 +7727,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         call    CMPGE
                           M     else
                           M       if ((CMPGE) < 1)
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 132
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 132
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7786,7 +7786,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M           endif
                           M         endif
                           M       endif
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 133
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 133
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7845,7 +7845,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M         movlw   low (001h)
                           M         CHK?RP  _pwm_val
                           M         addwf   _pwm_val, W
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 134
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 134
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7904,7 +7904,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                           M       endif
                           M     endif
                       00263         LABEL?L L00017  
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 135
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 135
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7963,7 +7963,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0008FC                    M L00018
                           M     endif
                       00266         LABEL?L L00008  
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 136
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 136
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -7994,7 +7994,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0008FC 0012               M         return
                       00268 
                       00269         END
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 137
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 137
 
 
 SYMBOL TABLE
@@ -8053,7 +8053,7 @@ BANK0_END                         000000FF
 BANK0_START                       00000080
 BANK1_END                         000001FF
 BANK1_START                       00000100
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 138
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 138
 
 
 SYMBOL TABLE
@@ -8112,7 +8112,7 @@ CCP2M2                            00000002
 CCP2M3                            00000003
 CCP2X                             00000005
 CCP2Y                             00000004
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 139
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 139
 
 
 SYMBOL TABLE
@@ -8171,7 +8171,7 @@ CMP_USED                          00000001
 CREN                              00000004
 CSRC                              00000007
 CVR0                              00000000
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 140
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 140
 
 
 SYMBOL TABLE
@@ -8230,7 +8230,7 @@ EECON1                            00000FA6
 EECON2                            00000FA7
 EEDATA                            00000FA8
 EEIE                              00000004
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 141
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 141
 
 
 SYMBOL TABLE
@@ -8289,7 +8289,7 @@ HSER2_TXSTA                       00000020
 HSER_BAUD                         00000960
 HSER_BITS                         00000008
 HSER_PORT                         00000001
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 142
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 142
 
 
 SYMBOL TABLE
@@ -8348,7 +8348,7 @@ JUMPMAN_USED                      00000001
 KBI0                              00000004
 KBI1                              00000005
 KBI2                              00000006
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 143
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 143
 
 
 SYMBOL TABLE
@@ -8407,7 +8407,7 @@ LATC6                             00000006
 LATC7                             00000007
 LCDCDFLAG                         FLAGS, 0
 LCDINITFLAG                       FLAGS, 1
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 144
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 144
 
 
 SYMBOL TABLE
@@ -8466,7 +8466,7 @@ MOVE?CW
 MOVE?TA                           
 MOVE?TB                           
 MOVE?TT                           
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 145
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 145
 
 
 SYMBOL TABLE
@@ -8525,7 +8525,7 @@ PCFG2                             00000002
 PCFG3                             00000003
 PCL                               00000FF9
 PCLATH                            00000FFA
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 146
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 146
 
 
 SYMBOL TABLE
@@ -8584,7 +8584,7 @@ R7                                0000000F
 R8                                00000011
 RA0                               00000000
 RA1                               00000001
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 147
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 147
 
 
 SYMBOL TABLE
@@ -8643,7 +8643,7 @@ RS2                               0000001F
 RSEN                              00000001
 RST?RP                            
 RX                                00000007
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 148
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 148
 
 
 SYMBOL TABLE
@@ -8702,7 +8702,7 @@ STKPTR                            00000FFC
 STKUNF                            00000006
 SUB?WCW                           
 SUB?WWW                           
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 149
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 149
 
 
 SYMBOL TABLE
@@ -8761,7 +8761,7 @@ TMR0IF                            00000002
 TMR0IP                            00000002
 TMR0L                             00000FD6
 TMR0ON                            00000007
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 150
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 150
 
 
 SYMBOL TABLE
@@ -8820,7 +8820,7 @@ TRISC0                            00000000
 TRISC1                            00000001
 TRISC2                            00000002
 TRISC3                            00000003
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 151
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 151
 
 
 SYMBOL TABLE
@@ -8879,7 +8879,7 @@ _CONFIG3H                         00300005
 _CONFIG4L                         00300006
 _CONFIG5H                         00300009
 _CONFIG5L                         00300008
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 152
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 152
 
 
 SYMBOL TABLE
@@ -8938,7 +8938,7 @@ _OSC_XT_1H                        000000F1
 _PBADEN_OFF_3H                    000000FD
 _PBADEN_ON_3H                     000000FF
 _PORTH                            00000F82
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 153
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 153
 
 
 SYMBOL TABLE
@@ -8997,7 +8997,7 @@ _resistor_ref                     00000046
 _t1adval                          0000002E
 _t1res_lower                      00000030
 _t1res_upper                      00000032
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 154
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 154
 
 
 SYMBOL TABLE
@@ -9049,7 +9049,7 @@ MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
 0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
 02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-MPASM  5.51                      TEMP_L~2.ASM   2-13-2018  15:20:52         PAGE 155
+MPASM  5.51                      TEMP_L~2.ASM   5-10-2018  11:25:19         PAGE 155
 
 
 MEMORY USAGE MAP ('X' = Used,  '-' = Unused)

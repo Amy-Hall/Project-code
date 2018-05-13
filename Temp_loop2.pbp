@@ -59,6 +59,14 @@ temp_ref[8] = 45
 temp_ref[9] = 50
 temp_ref[10] = 55
 temp_ref[11] = 60
+temp_ref[12] = 65
+temp_ref[13] = 70
+temp_ref[14] = 75
+temp_ref[15] = 80
+temp_ref[16] = 85
+temp_ref[17] = 90
+temp_ref[18] = 95
+temp_ref[19] = 100
 
 resistor_ref[0]= 5083
 resistor_ref[1]= 4081

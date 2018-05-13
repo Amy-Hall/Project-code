@@ -21,12 +21,21 @@ t1res_upper var word
 t1res_lower var word     
 t1temp_upper var word 
 t1temp_lower var word 
-resistor_ref var word[12]
-temp_ref var WORD[12]
+resistor_ref var word[20]
+temp_ref var WORD[20]
 i var word
 n var word
 t1temp_integer var word
 t1temp_decimal var word
+
+t0adval VAR WORD
+t0resistance var WORD
+t0res_upper var word     
+t0res_lower var word     
+t0temp_upper var word 
+t0temp_lower var word
+t0temp_integer var word
+t0temp_decimal var word
 
 temp_ref[0] = 5
 temp_ref[1] = 10
@@ -40,6 +49,14 @@ temp_ref[8] = 45
 temp_ref[9] = 50
 temp_ref[10] = 55
 temp_ref[11] = 60
+temp_ref[12] = 65
+temp_ref[13] = 70
+temp_ref[14] = 75
+temp_ref[15] = 80
+temp_ref[16] = 85
+temp_ref[17] = 90
+temp_ref[18] = 95
+temp_ref[19] = 100
 
 resistor_ref[0]= 5083
 resistor_ref[1]= 4081
@@ -53,6 +70,15 @@ resistor_ref[8]= 1051
 resistor_ref[9]= 886
 resistor_ref[10]= 750
 resistor_ref[11]= 639
+resistor_ref[12]= 546
+resistor_ref[13]= 468
+resistor_ref[14]= 404
+resistor_ref[15]= 350
+resistor_ref[16]= 304
+resistor_ref[17]= 266
+resistor_ref[18]= 233
+resistor_ref[19]= 204
+
 
 throttle var word
 pwm_val var word
@@ -64,7 +90,8 @@ TRISA = %11111111 ' Set PORTA to all input
 TRISC = %00000000
 
 main:
-    gosub get_temp
+    gosub get_temp0
+    gosub get_temp1
     ADCON0 = %00001001
     adcin 2, throttle  
     pwm_val= (throttle*25/102)
@@ -72,18 +99,43 @@ main:
     HPWM 2, pwm_val, 245    'This multiplied by 4, actually gives 62Hz
     
     LCDout $FE, 1, dec pwm_val
-    LCDOUT $FE, $C0, "Temp:", dec t1temp_integer, ".", dec t1temp_decimal
+    LCDOUT $FE, $C0, "Temp:", dec t0temp_integer, ".", dec t0temp_decimal
+    LCDOUT $FE, $94, "Temp:", dec t1temp_integer, ".", DEC t1temp_decimal
     goto main
 end
 
-get_temp:
+get_temp0:
     ADCON0 = %00000001
-    ADCIN 0, t1adval 
-    t1resistance = (22000/t1adval)*102 -2200
+    ADCIN 0, t0adval 
+    t0resistance = (22000/t0adval)*102 -2200
+    
+    if (t0resistance > resistor_ref[0]) or (t0resistance < resistor_ref[11]) then
+   '     LCDOUT $FE, 1, dec t1resistance
+        LCDOUT $FE, $D4, "t0 out of range" 
+    else 
+        For i = 0 to 11 
+            if t0resistance < resistor_ref[i] and t0resistance >= resistor_ref[i+1] then
+                t0res_lower = resistor_ref[i+1]
+                t0res_upper = resistor_ref[i] 
+                t0temp_lower = temp_ref[i] 
+                t0temp_upper = temp_ref[i+1] 
+            endif 
+        next i  
+        
+        t0temp_integer = (t0temp_upper*10 - ((t0resistance-t0res_lower)*50/(t0res_upper - t0res_lower)))/10
+        t0temp_decimal = (t0temp_upper*10 - ((t0resistance-t0res_lower)*50/(t0res_upper - t0res_lower)))//10
+        
+    endif
+return
+
+get_temp1:
+    ADCON0 = %00000101
+    ADCIN 1, t1adval 
+    t1resistance = ((1024*44)/t1adval)*50 -2200
     
     if (t1resistance > resistor_ref[0]) or (t1resistance < resistor_ref[11]) then
    '     LCDOUT $FE, 1, dec t1resistance
-        LCDOUT $FE, $C0, "out of range" 
+        'LCDOUT $FE, $C0, "out of range" 
     else 
         For i = 0 to 11 
             if t1resistance < resistor_ref[i] and t1resistance >= resistor_ref[i+1] then
@@ -93,11 +145,9 @@ get_temp:
                 t1temp_upper = temp_ref[i+1] 
             endif 
         next i  
-        
         t1temp_integer = (t1temp_upper*10 - ((t1resistance-t1res_lower)*50/(t1res_upper - t1res_lower)))/10
         t1temp_decimal = (t1temp_upper*10 - ((t1resistance-t1res_lower)*50/(t1res_upper - t1res_lower)))//10
-        
-    '    LCDOUT $FE, 1, dec t1resistance
-   '     LCDOUT $FE, $C0, "Temp:", dec t1temp_integer, ".", t1temp_decimal
     endif
 return
+
+

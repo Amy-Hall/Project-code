@@ -55,17 +55,25 @@ RS2             		EQU	RAM_START + 01Fh
 _i               		EQU	RAM_START + 020h
 _n               		EQU	RAM_START + 022h
 _pwm_val         		EQU	RAM_START + 024h
-_t1adval         		EQU	RAM_START + 026h
-_t1res_lower     		EQU	RAM_START + 028h
-_t1res_upper     		EQU	RAM_START + 02Ah
-_t1resistance    		EQU	RAM_START + 02Ch
-_t1temp_decimal  		EQU	RAM_START + 02Eh
-_t1temp_integer  		EQU	RAM_START + 030h
-_t1temp_lower    		EQU	RAM_START + 032h
-_t1temp_upper    		EQU	RAM_START + 034h
-_throttle        		EQU	RAM_START + 036h
-_resistor_ref    		EQU	RAM_START + 038h
-_temp_ref        		EQU	RAM_START + 050h
+_t0adval         		EQU	RAM_START + 026h
+_t0res_lower     		EQU	RAM_START + 028h
+_t0res_upper     		EQU	RAM_START + 02Ah
+_t0resistance    		EQU	RAM_START + 02Ch
+_t0temp_decimal  		EQU	RAM_START + 02Eh
+_t0temp_integer  		EQU	RAM_START + 030h
+_t0temp_lower    		EQU	RAM_START + 032h
+_t0temp_upper    		EQU	RAM_START + 034h
+_t1adval         		EQU	RAM_START + 036h
+_t1res_lower     		EQU	RAM_START + 038h
+_t1res_upper     		EQU	RAM_START + 03Ah
+_t1resistance    		EQU	RAM_START + 03Ch
+_t1temp_decimal  		EQU	RAM_START + 03Eh
+_t1temp_integer  		EQU	RAM_START + 040h
+_t1temp_lower    		EQU	RAM_START + 042h
+_t1temp_upper    		EQU	RAM_START + 044h
+_throttle        		EQU	RAM_START + 046h
+_resistor_ref    		EQU	RAM_START + 048h
+_temp_ref        		EQU	RAM_START + 070h
 _PORTL           		EQU	 PORTB
 _PORTH           		EQU	 PORTC
 _TRISL           		EQU	 TRISB
@@ -90,6 +98,14 @@ _TRISH           		EQU	 TRISC
 	MOVE?CW	032h, _temp_ref + 00012h
 	MOVE?CW	037h, _temp_ref + 00014h
 	MOVE?CW	03Ch, _temp_ref + 00016h
+	MOVE?CW	041h, _temp_ref + 00018h
+	MOVE?CW	046h, _temp_ref + 0001Ah
+	MOVE?CW	04Bh, _temp_ref + 0001Ch
+	MOVE?CW	050h, _temp_ref + 0001Eh
+	MOVE?CW	055h, _temp_ref + 00020h
+	MOVE?CW	05Ah, _temp_ref + 00022h
+	MOVE?CW	05Fh, _temp_ref + 00024h
+	MOVE?CW	064h, _temp_ref + 00026h
 	MOVE?CW	013DBh, _resistor_ref
 	MOVE?CW	00FF1h, _resistor_ref + 00002h
 	MOVE?CW	00CE3h, _resistor_ref + 00004h
@@ -102,13 +118,22 @@ _TRISH           		EQU	 TRISC
 	MOVE?CW	00376h, _resistor_ref + 00012h
 	MOVE?CW	002EEh, _resistor_ref + 00014h
 	MOVE?CW	0027Fh, _resistor_ref + 00016h
+	MOVE?CW	00222h, _resistor_ref + 00018h
+	MOVE?CW	001D4h, _resistor_ref + 0001Ah
+	MOVE?CW	00194h, _resistor_ref + 0001Ch
+	MOVE?CW	0015Eh, _resistor_ref + 0001Eh
+	MOVE?CW	00130h, _resistor_ref + 00020h
+	MOVE?CW	0010Ah, _resistor_ref + 00022h
+	MOVE?CW	0E9h, _resistor_ref + 00024h
+	MOVE?CW	0CCh, _resistor_ref + 00026h
 	MOVE?CB	000h, ADCON1
 	MOVE?CB	087h, ADCON2
 	MOVE?CB	0FFh, TRISA
 	MOVE?CB	000h, TRISC
 
 	LABEL?L	_main	
-	GOSUB?L	_get_temp
+	GOSUB?L	_get_temp0
+	GOSUB?L	_get_temp1
 	MOVE?CB	009h, ADCON0
 	ADCIN?CW	002h, _throttle
 	MUL?WCW	_throttle, 019h, T1
@@ -127,6 +152,20 @@ _TRISH           		EQU	 TRISC
 	LCDOUT?C	070h
 	LCDOUT?C	03Ah
 	LCDOUTCOUNT?C	000h
+	LCDOUTNUM?W	_t0temp_integer
+	LCDOUTDEC?	
+	LCDOUT?C	02Eh
+	LCDOUTCOUNT?C	000h
+	LCDOUTNUM?W	_t0temp_decimal
+	LCDOUTDEC?	
+	LCDOUT?C	0FEh
+	LCDOUT?C	094h
+	LCDOUT?C	054h
+	LCDOUT?C	065h
+	LCDOUT?C	06Dh
+	LCDOUT?C	070h
+	LCDOUT?C	03Ah
+	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_t1temp_integer
 	LCDOUTDEC?	
 	LCDOUT?C	02Eh
@@ -136,18 +175,21 @@ _TRISH           		EQU	 TRISC
 	GOTO?L	_main
 	END?	
 
-	LABEL?L	_get_temp	
+	LABEL?L	_get_temp0	
 	MOVE?CB	001h, ADCON0
-	ADCIN?CW	000h, _t1adval
-	DIV?CWW	055F0h, _t1adval, T1
+	ADCIN?CW	000h, _t0adval
+	DIV?CWW	055F0h, _t0adval, T1
 	MUL?WCW	T1, 066h, T1
-	SUB?WCW	T1, 00898h, _t1resistance
-	CMPGT?WWB	_t1resistance, _resistor_ref, T1
-	CMPLT?WWB	_t1resistance, _resistor_ref + 00016h, T2
+	SUB?WCW	T1, 00898h, _t0resistance
+	CMPGT?WWB	_t0resistance, _resistor_ref, T1
+	CMPLT?WWB	_t0resistance, _resistor_ref + 00016h, T2
 	LOR?BBW	T1, T2, T2
 	CMPF?WL	T2, L00001
 	LCDOUT?C	0FEh
-	LCDOUT?C	0C0h
+	LCDOUT?C	0D4h
+	LCDOUT?C	074h
+	LCDOUT?C	030h
+	LCDOUT?C	020h
 	LCDOUT?C	06Fh
 	LCDOUT?C	075h
 	LCDOUT?C	074h
@@ -166,21 +208,69 @@ _TRISH           		EQU	 TRISC
 	LABEL?L	L00003	
 	CMPGT?WCL	_i, 00Bh, L00004
 	AOUT?WWW	_resistor_ref, _i, T1
+	CMPLT?WWB	_t0resistance, T1, T1
+	ADD?WCW	_i, 001h, T2
+	AOUT?WWW	_resistor_ref, T2, T2
+	CMPGE?WWB	_t0resistance, T2, T2
+	LAND?BBW	T1, T2, T2
+	CMPF?WL	T2, L00005
+	ADD?WCW	_i, 001h, T1
+	AOUT?WWW	_resistor_ref, T1, _t0res_lower
+	AOUT?WWW	_resistor_ref, _i, _t0res_upper
+	AOUT?WWW	_temp_ref, _i, _t0temp_lower
+	ADD?WCW	_i, 001h, T1
+	AOUT?WWW	_temp_ref, T1, _t0temp_upper
+	LABEL?L	L00005	
+	NEXT?WCL	_i, 001h, L00003
+	LABEL?L	L00004	
+	MUL?WCW	_t0temp_upper, 00Ah, T1
+	SUB?WWW	_t0resistance, _t0res_lower, T2
+	MUL?WCW	T2, 032h, T2
+	SUB?WWW	_t0res_upper, _t0res_lower, T3
+	DIV?WWW	T2, T3, T3
+	SUB?WWW	T1, T3, T3
+	DIV?WCW	T3, 00Ah, _t0temp_integer
+	MUL?WCW	_t0temp_upper, 00Ah, T1
+	SUB?WWW	_t0resistance, _t0res_lower, T2
+	MUL?WCW	T2, 032h, T2
+	SUB?WWW	_t0res_upper, _t0res_lower, T3
+	DIV?WWW	T2, T3, T3
+	SUB?WWW	T1, T3, T3
+	MOD?WCW	T3, 00Ah, _t0temp_decimal
+	LABEL?L	L00002	
+	RETURN?	
+
+	LABEL?L	_get_temp1	
+	MOVE?CB	005h, ADCON0
+	ADCIN?CW	001h, _t1adval
+	DIV?CWW	0B000h, _t1adval, T1
+	MUL?WCW	T1, 032h, T1
+	SUB?WCW	T1, 00898h, _t1resistance
+	CMPGT?WWB	_t1resistance, _resistor_ref, T1
+	CMPLT?WWB	_t1resistance, _resistor_ref + 00016h, T2
+	LOR?BBW	T1, T2, T2
+	CMPF?WL	T2, L00007
+	GOTO?L	L00008
+	LABEL?L	L00007	
+	MOVE?CW	000h, _i
+	LABEL?L	L00009	
+	CMPGT?WCL	_i, 00Bh, L00010
+	AOUT?WWW	_resistor_ref, _i, T1
 	CMPLT?WWB	_t1resistance, T1, T1
 	ADD?WCW	_i, 001h, T2
 	AOUT?WWW	_resistor_ref, T2, T2
 	CMPGE?WWB	_t1resistance, T2, T2
 	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00005
+	CMPF?WL	T2, L00011
 	ADD?WCW	_i, 001h, T1
 	AOUT?WWW	_resistor_ref, T1, _t1res_lower
 	AOUT?WWW	_resistor_ref, _i, _t1res_upper
 	AOUT?WWW	_temp_ref, _i, _t1temp_lower
 	ADD?WCW	_i, 001h, T1
 	AOUT?WWW	_temp_ref, T1, _t1temp_upper
-	LABEL?L	L00005	
-	NEXT?WCL	_i, 001h, L00003
-	LABEL?L	L00004	
+	LABEL?L	L00011	
+	NEXT?WCL	_i, 001h, L00009
+	LABEL?L	L00010	
 	MUL?WCW	_t1temp_upper, 00Ah, T1
 	SUB?WWW	_t1resistance, _t1res_lower, T2
 	MUL?WCW	T2, 032h, T2
@@ -195,7 +285,7 @@ _TRISH           		EQU	 TRISC
 	DIV?WWW	T2, T3, T3
 	SUB?WWW	T1, T3, T3
 	MOD?WCW	T3, 00Ah, _t1temp_decimal
-	LABEL?L	L00002	
+	LABEL?L	L00008	
 	RETURN?	
 
 	END

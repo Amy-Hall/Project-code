@@ -54,7 +54,8 @@ _p_in            		EQU	RAM_START + 01Ch
 _p_pwm_val       		EQU	RAM_START + 01Eh
 _p_ref           		EQU	RAM_START + 020h
 _p_val           		EQU	RAM_START + 022h
-_p_val_lcd       		EQU	RAM_START + 024h
+_pressure        		EQU	RAM_START + 024h
+_pressure_ref    		EQU	RAM_START + 026h
 _PORTL           		EQU	 PORTB
 _PORTH           		EQU	 PORTC
 _TRISL           		EQU	 TRISB
@@ -80,6 +81,11 @@ _TRISH           		EQU	 TRISC
 	MOVE?CB	00Ch, CCP1CON
 	MOVE?CB	007h, T2CON
 	MOVE?CB	0FFh, PR2
+	MOVE?CW	032h, _p_pwm_val
+	MOVE?TT	_p_pwm_val??0, _CCP1CON??4
+	MOVE?TT	_p_pwm_val??1, _CCP1CON??5
+	SHIFTR?WCB	_p_pwm_val, 002h, CCPR1L
+	PAUSE?C	003E8h
 	MOVE?CW	064h, _p_pwm_val
 	MOVE?TT	_p_pwm_val??0, _CCP1CON??4
 	MOVE?TT	_p_pwm_val??1, _CCP1CON??5
@@ -88,6 +94,8 @@ _TRISH           		EQU	 TRISC
 	LABEL?L	_main	
 	MOVE?CB	00Dh, ADCON0
 	ADCIN?CW	003h, _p_ref
+	MUL?WCW	_p_ref, 03Fh, T1
+	DIV?WCW	T1, 008h, _pressure_ref
 	GOSUB?L	_get_pressure
 	GOSUB?L	_get_water_p_pwm
 	MOVE?TT	_p_pwm_val??0, _CCP1CON??4
@@ -96,26 +104,58 @@ _TRISH           		EQU	 TRISC
 	LCDOUT?C	0FEh
 	LCDOUT?C	001h
 	LCDOUT?C	070h
+	LCDOUT?C	05Fh
+	LCDOUT?C	069h
+	LCDOUT?C	06Eh
+	LCDOUT?C	03Dh
+	LCDOUTCOUNT?C	000h
+	LCDOUTNUM?W	_p_in
+	LCDOUTDEC?	
+	LCDOUT?C	020h
+	LCDOUT?C	020h
+	LCDOUT?C	070h
 	LCDOUT?C	072h
 	LCDOUT?C	065h
 	LCDOUT?C	073h
 	LCDOUT?C	03Dh
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_p_val_lcd
+	LCDOUTNUM?W	_pressure
 	LCDOUTDEC?	
 	LCDOUT?C	020h
 	LCDOUT?C	020h
+	LCDOUT?C	0FEh
+	LCDOUT?C	0C0h
+	LCDOUT?C	070h
+	LCDOUT?C	05Fh
+	LCDOUT?C	076h
+	LCDOUT?C	061h
+	LCDOUT?C	06Ch
+	LCDOUT?C	03Dh
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_p_val
 	LCDOUTDEC?	
-	LCDOUT?C	0FEh
-	LCDOUT?C	0C0h
+	LCDOUT?C	020h
+	LCDOUT?C	020h
 	LCDOUT?C	072h
 	LCDOUT?C	065h
 	LCDOUT?C	066h
 	LCDOUT?C	03Dh
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_p_ref
+	LCDOUTDEC?	
+	LCDOUT?C	020h
+	LCDOUT?C	070h
+	LCDOUT?C	072h
+	LCDOUT?C	065h
+	LCDOUT?C	073h
+	LCDOUT?C	05Fh
+	LCDOUT?C	072h
+	LCDOUT?C	065h
+	LCDOUT?C	066h
+	LCDOUT?C	03Dh
+	LCDOUT?C	020h
+	LCDOUTCOUNT?C	000h
+	LCDOUTNUM?W	_pressure_ref
 	LCDOUTDEC?	
 	LCDOUT?C	020h
 	LCDOUT?C	070h
@@ -132,11 +172,12 @@ _TRISH           		EQU	 TRISC
 	LABEL?L	_get_pressure	
 	MOVE?CB	011h, ADCON0
 	ADCIN?CW	004h, _p_in
-	MUL?WCW	_p_in, 033h, T1
-	DIV?WCW	T1, 01Eh, T1
-	SUB?WCW	T1, 00146h, _p_val
-	MUL?WCW	_p_in, 032h, T1
-	DIV?WCW	T1, 040h, _p_val_lcd
+	MUL?WCW	_p_in, 03Ch, T1
+	DIV?WCW	T1, 038h, T1
+	SUB?WCW	T1, 023h, _p_val
+	MUL?WCW	_p_in, 019h, T1
+	DIV?WCW	T1, 003h, T1
+	SUB?WCW	T1, 00115h, _pressure
 	RETURN?	
 
 	LABEL?L	_get_water_p_pwm	
@@ -145,7 +186,7 @@ _TRISH           		EQU	 TRISC
 	SUB?WWW	_p_ref, _p_val, T1
 	CMPLE?WCL	T1, 005h, L00005
 	SUB?WWW	_p_ref, _p_val, T1
-	DIV?WCW	T1, 005h, T1
+	DIV?WCW	T1, 032h, T1
 	ADD?WWW	_p_pwm_val, T1, _p_pwm_val
 	GOTO?L	L00006
 	LABEL?L	L00005	
@@ -161,7 +202,7 @@ _TRISH           		EQU	 TRISC
 	SUB?WWW	_p_val, _p_ref, T1
 	CMPLE?WCL	T1, 005h, L00011
 	SUB?WWW	_p_val, _p_ref, T1
-	DIV?WCW	T1, 005h, T1
+	DIV?WCW	T1, 032h, T1
 	SUB?WWW	_p_pwm_val, T1, _p_pwm_val
 	GOTO?L	L00012
 	LABEL?L	L00011	
