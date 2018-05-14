@@ -338,12 +338,23 @@ _TRISH           		EQU	 TRISC
 	CMPF?WL	T2, L00013
 	MUL?WCW	_t1temp_upper, 064h, T1
 	SUB?WWW	_t1resistance, _t1res_lower, T2
-	MUL?WCW	T2, 005h, T2
 	MUL?WCW	T2, 064h, T2
 	SUB?WWW	_t1res_upper, _t1res_lower, T3
 	DIV?WWW	T2, T3, T3
+	MUL?WCW	T3, 005h, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t1temp_val
+	LCDOUT?C	0FEh
+	LCDOUT?C	0D4h
+	LCDOUT?C	068h
+	LCDOUT?C	065h
+	LCDOUT?C	072h
+	LCDOUT?C	065h
+	LCDOUT?C	020h
+	LCDOUTCOUNT?C	000h
+	LCDOUTNUM?W	_t1temp_val
+	LCDOUTDEC?	
+	GOTO?L	L00014
 	LABEL?L	L00013	
 	CMPEQ?WCB	_t1temp_lower, 00Fh, T1
 	CMPEQ?WCB	_t1temp_lower, 022h, T2
@@ -367,6 +378,7 @@ _TRISH           		EQU	 TRISC
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t1temp_val
 	LABEL?L	L00016	
+	LABEL?L	L00014	
 	DIV?WCW	_t1temp_val, 00Ah, _t1temp_integer
 	MOD?WCW	_t1temp_val, 00Ah, _t1temp_rem
 	CMPLT?WCL	_t1temp_rem, 008h, L00017

@@ -128,7 +128,7 @@ resistor_ref[10]= 1814  '30
 resistor_ref[11]= 1690  '32
 resistor_ref[12]= 1566  '34   
 resistor_ref[13]= 1503  '35
-resistor_ref[14]= 1254
+resistor_ref[14]= 1254   '40
 resistor_ref[15]= 1051
 resistor_ref[16]= 886
 resistor_ref[17]= 750
@@ -220,12 +220,14 @@ get_temp_value:
         next i  
         
         if t1temp_upper <= 15 or t1temp_lower >= 35 then 
-            t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*5*100/(t1res_upper - t1res_lower)))/10
-        endif
+            t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*100/(t1res_upper - t1res_lower))*5)/10
+             lcdout  $FE, $D4, "here ", dec t1temp_val
+        else
         if t1temp_lower = 15 or t1temp_lower = 34 then
             t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*100/(t1res_upper - t1res_lower)))/10
         else 
             t1temp_val = (t1temp_upper*100 - ((t1resistance-t1res_lower)*2*100/(t1res_upper - t1res_lower)))/10
+        endif
         endif
         t1temp_integer = t1temp_val/10
         t1temp_rem = t1temp_val//10
