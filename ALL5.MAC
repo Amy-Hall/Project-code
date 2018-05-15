@@ -220,14 +220,6 @@ CMPEQ?WCB macro Win, Cin, Bout
     endm
 CMPEQ_USED = 1
 
-CMPEQ?WWB macro Win1, Win2, Bout
-        MOVE?WW Win1, R0
-        MOVE?WWA Win2, R1
-        L?CALL  CMPEQ
-        MOVE?AB Bout
-    endm
-CMPEQ_USED = 1
-
 CMPGE?WCB macro Win, Cin, Bout
         MOVE?WW Win, R0
         MOVE?CB (Cin) >> 8, R1 + 1

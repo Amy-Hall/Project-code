@@ -103,7 +103,9 @@ _PORTL           		EQU	 PORTB
 _PORTH           		EQU	 PORTC
 _TRISL           		EQU	 TRISB
 _TRISH           		EQU	 TRISC
+#define _TRISB??1        	 TRISB, 001h
 #define _TRISB??2        	 TRISB, 002h
+#define _TRISB??3        	 TRISB, 003h
 #define _CCP1CON??4      	 CCP1CON, 004h
 #define _flow_pwm_val??0 	_flow_pwm_val, 000h
 #define _CCP1CON??5      	 CCP1CON, 005h
@@ -120,7 +122,9 @@ _TRISH           		EQU	 TRISC
 
 	MOVE?CB	040h, OSCCON
 	MOVE?CB	0FFh, TRISA
+	MOVE?CT	001h, _TRISB??1
 	MOVE?CT	001h, _TRISB??2
+	MOVE?CT	001h, _TRISB??3
 	MOVE?CB	000h, TRISC
 	MOVE?CB	007h, ADCON1
 	MOVE?CB	087h, ADCON2
@@ -247,8 +251,19 @@ _TRISH           		EQU	 TRISC
 	LCDOUTDEC?	
 	LCDOUT?C	0FEh
 	LCDOUT?C	0C0h
+	LCDOUT?C	046h
+	LCDOUT?C	06Ch
+	LCDOUT?C	06Fh
+	LCDOUT?C	077h
+	LCDOUT?C	03Ah
+	LCDOUT?C	020h
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_temp_pwm_val
+	LCDOUTNUM?W	_flow_ref
+	LCDOUTDEC?	
+	LCDOUT?C	020h
+	LCDOUT?C	020h
+	LCDOUTCOUNT?C	000h
+	LCDOUTNUM?W	_flow_val
 	LCDOUTDEC?	
 	LCDOUT?C	0FEh
 	LCDOUT?C	094h
@@ -502,8 +517,8 @@ _TRISH           		EQU	 TRISC
 	RETURN?	
 
 	LABEL?L	_get_flowrate	
-	MOVE?CB	011h, ADCON0
-	ADCIN?CW	004h, _an_frequency
+	MOVE?CB	025h, ADCON0
+	ADCIN?CW	009h, _an_frequency
 	MUL?WCW	_an_frequency, 032h, T1
 	DIV?WCW	T1, 0049Ah, _flow_val
 	RETURN?	
@@ -544,18 +559,15 @@ _TRISH           		EQU	 TRISC
 	MOVE?CW	032h, _flow_pwm_val
 	LABEL?L	L00060	
 	LABEL?L	L00057	
-	CMPEQ?WWB	_flow_val, _flow_ref, T1
-	CMPEQ?WCB	_flow_ref, 000h, T2
-	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00063
+	CMPNE?WCL	_flow_ref, 000h, L00063
 	MOVE?CW	032h, _flow_pwm_val
 	LABEL?L	L00063	
 	LABEL?L	L00049	
 	RETURN?	
 
 	LABEL?L	_get_pressure	
-	MOVE?CB	011h, ADCON0
-	ADCIN?CW	004h, _p_in
+	MOVE?CB	029h, ADCON0
+	ADCIN?CW	00Ah, _p_in
 	MUL?WCW	_p_in, 03Ch, T1
 	DIV?WCW	T1, 038h, T1
 	SUB?WCW	T1, 023h, _p_val

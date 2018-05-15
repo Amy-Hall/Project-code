@@ -21,7 +21,9 @@ define CCP1_REG PORTC
 define CCP1_BIT 2
 
 TRISA = %11111111 ' Set PORTA to all input 
+TRISB.1= 1
 TRISB.2= 1
+TRISB.3= 1
 TRISC = %00000000  'Set PORTC to output
 ADCON1 = %00000111 ' Right-Justify result in ADRESH:ADRESL registers
 ADCON2 = %10000111
@@ -185,8 +187,7 @@ main:
     endif
     
     LCDout $FE, 1, "Temp: ", dec t1temp_ref, " ", dec t1temp_integer, " ", dec t2temp_integer
- '   LCDout $FE, $C0, "Flow: ", dec flow_ref, "  ", dec flow_val
-    lcdout $FE, $C0, dec temp_pwm_val
+    LCDout $FE, $C0, "Flow: ", dec flow_ref, "  ", dec flow_val
     lcdout $FE, $94, "Pressure:", dec pressure_ref, " ", dec pressure
     if PORTB.2 == 0 then        
         lcdout  $FE, $D4,  "Flow  ",  dec flow_pwm_val
@@ -304,8 +305,8 @@ return
 get_flowrate:
  '   COUNT PORTB.5, 250, frequency     'whats min count to still be accurate....?
  '   frequency = frequency/1           'would be times 2 (for 500) but the /4 for clk issues
-    ADCON0 = %00010001 'AN4
-    adcin 4, an_frequency                 'Analog voltage 0-5V proportional to 0-500Hz (0 to 1024)
+    ADCON0 = %00100101 'AN4
+    adcin 9, an_frequency                 'Analog voltage 0-5V proportional to 0-500Hz (0 to 1024)
     flow_val = (an_frequency*50)/1178   'litres per minute times 10, (((*500/1024)*60/6900)*10) 
 return
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -337,7 +338,7 @@ get_water_pwm:
                flow_pwm_val= 50
             endif 
         endif 
-        IF ((flow_val == flow_ref) and (flow_ref ==0)) then
+        IF (flow_ref ==0) then
             flow_pwm_val = 50
         endif  
     endif
@@ -346,8 +347,8 @@ return
 
 ''''''''''''get current water pressure''''''''''''''''''''''''''''''''''''''''''''''''''
 get_pressure:
-    ADCON0 = %00010001                'AN3
-    adcin 4, p_in
+    ADCON0 = %00101001                'AN3
+    adcin 10, p_in
     p_val = ((p_in*60)/56)-35   'convert to a value between 0 and 1024 representing pressures 0 to 8000Pa
     pressure = (p_in*23 + 162) 
 return
