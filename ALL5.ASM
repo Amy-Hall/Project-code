@@ -53,52 +53,54 @@ RR2             		EQU	RAM_START + 01Dh
 RS1             		EQU	RAM_START + 01Eh
 RS2             		EQU	RAM_START + 01Fh
 _an_3            		EQU	RAM_START + 020h
-_an_frequency    		EQU	RAM_START + 022h
-_dT_1            		EQU	RAM_START + 024h
-_dT_2            		EQU	RAM_START + 026h
-_flow_decimal    		EQU	RAM_START + 028h
-_flow_pwm_val    		EQU	RAM_START + 02Ah
-_flow_ref        		EQU	RAM_START + 02Ch
-_flow_val        		EQU	RAM_START + 02Eh
-_i               		EQU	RAM_START + 030h
-_loops           		EQU	RAM_START + 032h
-_n               		EQU	RAM_START + 034h
-_n1              		EQU	RAM_START + 036h
-_n2              		EQU	RAM_START + 038h
-_p_in            		EQU	RAM_START + 03Ah
-_p_pwm_val       		EQU	RAM_START + 03Ch
-_p_ref           		EQU	RAM_START + 03Eh
-_p_val           		EQU	RAM_START + 040h
-_pressure        		EQU	RAM_START + 042h
-_pressure_ref    		EQU	RAM_START + 044h
-_setting         		EQU	RAM_START + 046h
-_t1adval         		EQU	RAM_START + 048h
-_t1res_lower     		EQU	RAM_START + 04Ah
-_t1res_upper     		EQU	RAM_START + 04Ch
-_t1resistance    		EQU	RAM_START + 04Eh
-_t1temp_decimal  		EQU	RAM_START + 050h
-_t1temp_integer  		EQU	RAM_START + 052h
-_t1temp_lower    		EQU	RAM_START + 054h
-_t1temp_ref      		EQU	RAM_START + 056h
-_t1temp_rem      		EQU	RAM_START + 058h
-_t1temp_upper    		EQU	RAM_START + 05Ah
-_t1temp_val      		EQU	RAM_START + 05Ch
-_t2adval         		EQU	RAM_START + 05Eh
-_t2res_lower     		EQU	RAM_START + 060h
-_t2res_upper     		EQU	RAM_START + 062h
-_t2resistance    		EQU	RAM_START + 064h
-_t2temp_decimal  		EQU	RAM_START + 066h
-_t2temp_integer  		EQU	RAM_START + 068h
-_t2temp_lower    		EQU	RAM_START + 06Ah
-_t2temp_ref      		EQU	RAM_START + 06Ch
-_t2temp_rem      		EQU	RAM_START + 06Eh
-_t2temp_upper    		EQU	RAM_START + 070h
-_t2temp_val      		EQU	RAM_START + 072h
-_temp_pwm_val    		EQU	RAM_START + 074h
-_throttle        		EQU	RAM_START + 076h
-_x               		EQU	RAM_START + 078h
-_resistor_ref    		EQU	RAM_START + 07Ah
-_temp_ref        		EQU	RAM_START + 0B0h
+_an_4            		EQU	RAM_START + 022h
+_an_frequency    		EQU	RAM_START + 024h
+_dT_1            		EQU	RAM_START + 026h
+_dT_2            		EQU	RAM_START + 028h
+_flow_decimal    		EQU	RAM_START + 02Ah
+_flow_pwm_val    		EQU	RAM_START + 02Ch
+_flow_ref        		EQU	RAM_START + 02Eh
+_flow_val        		EQU	RAM_START + 030h
+_i               		EQU	RAM_START + 032h
+_loops           		EQU	RAM_START + 034h
+_n               		EQU	RAM_START + 036h
+_n1              		EQU	RAM_START + 038h
+_n2              		EQU	RAM_START + 03Ah
+_p_in            		EQU	RAM_START + 03Ch
+_p_pwm_val       		EQU	RAM_START + 03Eh
+_p_ref           		EQU	RAM_START + 040h
+_p_val           		EQU	RAM_START + 042h
+_pressure        		EQU	RAM_START + 044h
+_pressure_div100 		EQU	RAM_START + 046h
+_pressure_ref    		EQU	RAM_START + 048h
+_setting         		EQU	RAM_START + 04Ah
+_t1adval         		EQU	RAM_START + 04Ch
+_t1res_lower     		EQU	RAM_START + 04Eh
+_t1res_upper     		EQU	RAM_START + 050h
+_t1resistance    		EQU	RAM_START + 052h
+_t1temp_decimal  		EQU	RAM_START + 054h
+_t1temp_integer  		EQU	RAM_START + 056h
+_t1temp_lower    		EQU	RAM_START + 058h
+_t1temp_ref      		EQU	RAM_START + 05Ah
+_t1temp_rem      		EQU	RAM_START + 05Ch
+_t1temp_upper    		EQU	RAM_START + 05Eh
+_t1temp_val      		EQU	RAM_START + 060h
+_t2adval         		EQU	RAM_START + 062h
+_t2res_lower     		EQU	RAM_START + 064h
+_t2res_upper     		EQU	RAM_START + 066h
+_t2resistance    		EQU	RAM_START + 068h
+_t2temp_decimal  		EQU	RAM_START + 06Ah
+_t2temp_integer  		EQU	RAM_START + 06Ch
+_t2temp_lower    		EQU	RAM_START + 06Eh
+_t2temp_ref      		EQU	RAM_START + 070h
+_t2temp_rem      		EQU	RAM_START + 072h
+_t2temp_upper    		EQU	RAM_START + 074h
+_t2temp_val      		EQU	RAM_START + 076h
+_temp_pwm_val    		EQU	RAM_START + 078h
+_throttle        		EQU	RAM_START + 07Ah
+_x               		EQU	RAM_START + 07Ch
+_resistor_ref    		EQU	RAM_START + 07Eh
+_temp_ref        		EQU	RAM_START + 0B4h
 _PORTL           		EQU	 PORTB
 _PORTH           		EQU	 PORTC
 _TRISL           		EQU	 TRISB
@@ -211,12 +213,16 @@ _TRISH           		EQU	 TRISC
 	HPWM?CWC	002h, _temp_pwm_val, 0F5h
 	MOVE?CB	00Dh, ADCON0
 	ADCIN?CW	003h, _an_3
+	MOVE?CB	011h, ADCON0
+	ADCIN?CW	004h, _an_4
 	GOSUB?L	_get_flowrate
 	GOSUB?L	_get_pressure
 	MUL?WCW	_an_3, 02Ch, T1
 	DIV?WCW	T1, 00400h, _flow_ref
-	MUL?WCW	_an_3, 029h, T1
-	DIV?WCW	T1, 002h, _pressure_ref
+	MUL?WCW	_an_4, 029h, T1
+	DIV?WCW	T1, 002h, T1
+	DIV?WCW	T1, 001F4h, T1
+	MUL?WCW	T1, 001F4h, _pressure_ref
 	CMPNE?TCL	_PORTB??2, 000h, L00003
 	GOSUB?L	_get_water_pwm
 	MOVE?TT	_flow_pwm_val??0, _CCP1CON??4
@@ -258,12 +264,24 @@ _TRISH           		EQU	 TRISC
 	LCDOUT?C	03Ah
 	LCDOUT?C	020h
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_flow_ref
+	DIV?WCW	_flow_ref, 00Ah, T1
+	LCDOUTNUM?W	T1
+	LCDOUTDEC?	
+	LCDOUT?C	02Eh
+	LCDOUTCOUNT?C	000h
+	MOD?WCW	_flow_ref, 00Ah, T1
+	LCDOUTNUM?W	T1
 	LCDOUTDEC?	
 	LCDOUT?C	020h
 	LCDOUT?C	020h
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_flow_val
+	DIV?WCW	_flow_val, 00Ah, T1
+	LCDOUTNUM?W	T1
+	LCDOUTDEC?	
+	LCDOUT?C	02Eh
+	LCDOUTCOUNT?C	000h
+	MOD?WCW	_flow_val, 00Ah, T1
+	LCDOUTNUM?W	T1
 	LCDOUTDEC?	
 	LCDOUT?C	0FEh
 	LCDOUT?C	094h
@@ -277,11 +295,25 @@ _TRISH           		EQU	 TRISC
 	LCDOUT?C	065h
 	LCDOUT?C	03Ah
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_pressure_ref
+	DIV?WCW	_pressure_ref, 003E8h, T1
+	LCDOUTNUM?W	T1
+	LCDOUTDEC?	
+	LCDOUT?C	02Eh
+	LCDOUTCOUNT?C	000h
+	DIV?WCW	_pressure_ref, 064h, T1
+	MOD?WCW	T1, 00Ah, T1
+	LCDOUTNUM?W	T1
 	LCDOUTDEC?	
 	LCDOUT?C	020h
 	LCDOUTCOUNT?C	000h
-	LCDOUTNUM?W	_pressure
+	DIV?WCW	_pressure, 003E8h, T1
+	LCDOUTNUM?W	T1
+	LCDOUTDEC?	
+	LCDOUT?C	02Eh
+	LCDOUTCOUNT?C	000h
+	DIV?WCW	_pressure, 064h, T1
+	MOD?WCW	T1, 00Ah, T1
+	LCDOUTNUM?W	T1
 	LCDOUTDEC?	
 	CMPNE?TCL	_PORTB??2, 000h, L00005
 	LCDOUT?C	0FEh
@@ -291,6 +323,9 @@ _TRISH           		EQU	 TRISC
 	LCDOUT?C	06Fh
 	LCDOUT?C	077h
 	LCDOUT?C	020h
+	LCDOUT?C	070h
+	LCDOUT?C	077h
+	LCDOUT?C	06Dh
 	LCDOUT?C	020h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_flow_pwm_val
@@ -308,6 +343,9 @@ _TRISH           		EQU	 TRISC
 	LCDOUT?C	072h
 	LCDOUT?C	065h
 	LCDOUT?C	020h
+	LCDOUT?C	070h
+	LCDOUT?C	077h
+	LCDOUT?C	06Dh
 	LCDOUT?C	020h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_p_pwm_val
@@ -572,48 +610,56 @@ _TRISH           		EQU	 TRISC
 	DIV?WCW	T1, 038h, T1
 	SUB?WCW	T1, 023h, _p_val
 	MUL?WCW	_p_in, 017h, T1
-	ADD?WCW	T1, 0A2h, _pressure
+	ADD?WCW	T1, 0A2h, T1
+	MOD?WCW	T1, 032h, _pressure_div100
+	MUL?WCW	_p_in, 017h, T1
+	ADD?WCW	T1, 0A2h, T1
+	DIV?WCW	T1, 001F4h, _pressure
+	CMPLT?WCL	_pressure_div100, 0FAh, L00065
+	ADD?WCW	_pressure, 001h, _pressure
+	LABEL?L	L00065	
+	MUL?WCW	_pressure, 001F4h, _pressure
 	RETURN?	
 
 	LABEL?L	_get_water_p_pwm	
-	CMPGE?WWL	_pressure, _pressure_ref, L00065
-	CMPGE?WCL	_p_pwm_val, 078h, L00067
+	CMPGE?WWL	_pressure, _pressure_ref, L00067
+	CMPGE?WCL	_p_pwm_val, 078h, L00069
 	SUB?WWW	_pressure_ref, _pressure, T1
-	CMPLE?WCL	T1, 003E8h, L00069
+	CMPLE?WCL	T1, 003E8h, L00071
 	SUB?WWW	_pressure_ref, _pressure, T1
 	DIV?WCW	T1, 002BCh, T1
 	ADD?WWW	_p_pwm_val, T1, _p_pwm_val
+	GOTO?L	L00072
+	LABEL?L	L00071	
+	ADD?WCW	_p_pwm_val, 001h, _p_pwm_val
+	LABEL?L	L00072	
+	CMPLE?WCL	_p_pwm_val, 078h, L00073
+	MOVE?CW	078h, _p_pwm_val
+	LABEL?L	L00073	
 	GOTO?L	L00070
 	LABEL?L	L00069	
-	ADD?WCW	_p_pwm_val, 001h, _p_pwm_val
+	MOVE?CW	078h, _p_pwm_val
 	LABEL?L	L00070	
-	CMPLE?WCL	_p_pwm_val, 078h, L00071
-	MOVE?CW	078h, _p_pwm_val
-	LABEL?L	L00071	
-	GOTO?L	L00068
 	LABEL?L	L00067	
-	MOVE?CW	078h, _p_pwm_val
-	LABEL?L	L00068	
-	LABEL?L	L00065	
-	CMPLE?WWL	_pressure, _pressure_ref, L00073
-	CMPLE?WCL	_p_pwm_val, 032h, L00075
+	CMPLE?WWL	_pressure, _pressure_ref, L00075
+	CMPLE?WCL	_p_pwm_val, 032h, L00077
 	SUB?WWW	_pressure, _pressure_ref, T1
-	CMPLE?WCL	T1, 003E8h, L00077
+	CMPLE?WCL	T1, 003E8h, L00079
 	SUB?WWW	_pressure, _pressure_ref, T1
 	DIV?WCW	T1, 002BCh, T1
 	SUB?WWW	_p_pwm_val, T1, _p_pwm_val
+	GOTO?L	L00080
+	LABEL?L	L00079	
+	SUB?WCW	_p_pwm_val, 001h, _p_pwm_val
+	LABEL?L	L00080	
+	CMPNE?WCL	_pressure_ref, 000h, L00081
+	MOVE?CW	032h, _p_pwm_val
+	LABEL?L	L00081	
 	GOTO?L	L00078
 	LABEL?L	L00077	
-	SUB?WCW	_p_pwm_val, 001h, _p_pwm_val
+	MOVE?CW	032h, _p_pwm_val
 	LABEL?L	L00078	
-	CMPNE?WCL	_pressure_ref, 000h, L00079
-	MOVE?CW	032h, _p_pwm_val
-	LABEL?L	L00079	
-	GOTO?L	L00076
 	LABEL?L	L00075	
-	MOVE?CW	032h, _p_pwm_val
-	LABEL?L	L00076	
-	LABEL?L	L00073	
 	RETURN?	
 
 	END

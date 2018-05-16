@@ -77,9 +77,11 @@ p_ref var word
 p_pwm_val var word
 p_val var word 
 pressure var word
+pressure_div100 var word
 p_in var word 
 pressure_ref var word
 an_3 var word
+an_4 var word
 setting var word
 
 
@@ -165,11 +167,13 @@ main:
     HPWM 2, temp_pwm_val, 245    'This multiplied by 4, actually gives 62Hz    
      
     ADCON0 = %00001101   'AN3
-    adcin 3, an_3                    
+    adcin 3, an_3  
+    ADCON0 = %00010001   'AN4
+    adcin 4, an_4                    
     gosub get_flowrate
     gosub get_pressure
     flow_ref = (an_3*44)/1024        'want from 0-1024 to between 0 and 44 
-    pressure_ref = (an_3*41)/2        'p_ref/1024*21000 
+    pressure_ref = (((an_4*41)/2)/500)*500        'p_ref/1024*21000 
     
     if PORTB.2 == 0 then              
         gosub get_water_pwm                  
@@ -186,14 +190,16 @@ main:
     
     endif
     
-    LCDout $FE, 1, "Temp: ", dec t1temp_ref, " ", dec t1temp_integer, " ", dec t2temp_integer
-    LCDout $FE, $C0, "Flow: ", dec flow_ref, "  ", dec flow_val
-    lcdout $FE, $94, "Pressure:", dec pressure_ref, " ", dec pressure
-    if PORTB.2 == 0 then        
-        lcdout  $FE, $D4,  "Flow  ",  dec flow_pwm_val
-    else 
-        lcdout  $FE, $D4,  "Pressure  ",  dec p_pwm_val
-    endif
+  '  if loops == 10 then
+        LCDout $FE, 1, "Temp: ", dec t1temp_ref, " ", dec t1temp_integer, " ", dec t2temp_integer
+        LCDout $FE, $C0, "Flow: ", dec flow_ref/10, ".", dec flow_ref//10, "  ", dec (flow_val/10), ".", dec flow_val//10
+        lcdout $FE, $94, "Pressure:", dec pressure_ref/1000, ".", dec (pressure_ref/100)//10, " ", dec pressure/1000, ".", dec (pressure/100)//10     
+        if PORTB.2 == 0 then        
+            lcdout  $FE, $D4,  "Flow pwm ",  dec flow_pwm_val
+        else 
+            lcdout  $FE, $D4,  "Pressure pwm ",  dec p_pwm_val
+        endif
+  '  endif
 
     goto main
 end
@@ -350,7 +356,10 @@ get_pressure:
     ADCON0 = %00101001                'AN3
     adcin 10, p_in
     p_val = ((p_in*60)/56)-35   'convert to a value between 0 and 1024 representing pressures 0 to 8000Pa
-    pressure = (p_in*23 + 162) 
+    pressure_div100 = ((p_in*23 + 162)//50)
+    pressure = (p_in*23 + 162)/500
+    If pressure_div100 >= 250 then pressure = pressure + 1
+    pressure = pressure*500    
 return
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
