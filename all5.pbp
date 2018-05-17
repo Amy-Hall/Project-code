@@ -6,6 +6,9 @@
 define OSC 4
 OSCCON = %01000000
 
+Include "modedefs.bas"
+DEFINE CHAR_PACING 1000
+
 DEFINE LCD_DREG PORTC
 DEFINE LCD_DBIT 4
 DEFINE LCD_RSREG PORTC
@@ -24,6 +27,7 @@ TRISA = %11111111 ' Set PORTA to all input
 TRISB.1= 1
 TRISB.2= 1
 TRISB.3= 1
+TRISB.4= 0
 TRISC = %00000000  'Set PORTC to output
 ADCON1 = %00000111 ' Right-Justify result in ADRESH:ADRESL registers
 ADCON2 = %10000111
@@ -156,7 +160,7 @@ loops = 0
 
 '''''''''''''''''''''''''''main'''''''''''''''''''''''
 main:
-    if loops == 10 then loops = 0 
+    if loops == 3 then loops = 0 
     loops = loops +1    
     ADCON0 = %00001001 'AN2
     ADCIN 2, t1temp_ref
@@ -199,6 +203,7 @@ main:
         else 
             lcdout  $FE, $D4,  "Pressure pwm ",  dec p_pwm_val
         endif
+        serout PORTB.4, N9600, [#flow_ref, " ", #flow_val, " ", #flow_pwm_val, " ", 10,13]
   '  endif
 
     goto main
@@ -321,7 +326,7 @@ return
 
 get_water_pwm:
 
-    if loops==4 then
+    if loops==1 then
         If (flow_val < flow_ref) then
             IF (flow_pwm_val < 120) then
                 if ((flow_ref-flow_val)>2) then                 'changed 20 to 5

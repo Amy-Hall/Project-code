@@ -490,5 +490,25 @@ RETURN? macro
         return
     endm
 
+SERMODE?C macro Cin
+        MOVE?CB Cin, GOP
+    endm
+
+SERPIN?T macro Regin, Bitin
+        BIT?R1  Regin, Bitin
+    endm
+
+SEROUT?C macro Cin
+        MOVE?CA Cin
+        L?CALL  SEROUT
+    endm
+SEROUT_USED = 1
+
+SEROUTD?W macro Win
+        MOVE?WWA Win, R2
+        L?CALL  SEROUTDECL
+    endm
+SEROUTDEC_USED = 1
+
 
 	LIST

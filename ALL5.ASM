@@ -7,6 +7,7 @@ _USED			EQU	1
 
 ; Define statements.
 #define		OSC		 4
+#define		CHAR_PACING		 1000
 #define		LCD_DREG		 PORTC
 #define		LCD_DBIT		 4
 #define		LCD_RSREG		 PORTC
@@ -108,6 +109,7 @@ _TRISH           		EQU	 TRISC
 #define _TRISB??1        	 TRISB, 001h
 #define _TRISB??2        	 TRISB, 002h
 #define _TRISB??3        	 TRISB, 003h
+#define _TRISB??4        	 TRISB, 004h
 #define _CCP1CON??4      	 CCP1CON, 004h
 #define _flow_pwm_val??0 	_flow_pwm_val, 000h
 #define _CCP1CON??5      	 CCP1CON, 005h
@@ -115,6 +117,44 @@ _TRISH           		EQU	 TRISC
 #define _PORTB??2        	 PORTB, 002h
 #define _p_pwm_val??0    	_p_pwm_val, 000h
 #define _p_pwm_val??1    	_p_pwm_val, 001h
+#define _PORTB??4        	 PORTB, 004h
+
+; Constants.
+_T2400           		EQU	00000h
+_T1200           		EQU	00001h
+_T9600           		EQU	00002h
+_T300            		EQU	00003h
+_N2400           		EQU	00004h
+_N1200           		EQU	00005h
+_N9600           		EQU	00006h
+_N300            		EQU	00007h
+_OT2400          		EQU	00008h
+_OT1200          		EQU	00009h
+_OT9600          		EQU	0000Ah
+_OT300           		EQU	0000Bh
+_ON2400          		EQU	0000Ch
+_ON1200          		EQU	0000Dh
+_ON9600          		EQU	0000Eh
+_ON300           		EQU	0000Fh
+_MSBPRE          		EQU	00000h
+_LSBPRE          		EQU	00001h
+_MSBPOST         		EQU	00002h
+_LSBPOST         		EQU	00003h
+_LSBFIRST        		EQU	00000h
+_MSBFIRST        		EQU	00001h
+_CLS             		EQU	00000h
+_HOME            		EQU	00001h
+_BELL            		EQU	00007h
+_BKSP            		EQU	00008h
+_TAB             		EQU	00009h
+_CR              		EQU	0000Dh
+_UnitOn          		EQU	00012h
+_UnitOff         		EQU	0001Ah
+_UnitsOff        		EQU	0001Ch
+_LightsOn        		EQU	00014h
+_LightsOff       		EQU	00010h
+_Dim             		EQU	0001Eh
+_Bright          		EQU	00016h
 
 ; EEPROM data.
 
@@ -127,6 +167,7 @@ _TRISH           		EQU	 TRISC
 	MOVE?CT	001h, _TRISB??1
 	MOVE?CT	001h, _TRISB??2
 	MOVE?CT	001h, _TRISB??3
+	MOVE?CT	000h, _TRISB??4
 	MOVE?CB	000h, TRISC
 	MOVE?CB	007h, ADCON1
 	MOVE?CB	087h, ADCON2
@@ -199,7 +240,7 @@ _TRISH           		EQU	 TRISC
 	MOVE?CW	000h, _loops
 
 	LABEL?L	_main	
-	CMPNE?WCL	_loops, 00Ah, L00001
+	CMPNE?WCL	_loops, 003h, L00001
 	MOVE?CW	000h, _loops
 	LABEL?L	L00001	
 	ADD?WCW	_loops, 001h, _loops
@@ -351,6 +392,16 @@ _TRISH           		EQU	 TRISC
 	LCDOUTNUM?W	_p_pwm_val
 	LCDOUTDEC?	
 	LABEL?L	L00006	
+	SERPIN?T	_PORTB??4
+	SERMODE?C	_N9600
+	SEROUTD?W	_flow_ref
+	SEROUT?C	020h
+	SEROUTD?W	_flow_val
+	SEROUT?C	020h
+	SEROUTD?W	_flow_pwm_val
+	SEROUT?C	020h
+	SEROUT?C	00Ah
+	SEROUT?C	00Dh
 	GOTO?L	_main
 	END?	
 
@@ -562,7 +613,7 @@ _TRISH           		EQU	 TRISC
 	RETURN?	
 
 	LABEL?L	_get_water_pwm	
-	CMPNE?WCL	_loops, 004h, L00049
+	CMPNE?WCL	_loops, 001h, L00049
 	CMPGE?WWL	_flow_val, _flow_ref, L00051
 	CMPGE?WCL	_flow_pwm_val, 078h, L00053
 	SUB?WWW	_flow_ref, _flow_val, T1
