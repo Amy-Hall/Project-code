@@ -377,12 +377,6 @@ ADCIN?CW macro Cin, Wout
     endm
 ADCIN_USED = 1
 
-DISABLE? macro
-    endm
-
-ENABLE? macro
-    endm
-
 END? macro
     local loop
 loop    sleep
@@ -421,10 +415,6 @@ HPWM?CWC macro Cin1, Win, Cin2
         L?CALL  HPWM
     endm
 HPWM_USED = 1
-
-ICALL?L macro Label
-        L?CALL  Label
-    endm
 
 LCDOUT?C macro Cin
         MOVE?CA Cin
@@ -479,17 +469,6 @@ NEXT?WCL macro Win, Cin, Label
 endlabel
     endm
 
-ONINT?LL macro Inthand, Intchk
-    local label
-        bsf     INTCON, GIE
-        bra     label
-Intchk  btfsc   INTCON, GIE
-        return
-        L?GOTO  Inthand
-label
-    endm
-ONINT_USED = 1
-
 PAUSE?C macro Cin
     if (high (Cin) == 0)
         MOVE?CA Cin
@@ -501,11 +480,6 @@ PAUSE?C macro Cin
     endif
     endm
 PAUSE_USED = 1
-
-RESUME? macro
-        RST?RP
-        retfie
-    endm
 
 RETURN? macro
     ifdef DEBUG_STACK

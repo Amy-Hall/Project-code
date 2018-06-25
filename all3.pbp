@@ -141,7 +141,7 @@ main:
     
     endif
     
-    LCDout $FE, 1, "Temp: ", dec t1temp_ref, " ", dec t1temp_val
+    LCDout $FE, 1, "Temp: ", dec t1temp_ref, " ", dec t1temp_val, " ", dec temp_pwm_val
     LCDout $FE, $C0, "Flow: ", dec flow_ref, "  ", dec flow_val
     lcdout $FE, $94, "Pressure: ", dec pressure_ref, "  ", dec pressure
     if PORTB.2 == 0 then        

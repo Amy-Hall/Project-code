@@ -56,63 +56,68 @@ RS2             		EQU	RAM_START + 01Fh
 _an_3            		EQU	RAM_START + 020h
 _an_4            		EQU	RAM_START + 022h
 _an_frequency    		EQU	RAM_START + 024h
-_flow_decimal    		EQU	RAM_START + 026h
-_flow_pwm_val    		EQU	RAM_START + 028h
-_flow_ref        		EQU	RAM_START + 02Ah
-_flow_val        		EQU	RAM_START + 02Ch
-_i               		EQU	RAM_START + 02Eh
-_loops           		EQU	RAM_START + 030h
-_p_in            		EQU	RAM_START + 032h
-_p_pwm_val       		EQU	RAM_START + 034h
-_p_ref           		EQU	RAM_START + 036h
-_p_val           		EQU	RAM_START + 038h
-_pressure        		EQU	RAM_START + 03Ah
-_pressure_div100 		EQU	RAM_START + 03Ch
-_pressure_ref    		EQU	RAM_START + 03Eh
-_t1adval         		EQU	RAM_START + 040h
-_t1res_lower     		EQU	RAM_START + 042h
-_t1res_upper     		EQU	RAM_START + 044h
-_t1resistance    		EQU	RAM_START + 046h
-_t1temp_decimal  		EQU	RAM_START + 048h
-_t1temp_integer  		EQU	RAM_START + 04Ah
-_t1temp_lower    		EQU	RAM_START + 04Ch
-_t1temp_ref      		EQU	RAM_START + 04Eh
-_t1temp_rem      		EQU	RAM_START + 050h
-_t1temp_upper    		EQU	RAM_START + 052h
-_t1temp_val      		EQU	RAM_START + 054h
-_t2adval         		EQU	RAM_START + 056h
-_t2res_lower     		EQU	RAM_START + 058h
-_t2res_upper     		EQU	RAM_START + 05Ah
-_t2resistance    		EQU	RAM_START + 05Ch
-_t2temp_decimal  		EQU	RAM_START + 05Eh
-_t2temp_integer  		EQU	RAM_START + 060h
-_t2temp_lower    		EQU	RAM_START + 062h
-_t2temp_ref      		EQU	RAM_START + 064h
-_t2temp_rem      		EQU	RAM_START + 066h
-_t2temp_upper    		EQU	RAM_START + 068h
-_t2temp_val      		EQU	RAM_START + 06Ah
-_temp_pwm_val    		EQU	RAM_START + 06Ch
-_resistor_ref    		EQU	RAM_START + 06Eh
-_temp_ref        		EQU	RAM_START + 0A4h
+_dT_1            		EQU	RAM_START + 026h
+_dT_2            		EQU	RAM_START + 028h
+_flow_decimal    		EQU	RAM_START + 02Ah
+_flow_pwm_val    		EQU	RAM_START + 02Ch
+_flow_ref        		EQU	RAM_START + 02Eh
+_flow_val        		EQU	RAM_START + 030h
+_i               		EQU	RAM_START + 032h
+_loops           		EQU	RAM_START + 034h
+_n               		EQU	RAM_START + 036h
+_n1              		EQU	RAM_START + 038h
+_n2              		EQU	RAM_START + 03Ah
+_p_in            		EQU	RAM_START + 03Ch
+_p_pwm_val       		EQU	RAM_START + 03Eh
+_p_ref           		EQU	RAM_START + 040h
+_p_val           		EQU	RAM_START + 042h
+_pressure        		EQU	RAM_START + 044h
+_pressure_div100 		EQU	RAM_START + 046h
+_pressure_ref    		EQU	RAM_START + 048h
+_setting         		EQU	RAM_START + 04Ah
+_t1adval         		EQU	RAM_START + 04Ch
+_t1res_lower     		EQU	RAM_START + 04Eh
+_t1res_upper     		EQU	RAM_START + 050h
+_t1resistance    		EQU	RAM_START + 052h
+_t1temp_decimal  		EQU	RAM_START + 054h
+_t1temp_integer  		EQU	RAM_START + 056h
+_t1temp_lower    		EQU	RAM_START + 058h
+_t1temp_ref      		EQU	RAM_START + 05Ah
+_t1temp_rem      		EQU	RAM_START + 05Ch
+_t1temp_upper    		EQU	RAM_START + 05Eh
+_t1temp_val      		EQU	RAM_START + 060h
+_t2adval         		EQU	RAM_START + 062h
+_t2res_lower     		EQU	RAM_START + 064h
+_t2res_upper     		EQU	RAM_START + 066h
+_t2resistance    		EQU	RAM_START + 068h
+_t2temp_decimal  		EQU	RAM_START + 06Ah
+_t2temp_integer  		EQU	RAM_START + 06Ch
+_t2temp_lower    		EQU	RAM_START + 06Eh
+_t2temp_ref      		EQU	RAM_START + 070h
+_t2temp_rem      		EQU	RAM_START + 072h
+_t2temp_upper    		EQU	RAM_START + 074h
+_t2temp_val      		EQU	RAM_START + 076h
+_temp_pwm_val    		EQU	RAM_START + 078h
+_throttle        		EQU	RAM_START + 07Ah
+_x               		EQU	RAM_START + 07Ch
+_resistor_ref    		EQU	RAM_START + 07Eh
+_temp_ref        		EQU	RAM_START + 0B4h
 _PORTL           		EQU	 PORTB
 _PORTH           		EQU	 PORTC
 _TRISL           		EQU	 TRISB
 _TRISH           		EQU	 TRISC
-#define _TRISB??0        	 TRISB, 000h
 #define _TRISB??1        	 TRISB, 001h
 #define _TRISB??2        	 TRISB, 002h
 #define _TRISB??3        	 TRISB, 003h
 #define _TRISB??4        	 TRISB, 004h
-#define _PORTB??2        	 PORTB, 002h
 #define _CCP1CON??4      	 CCP1CON, 004h
 #define _flow_pwm_val??0 	_flow_pwm_val, 000h
 #define _CCP1CON??5      	 CCP1CON, 005h
 #define _flow_pwm_val??1 	_flow_pwm_val, 001h
+#define _PORTB??2        	 PORTB, 002h
 #define _p_pwm_val??0    	_p_pwm_val, 000h
 #define _p_pwm_val??1    	_p_pwm_val, 001h
 #define _PORTB??4        	 PORTB, 004h
-#define _PORTB??0        	 PORTB, 000h
-#define _INTCON??1       	 INTCON, 001h
 
 ; Constants.
 _T2400           		EQU	00000h
@@ -154,13 +159,11 @@ _Bright          		EQU	00016h
 ; EEPROM data.
 
 
-	INCLUDE	"ALL5.MAC"
+	INCLUDE	"ALL5_S~1.MAC"
 	INCLUDE	"C:\PBP\PBPPIC18.LIB"
 
 	MOVE?CB	040h, OSCCON
-	MOVE?CB	090h, INTCON
 	MOVE?CB	0FFh, TRISA
-	MOVE?CT	001h, _TRISB??0
 	MOVE?CT	001h, _TRISB??1
 	MOVE?CT	001h, _TRISB??2
 	MOVE?CT	001h, _TRISB??3
@@ -171,6 +174,10 @@ _Bright          		EQU	00016h
 	MOVE?CB	00Ch, CCP1CON
 	MOVE?CB	007h, T2CON
 	MOVE?CB	0FFh, PR2
+	MOVE?CW	064h, _dT_1
+	MOVE?CW	00Ah, _dT_2
+	MOVE?CW	005h, _n1
+	MOVE?CW	032h, _n2
 	MOVE?CW	005h, _temp_ref
 	MOVE?CW	00Ah, _temp_ref + 00002h
 	MOVE?CW	00Fh, _temp_ref + 00004h
@@ -225,71 +232,47 @@ _Bright          		EQU	00016h
 	MOVE?CW	0010Ah, _resistor_ref + 00030h
 	MOVE?CW	0E9h, _resistor_ref + 00032h
 	MOVE?CW	0CCh, _resistor_ref + 00034h
+	MOVE?CW	064h, _flow_pwm_val
+	MOVE?CW	064h, _p_pwm_val
+	MOVE?TT	_flow_pwm_val??0, _CCP1CON??4
+	MOVE?TT	_flow_pwm_val??1, _CCP1CON??5
+	SHIFTR?WCB	_flow_pwm_val, 002h, CCPR1L
 	MOVE?CW	000h, _loops
-	ONINT?LL	_int, L00001
 
 	LABEL?L	_main	
-	ICALL?L	L00001
 	MOVE?CB	009h, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	002h, _t1temp_ref
-	ICALL?L	L00001
 	MUL?WCW	_t1temp_ref, 019h, T1
 	DIV?WCW	T1, 0FFh, _t1temp_ref
-	ICALL?L	L00001
 	GOSUB?L	_get_temp_value
-	ICALL?L	L00001
 	GOSUB?L	_get_air_temp
-	ICALL?L	L00001
 	GOSUB?L	_get_temp_pwm
-	ICALL?L	L00001
 	HPWM?CWC	002h, _temp_pwm_val, 0F5h
-	ICALL?L	L00001
 	MOVE?CB	00Dh, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	003h, _an_3
-	ICALL?L	L00001
 	MOVE?CB	011h, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	004h, _an_4
-	ICALL?L	L00001
 	GOSUB?L	_get_flowrate
-	ICALL?L	L00001
 	GOSUB?L	_get_pressure
-	ICALL?L	L00001
 	MUL?WCW	_an_3, 02Ch, T1
 	DIV?WCW	T1, 00400h, _flow_ref
-	ICALL?L	L00001
 	MUL?WCW	_an_4, 029h, T1
 	DIV?WCW	T1, 002h, T1
 	DIV?WCW	T1, 001F4h, T1
 	MUL?WCW	T1, 001F4h, _pressure_ref
-	ICALL?L	L00001
-	CMPNE?TCL	_PORTB??2, 000h, L00002
-	ICALL?L	L00001
+	CMPNE?TCL	_PORTB??2, 000h, L00001
 	GOSUB?L	_get_water_pwm
-	ICALL?L	L00001
 	MOVE?TT	_flow_pwm_val??0, _CCP1CON??4
-	ICALL?L	L00001
 	MOVE?TT	_flow_pwm_val??1, _CCP1CON??5
-	ICALL?L	L00001
 	SHIFTR?WCB	_flow_pwm_val, 002h, CCPR1L
-	ICALL?L	L00001
-	GOTO?L	L00003
-	LABEL?L	L00002	
-	ICALL?L	L00001
+	GOTO?L	L00002
+	LABEL?L	L00001	
 	GOSUB?L	_get_water_p_pwm
-	ICALL?L	L00001
 	MOVE?TT	_p_pwm_val??0, _CCP1CON??4
-	ICALL?L	L00001
 	MOVE?TT	_p_pwm_val??1, _CCP1CON??5
-	ICALL?L	L00001
 	SHIFTR?WCB	_p_pwm_val, 002h, CCPR1L
-	ICALL?L	L00001
 	PAUSE?C	064h
-	ICALL?L	L00001
-	LABEL?L	L00003	
-	ICALL?L	L00001
+	LABEL?L	L00002	
 	LCDOUT?C	0FEh
 	LCDOUT?C	001h
 	LCDOUT?C	054h
@@ -313,7 +296,6 @@ _Bright          		EQU	00016h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_temp_pwm_val
 	LCDOUTDEC?	
-	ICALL?L	L00001
 	LCDOUT?C	0FEh
 	LCDOUT?C	0C0h
 	LCDOUT?C	046h
@@ -342,7 +324,6 @@ _Bright          		EQU	00016h
 	MOD?WCW	_flow_val, 00Ah, T1
 	LCDOUTNUM?W	T1
 	LCDOUTDEC?	
-	ICALL?L	L00001
 	LCDOUT?C	0FEh
 	LCDOUT?C	094h
 	LCDOUT?C	050h
@@ -375,9 +356,7 @@ _Bright          		EQU	00016h
 	MOD?WCW	T1, 00Ah, T1
 	LCDOUTNUM?W	T1
 	LCDOUTDEC?	
-	ICALL?L	L00001
-	CMPNE?TCL	_PORTB??2, 000h, L00004
-	ICALL?L	L00001
+	CMPNE?TCL	_PORTB??2, 000h, L00003
 	LCDOUT?C	0FEh
 	LCDOUT?C	0D4h
 	LCDOUT?C	046h
@@ -392,10 +371,8 @@ _Bright          		EQU	00016h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_flow_pwm_val
 	LCDOUTDEC?	
-	ICALL?L	L00001
-	GOTO?L	L00005
-	LABEL?L	L00004	
-	ICALL?L	L00001
+	GOTO?L	L00004
+	LABEL?L	L00003	
 	LCDOUT?C	0FEh
 	LCDOUT?C	0D4h
 	LCDOUT?C	050h
@@ -414,75 +391,52 @@ _Bright          		EQU	00016h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_p_pwm_val
 	LCDOUTDEC?	
-	ICALL?L	L00001
-	LABEL?L	L00005	
-	ICALL?L	L00001
+	LABEL?L	L00004	
 	SERPIN?T	_PORTB??4
 	SERMODE?C	_N9600
 	SEROUTD?W	_t1temp_ref
 	SEROUT?C	020h
-	SEROUTD?W	_t1temp_integer
-	SEROUT?C	020h
 	SEROUTD?W	_t2temp_integer
-	SEROUT?C	020h
-	SEROUTD?W	_temp_pwm_val
 	SEROUT?C	00Ah
 	SEROUT?C	00Dh
-	ICALL?L	L00001
 	GOTO?L	_main
-	ICALL?L	L00001
 	END?	
 
 	LABEL?L	_get_temp_value	
-	ICALL?L	L00001
 	MOVE?CB	001h, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	000h, _t1adval
-	ICALL?L	L00001
 	DIV?CWW	0DC00h, _t1adval, T1
 	MUL?WCW	T1, 028h, T1
 	SUB?WCW	T1, 00898h, _t1resistance
-	ICALL?L	L00001
 	CMPGT?WWB	_t1resistance, _resistor_ref, T1
 	CMPLT?WWB	_t1resistance, _resistor_ref + 00036h, T2
 	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00006
-	ICALL?L	L00001
-	GOTO?L	L00007
-	LABEL?L	L00006	
-	ICALL?L	L00001
+	CMPF?WL	T2, L00005
+	GOTO?L	L00006
+	LABEL?L	L00005	
 	MOVE?CW	000h, _i
-	LABEL?L	L00008	
-	CMPGT?WCL	_i, 013h, L00009
-	ICALL?L	L00001
+	LABEL?L	L00007	
+	CMPGT?WCL	_i, 013h, L00008
 	AOUT?WWW	_resistor_ref, _i, T1
 	CMPLT?WWB	_t1resistance, T1, T1
 	ADD?WCW	_i, 001h, T2
 	AOUT?WWW	_resistor_ref, T2, T2
 	CMPGE?WWB	_t1resistance, T2, T2
 	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00010
-	ICALL?L	L00001
+	CMPF?WL	T2, L00009
 	ADD?WCW	_i, 001h, T1
 	AOUT?WWW	_resistor_ref, T1, _t1res_lower
-	ICALL?L	L00001
 	AOUT?WWW	_resistor_ref, _i, _t1res_upper
-	ICALL?L	L00001
 	AOUT?WWW	_temp_ref, _i, _t1temp_lower
-	ICALL?L	L00001
 	ADD?WCW	_i, 001h, T1
 	AOUT?WWW	_temp_ref, T1, _t1temp_upper
-	ICALL?L	L00001
-	LABEL?L	L00010	
-	ICALL?L	L00001
-	NEXT?WCL	_i, 001h, L00008
 	LABEL?L	L00009	
-	ICALL?L	L00001
+	NEXT?WCL	_i, 001h, L00007
+	LABEL?L	L00008	
 	CMPLE?WCB	_t1temp_upper, 00Fh, T1
 	CMPGE?WCB	_t1temp_lower, 023h, T2
 	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00012
-	ICALL?L	L00001
+	CMPF?WL	T2, L00011
 	MUL?WCW	_t1temp_upper, 064h, T1
 	SUB?WWW	_t1resistance, _t1res_lower, T2
 	MUL?WCW	T2, 064h, T2
@@ -491,7 +445,6 @@ _Bright          		EQU	00016h
 	MUL?WCW	T3, 005h, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t1temp_val
-	ICALL?L	L00001
 	LCDOUT?C	0FEh
 	LCDOUT?C	0D4h
 	LCDOUT?C	068h
@@ -502,15 +455,12 @@ _Bright          		EQU	00016h
 	LCDOUTCOUNT?C	000h
 	LCDOUTNUM?W	_t1temp_val
 	LCDOUTDEC?	
-	ICALL?L	L00001
-	GOTO?L	L00013
-	LABEL?L	L00012	
-	ICALL?L	L00001
+	GOTO?L	L00012
+	LABEL?L	L00011	
 	CMPEQ?WCB	_t1temp_lower, 00Fh, T1
 	CMPEQ?WCB	_t1temp_lower, 022h, T2
 	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00014
-	ICALL?L	L00001
+	CMPF?WL	T2, L00013
 	MUL?WCW	_t1temp_upper, 064h, T1
 	SUB?WWW	_t1resistance, _t1res_lower, T2
 	MUL?WCW	T2, 064h, T2
@@ -518,10 +468,8 @@ _Bright          		EQU	00016h
 	DIV?WWW	T2, T3, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t1temp_val
-	ICALL?L	L00001
-	GOTO?L	L00015
-	LABEL?L	L00014	
-	ICALL?L	L00001
+	GOTO?L	L00014
+	LABEL?L	L00013	
 	MUL?WCW	_t1temp_upper, 064h, T1
 	SUB?WWW	_t1resistance, _t1res_lower, T2
 	MUL?WCW	T2, 002h, T2
@@ -530,88 +478,61 @@ _Bright          		EQU	00016h
 	DIV?WWW	T2, T3, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t1temp_val
-	ICALL?L	L00001
-	LABEL?L	L00015	
-	ICALL?L	L00001
-	LABEL?L	L00013	
-	ICALL?L	L00001
+	LABEL?L	L00014	
+	LABEL?L	L00012	
 	DIV?WCW	_t1temp_val, 00Ah, _t1temp_integer
-	ICALL?L	L00001
 	MOD?WCW	_t1temp_val, 00Ah, _t1temp_rem
-	ICALL?L	L00001
-	CMPLT?WCL	_t1temp_rem, 008h, L00016
-	ICALL?L	L00001
+	CMPLT?WCL	_t1temp_rem, 008h, L00015
 	ADD?WCW	_t1temp_integer, 001h, _t1temp_integer
-	ICALL?L	L00001
 	MOVE?CW	000h, _t1temp_decimal
-	ICALL?L	L00001
-	LABEL?L	L00016	
-	ICALL?L	L00001
+	LABEL?L	L00015	
 	CMPLT?WCB	_t1temp_rem, 008h, T1
 	CMPGT?WCB	_t1temp_rem, 002h, T2
 	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00018
+	CMPF?WL	T2, L00017
 	MOVE?CW	005h, _t1temp_decimal
-	LABEL?L	L00018	
-	ICALL?L	L00001
-	CMPGE?WCL	_t1temp_rem, 003h, L00020
+	LABEL?L	L00017	
+	CMPGE?WCL	_t1temp_rem, 003h, L00019
 	MOVE?CW	000h, _t1temp_decimal
-	LABEL?L	L00020	
-	ICALL?L	L00001
-	LABEL?L	L00007	
-	ICALL?L	L00001
+	LABEL?L	L00019	
+	LABEL?L	L00006	
 	RETURN?	
 
 	LABEL?L	_get_air_temp	
-	ICALL?L	L00001
 	MOVE?CB	005h, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	001h, _t2adval
-	ICALL?L	L00001
 	DIV?CWW	0DC00h, _t2adval, T1
 	MUL?WCW	T1, 028h, T1
 	SUB?WCW	T1, 00898h, _t2resistance
-	ICALL?L	L00001
 	CMPGT?WWB	_t2resistance, _resistor_ref, T1
 	CMPLT?WWB	_t2resistance, _resistor_ref + 00026h, T2
 	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00022
-	ICALL?L	L00001
-	GOTO?L	L00023
-	LABEL?L	L00022	
-	ICALL?L	L00001
+	CMPF?WL	T2, L00021
+	GOTO?L	L00022
+	LABEL?L	L00021	
 	MOVE?CW	000h, _i
-	LABEL?L	L00024	
-	CMPGT?WCL	_i, 013h, L00025
-	ICALL?L	L00001
+	LABEL?L	L00023	
+	CMPGT?WCL	_i, 013h, L00024
 	AOUT?WWW	_resistor_ref, _i, T1
 	CMPLT?WWB	_t2resistance, T1, T1
 	ADD?WCW	_i, 001h, T2
 	AOUT?WWW	_resistor_ref, T2, T2
 	CMPGE?WWB	_t2resistance, T2, T2
 	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00026
-	ICALL?L	L00001
+	CMPF?WL	T2, L00025
 	ADD?WCW	_i, 001h, T1
 	AOUT?WWW	_resistor_ref, T1, _t2res_lower
-	ICALL?L	L00001
 	AOUT?WWW	_resistor_ref, _i, _t2res_upper
-	ICALL?L	L00001
 	AOUT?WWW	_temp_ref, _i, _t2temp_lower
-	ICALL?L	L00001
 	ADD?WCW	_i, 001h, T1
 	AOUT?WWW	_temp_ref, T1, _t2temp_upper
-	ICALL?L	L00001
-	LABEL?L	L00026	
-	ICALL?L	L00001
-	NEXT?WCL	_i, 001h, L00024
 	LABEL?L	L00025	
-	ICALL?L	L00001
+	NEXT?WCL	_i, 001h, L00023
+	LABEL?L	L00024	
 	CMPLE?WCB	_t2temp_upper, 00Fh, T1
 	CMPGE?WCB	_t2temp_lower, 023h, T2
 	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00028
-	ICALL?L	L00001
+	CMPF?WL	T2, L00027
 	MUL?WCW	_t2temp_upper, 064h, T1
 	SUB?WWW	_t2resistance, _t2res_lower, T2
 	MUL?WCW	T2, 064h, T2
@@ -620,15 +541,12 @@ _Bright          		EQU	00016h
 	MUL?WCW	T3, 005h, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t2temp_val
-	ICALL?L	L00001
-	GOTO?L	L00029
-	LABEL?L	L00028	
-	ICALL?L	L00001
+	GOTO?L	L00028
+	LABEL?L	L00027	
 	CMPEQ?WCB	_t2temp_lower, 00Fh, T1
 	CMPEQ?WCB	_t2temp_lower, 022h, T2
 	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00030
-	ICALL?L	L00001
+	CMPF?WL	T2, L00029
 	MUL?WCW	_t2temp_upper, 064h, T1
 	SUB?WWW	_t2resistance, _t2res_lower, T2
 	MUL?WCW	T2, 064h, T2
@@ -636,10 +554,8 @@ _Bright          		EQU	00016h
 	DIV?WWW	T2, T3, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t2temp_val
-	ICALL?L	L00001
-	GOTO?L	L00031
-	LABEL?L	L00030	
-	ICALL?L	L00001
+	GOTO?L	L00030
+	LABEL?L	L00029	
 	MUL?WCW	_t2temp_upper, 064h, T1
 	SUB?WWW	_t2resistance, _t2res_lower, T2
 	MUL?WCW	T2, 002h, T2
@@ -648,293 +564,180 @@ _Bright          		EQU	00016h
 	DIV?WWW	T2, T3, T3
 	SUB?WWW	T1, T3, T3
 	DIV?WCW	T3, 00Ah, _t2temp_val
-	ICALL?L	L00001
-	LABEL?L	L00031	
-	ICALL?L	L00001
-	LABEL?L	L00029	
-	ICALL?L	L00001
+	LABEL?L	L00030	
+	LABEL?L	L00028	
 	DIV?WCW	_t2temp_val, 00Ah, _t2temp_integer
-	ICALL?L	L00001
 	MOD?WCW	_t2temp_val, 00Ah, _t2temp_rem
-	ICALL?L	L00001
-	CMPLT?WCL	_t2temp_rem, 008h, L00032
-	ICALL?L	L00001
+	CMPLT?WCL	_t2temp_rem, 008h, L00031
 	ADD?WCW	_t2temp_integer, 001h, _t2temp_integer
-	ICALL?L	L00001
 	MOVE?CW	000h, _t2temp_decimal
-	ICALL?L	L00001
-	LABEL?L	L00032	
-	ICALL?L	L00001
+	LABEL?L	L00031	
 	CMPLT?WCB	_t2temp_rem, 008h, T1
 	CMPGT?WCB	_t2temp_rem, 002h, T2
 	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00034
+	CMPF?WL	T2, L00033
 	MOVE?CW	005h, _t2temp_decimal
-	LABEL?L	L00034	
-	ICALL?L	L00001
-	CMPGE?WCL	_t2temp_rem, 003h, L00036
+	LABEL?L	L00033	
+	CMPGE?WCL	_t2temp_rem, 003h, L00035
 	MOVE?CW	000h, _t2temp_decimal
-	LABEL?L	L00036	
-	ICALL?L	L00001
-	LABEL?L	L00023	
-	ICALL?L	L00001
+	LABEL?L	L00035	
+	LABEL?L	L00022	
 	RETURN?	
 
 	LABEL?L	_get_temp_pwm	
-	ICALL?L	L00001
-	CMPGT?WWB	_t1temp_integer, _t1temp_ref, T1
-	CMPGT?WCB	_t2temp_integer, 03Eh, T2
-	LOR?BBW	T1, T2, T2
-	CMPF?WL	T2, L00038
-	ICALL?L	L00001
-	CMPLE?WCL	_temp_pwm_val, 000h, L00040
-	ICALL?L	L00001
-	SUB?WCW	_temp_pwm_val, 001h, _temp_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00041
-	LABEL?L	L00040	
-	ICALL?L	L00001
-	MOVE?CW	000h, _temp_pwm_val
-	ICALL?L	L00001
+	CMPLE?WWL	_t2temp_integer, _t1temp_ref, L00037
+	CMPLE?WCL	_temp_pwm_val, 000h, L00039
+	SUB?WWW	_t2temp_integer, _t1temp_ref, T1
+	CMPLE?WCL	T1, 003h, L00041
+	SUB?WWW	_t2temp_integer, _t1temp_ref, T1
+	SUB?WWW	_temp_pwm_val, T1, _temp_pwm_val
+	GOTO?L	L00042
 	LABEL?L	L00041	
-	ICALL?L	L00001
-	LABEL?L	L00038	
-	ICALL?L	L00001
-	CMPLT?WWB	_t1temp_integer, _t1temp_ref, T1
-	CMPLT?WCB	_t2temp_integer, 03Fh, T2
-	LAND?BBW	T1, T2, T2
-	CMPF?WL	T2, L00042
-	ICALL?L	L00001
-	CMPGE?WCL	_temp_pwm_val, 0FFh, L00044
-	ICALL?L	L00001
-	ADD?WCW	_temp_pwm_val, 001h, _temp_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00045
-	LABEL?L	L00044	
-	ICALL?L	L00001
-	MOVE?CW	0FFh, _temp_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00045	
-	ICALL?L	L00001
+	SUB?WCW	_temp_pwm_val, 001h, _temp_pwm_val
 	LABEL?L	L00042	
-	ICALL?L	L00001
-	CMPNE?WCL	_t1temp_ref, 000h, L00046
+	GOTO?L	L00040
+	LABEL?L	L00039	
 	MOVE?CW	000h, _temp_pwm_val
+	LABEL?L	L00040	
+	LABEL?L	L00037	
+	CMPGE?WWL	_t2temp_integer, _t1temp_ref, L00043
+	CMPGE?WCL	_t2temp_integer, 046h, L00045
+	CMPGE?WCL	_temp_pwm_val, 0FEh, L00047
+	SUB?WWW	_t1temp_ref, _t2temp_integer, T1
+	CMPLE?WCL	T1, 003h, L00049
+	SUB?WWW	_t1temp_ref, _t2temp_integer, T1
+	ADD?WWW	_temp_pwm_val, T1, _temp_pwm_val
+	GOTO?L	L00050
+	LABEL?L	L00049	
+	ADD?WCW	_temp_pwm_val, 001h, _temp_pwm_val
+	LABEL?L	L00050	
+	GOTO?L	L00048
+	LABEL?L	L00047	
+	MOVE?CW	0FEh, _temp_pwm_val
+	LABEL?L	L00048	
+	GOTO?L	L00046
+	LABEL?L	L00045	
+	SUB?WCW	_temp_pwm_val, 001h, _temp_pwm_val
 	LABEL?L	L00046	
-	ICALL?L	L00001
+	LABEL?L	L00043	
+	CMPLE?WCL	_temp_pwm_val, 0FEh, L00051
+	MOVE?CW	0FEh, _temp_pwm_val
+	LABEL?L	L00051	
+	CMPNE?WCL	_t1temp_ref, 000h, L00053
+	MOVE?CW	000h, _temp_pwm_val
+	LABEL?L	L00053	
 	RETURN?	
 
 	LABEL?L	_get_flowrate	
-	ICALL?L	L00001
 	MOVE?CB	025h, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	009h, _an_frequency
-	ICALL?L	L00001
 	MUL?WCW	_an_frequency, 032h, T1
 	DIV?WCW	T1, 0049Ah, _flow_val
-	ICALL?L	L00001
 	RETURN?	
 
 	LABEL?L	_get_water_pwm	
-	ICALL?L	L00001
-	CMPNE?WCL	_loops, 004h, L00048
+	CMPNE?WCL	_loops, 003h, L00055
 	MOVE?CW	000h, _loops
-	LABEL?L	L00048	
-	ICALL?L	L00001
+	LABEL?L	L00055	
 	ADD?WCW	_loops, 001h, _loops
-	ICALL?L	L00001
-	CMPNE?WCL	_loops, 001h, L00050
-	ICALL?L	L00001
-	CMPGE?WWL	_flow_val, _flow_ref, L00052
-	ICALL?L	L00001
-	CMPGE?WCL	_flow_pwm_val, 078h, L00054
-	ICALL?L	L00001
+	CMPNE?WCL	_loops, 001h, L00057
+	CMPGE?WWL	_flow_val, _flow_ref, L00059
+	CMPGE?WCL	_flow_pwm_val, 078h, L00061
 	SUB?WWW	_flow_ref, _flow_val, T1
-	CMPLE?WCL	T1, 002h, L00056
-	ICALL?L	L00001
+	CMPLE?WCL	T1, 002h, L00063
 	SUB?WWW	_flow_ref, _flow_val, T1
 	MUL?CWW	002h, T1, T1
 	DIV?WCW	T1, 003h, T1
 	ADD?WWW	_flow_pwm_val, T1, _flow_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00057
-	LABEL?L	L00056	
-	ICALL?L	L00001
+	GOTO?L	L00064
+	LABEL?L	L00063	
 	ADD?WCW	_flow_pwm_val, 001h, _flow_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00057	
-	ICALL?L	L00001
-	GOTO?L	L00055
-	LABEL?L	L00054	
-	ICALL?L	L00001
+	LABEL?L	L00064	
+	GOTO?L	L00062
+	LABEL?L	L00061	
 	MOVE?CW	078h, _flow_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00055	
-	ICALL?L	L00001
-	LABEL?L	L00052	
-	ICALL?L	L00001
-	CMPLE?WWL	_flow_val, _flow_ref, L00058
-	ICALL?L	L00001
-	CMPLE?WCL	_flow_pwm_val, 032h, L00060
-	ICALL?L	L00001
+	LABEL?L	L00062	
+	LABEL?L	L00059	
+	CMPLE?WWL	_flow_val, _flow_ref, L00065
+	CMPLE?WCL	_flow_pwm_val, 032h, L00067
 	SUB?WWW	_flow_val, _flow_ref, T1
-	CMPLE?WCL	T1, 002h, L00062
-	ICALL?L	L00001
+	CMPLE?WCL	T1, 002h, L00069
 	SUB?WWW	_flow_val, _flow_ref, T1
 	MUL?CWW	002h, T1, T1
 	DIV?WCW	T1, 003h, T1
 	SUB?WWW	_flow_pwm_val, T1, _flow_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00063
-	LABEL?L	L00062	
-	ICALL?L	L00001
+	GOTO?L	L00070
+	LABEL?L	L00069	
 	SUB?WCW	_flow_pwm_val, 001h, _flow_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00063	
-	ICALL?L	L00001
-	GOTO?L	L00061
-	LABEL?L	L00060	
-	ICALL?L	L00001
+	LABEL?L	L00070	
+	GOTO?L	L00068
+	LABEL?L	L00067	
 	MOVE?CW	032h, _flow_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00061	
-	ICALL?L	L00001
-	LABEL?L	L00058	
-	ICALL?L	L00001
-	CMPNE?WCL	_flow_ref, 000h, L00064
-	ICALL?L	L00001
+	LABEL?L	L00068	
+	LABEL?L	L00065	
+	CMPNE?WCL	_flow_ref, 000h, L00071
 	MOVE?CW	032h, _flow_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00064	
-	ICALL?L	L00001
-	LABEL?L	L00050	
-	ICALL?L	L00001
+	LABEL?L	L00071	
+	LABEL?L	L00057	
 	RETURN?	
 
 	LABEL?L	_get_pressure	
-	ICALL?L	L00001
 	MOVE?CB	029h, ADCON0
-	ICALL?L	L00001
 	ADCIN?CW	00Ah, _p_in
-	ICALL?L	L00001
 	MUL?WCW	_p_in, 03Ch, T1
 	DIV?WCW	T1, 038h, T1
 	SUB?WCW	T1, 023h, _p_val
-	ICALL?L	L00001
 	MUL?WCW	_p_in, 017h, T1
 	ADD?WCW	T1, 0A2h, T1
 	MOD?WCW	T1, 032h, _pressure_div100
-	ICALL?L	L00001
 	MUL?WCW	_p_in, 017h, T1
 	ADD?WCW	T1, 0A2h, T1
 	DIV?WCW	T1, 001F4h, _pressure
-	ICALL?L	L00001
-	CMPLT?WCL	_pressure_div100, 0FAh, L00066
+	CMPLT?WCL	_pressure_div100, 0FAh, L00073
 	ADD?WCW	_pressure, 001h, _pressure
-	LABEL?L	L00066	
-	ICALL?L	L00001
+	LABEL?L	L00073	
 	MUL?WCW	_pressure, 001F4h, _pressure
-	ICALL?L	L00001
 	RETURN?	
 
 	LABEL?L	_get_water_p_pwm	
-	ICALL?L	L00001
-	CMPGE?WWL	_pressure, _pressure_ref, L00068
-	ICALL?L	L00001
-	CMPGE?WCL	_p_pwm_val, 078h, L00070
-	ICALL?L	L00001
+	CMPGE?WWL	_pressure, _pressure_ref, L00075
+	CMPGE?WCL	_p_pwm_val, 078h, L00077
 	SUB?WWW	_pressure_ref, _pressure, T1
-	CMPLE?WCL	T1, 002BCh, L00072
-	ICALL?L	L00001
+	CMPLE?WCL	T1, 002BCh, L00079
 	SUB?WWW	_pressure_ref, _pressure, T1
 	DIV?WCW	T1, 001F4h, T1
 	ADD?WWW	_p_pwm_val, T1, _p_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00073
-	LABEL?L	L00072	
-	ICALL?L	L00001
+	GOTO?L	L00080
+	LABEL?L	L00079	
 	ADD?WCW	_p_pwm_val, 001h, _p_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00073	
-	ICALL?L	L00001
-	CMPLT?WCL	_p_pwm_val, 078h, L00074
-	ICALL?L	L00001
+	LABEL?L	L00080	
+	CMPLE?WCL	_p_pwm_val, 078h, L00081
 	MOVE?CW	078h, _p_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00074	
-	ICALL?L	L00001
-	LABEL?L	L00070	
-	ICALL?L	L00001
-	LABEL?L	L00068	
-	ICALL?L	L00001
-	CMPLE?WWL	_pressure, _pressure_ref, L00076
-	ICALL?L	L00001
-	CMPLE?WCL	_p_pwm_val, 032h, L00078
-	ICALL?L	L00001
+	LABEL?L	L00081	
+	GOTO?L	L00078
+	LABEL?L	L00077	
+	MOVE?CW	078h, _p_pwm_val
+	LABEL?L	L00078	
+	LABEL?L	L00075	
+	CMPLE?WWL	_pressure, _pressure_ref, L00083
+	CMPLE?WCL	_p_pwm_val, 032h, L00085
 	SUB?WWW	_pressure, _pressure_ref, T1
-	CMPLE?WCL	T1, 002BCh, L00080
-	ICALL?L	L00001
+	CMPLE?WCL	T1, 002BCh, L00087
 	SUB?WWW	_pressure, _pressure_ref, T1
 	DIV?WCW	T1, 001F4h, T1
 	SUB?WWW	_p_pwm_val, T1, _p_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00081
-	LABEL?L	L00080	
-	ICALL?L	L00001
+	GOTO?L	L00088
+	LABEL?L	L00087	
 	SUB?WCW	_p_pwm_val, 001h, _p_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00081	
-	ICALL?L	L00001
-	CMPNE?WCL	_pressure_ref, 000h, L00082
-	ICALL?L	L00001
+	LABEL?L	L00088	
+	CMPNE?WCL	_pressure_ref, 000h, L00089
 	MOVE?CW	032h, _p_pwm_val
-	ICALL?L	L00001
-	GOTO?L	L00083
-	LABEL?L	L00082	
-	ICALL?L	L00001
-	MOVE?CW	032h, _p_pwm_val
-	ICALL?L	L00001
-	LABEL?L	L00083	
-	ICALL?L	L00001
-	LABEL?L	L00078	
-	ICALL?L	L00001
-	LABEL?L	L00076	
-	ICALL?L	L00001
-	RETURN?	
-	DISABLE?	
-
-	LABEL?L	_int	
-	MOVE?CW	000h, _temp_pwm_val
-	HPWM?CWC	002h, _temp_pwm_val, 0F5h
-	MOVE?CW	032h, _flow_pwm_val
-	MOVE?CW	032h, _p_pwm_val
-	MOVE?TT	_p_pwm_val??0, _CCP1CON??4
-	MOVE?TT	_p_pwm_val??1, _CCP1CON??5
-	SHIFTR?WCB	_p_pwm_val, 002h, CCPR1L
-	LCDOUT?C	0FEh
-	LCDOUT?C	000h
-	LCDOUT?C	053h
-	LCDOUT?C	054h
-	LCDOUT?C	04Fh
-	LCDOUT?C	050h
-	LCDOUT?C	050h
-	LCDOUT?C	045h
-	LCDOUT?C	044h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LCDOUT?C	020h
-	LABEL?L	L00084	
-	CMPNE?TCL	_PORTB??0, 001h, L00085
-	PAUSE?C	001F4h
-	GOTO?L	L00084
+	LABEL?L	L00089	
+	GOTO?L	L00086
 	LABEL?L	L00085	
-	MOVE?CT	000h, _INTCON??1
-	RESUME?	
-	ENABLE?	
+	MOVE?CW	032h, _p_pwm_val
+	LABEL?L	L00086	
+	LABEL?L	L00083	
+	RETURN?	
 
 	END
